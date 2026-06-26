@@ -98,7 +98,9 @@ def reliability_table(s: pd.DataFrame) -> None:
 def item_analysis(s: pd.DataFrame) -> None:
     print("\n=== 2. Item analysis ===")
     pros, cons = _sdbs_items(s)
-    for name, X in [("SDBS_Pros", pros), ("SDBS_Cons", cons)]:
+    sseq_int, sseq_ext = _sseq_items(s)
+    for name, X in [("SDBS_Pros", pros), ("SDBS_Cons", cons),
+                    ("SSEQ_Internal", sseq_int), ("SSEQ_External", sseq_ext)]:
         st = _item_total(X.dropna())
         weak = st[st["r_item_total"] < 0.30]
         print(f"  {name}: {len(X.columns)} items, {len(weak)} weak (r<.30)")
@@ -124,8 +126,8 @@ def dimensionality(s: pd.DataFrame) -> None:
         ev, _ = fa.get_eigenvalues()
 
         rng = np.random.default_rng(0)
-        rand_ev = np.zeros((50, X.shape[1]))
-        for i in range(50):
+        rand_ev = np.zeros((1000, X.shape[1]))
+        for i in range(1000):
             fa2 = FactorAnalyzer(n_factors=X.shape[1], rotation=None)
             fa2.fit(pd.DataFrame(rng.standard_normal(X.shape)))
             rand_ev[i], _ = fa2.get_eigenvalues()
@@ -135,6 +137,23 @@ def dimensionality(s: pd.DataFrame) -> None:
         n_pa     = (ev > pa).sum()
         print(f"  Kaiser ev>1: {n_kaiser}  |  parallel analysis: {n_pa}")
         print(f"  First 5 ev: {np.round(ev[:5], 2)}")
+
+        # EFA oblimin with n_factors from parallel analysis (min 1)
+        n_efa = max(1, int(n_pa))
+        fa_obl = FactorAnalyzer(n_factors=n_efa, rotation="oblimin")
+        fa_obl.fit(X)
+        loads_obl = pd.DataFrame(
+            fa_obl.loadings_,
+            index=X.columns,
+            columns=[f"F{j+1}" for j in range(n_efa)],
+        )
+        loads_obl.round(3).to_csv(OUT / f"01_efa_{name}_oblimin.csv")
+        print(f"  EFA oblimin (n_factors={n_efa}):")
+        print(loads_obl.round(3).to_string())
+        if name == "SSEQ" and n_efa < 2:
+            print("  WARNING: EFA supports only 1 factor for SSEQ. "
+                  "The 2-factor CFA (Internal/External) imposes a structure not "
+                  "confirmed by EFA — subscale scores should be interpreted with caution.")
 
         fig, ax = plt.subplots(figsize=(6, 4))
         ax.plot(range(1, len(ev) + 1), ev, "o-", label="observed")
@@ -170,6 +189,7 @@ def cfa_sdbs(s: pd.DataFrame) -> None:
     fit = {k: round(float(st.loc[k].iloc[0]), 3)
            for k in ["chi2", "DoF", "CFI", "TLI", "RMSEA"] if k in st.index}
     print("  fit:", fit)
+    pd.DataFrame([fit]).to_csv(OUT / "01_sdbs_cfa_fit.csv", index=False)
     ins = m.inspect()
     loads = ins[ins["op"] == "~"][["lval", "rval", "Estimate"]]
     loads.round(3).to_csv(OUT / "01_sdbs_cfa_loadings.csv", index=False)
@@ -194,6 +214,7 @@ def cfa_sseq(s: pd.DataFrame) -> None:
     fit = {k: round(float(st.loc[k].iloc[0]), 3)
            for k in ["chi2", "DoF", "CFI", "TLI", "RMSEA"] if k in st.index}
     print("  fit:", fit)
+    pd.DataFrame([fit]).to_csv(OUT / "01_sseq_cfa_fit.csv", index=False)
     ins = m.inspect()
     loads = ins[ins["op"] == "~"][["lval", "rval", "Estimate"]]
     loads.round(3).to_csv(OUT / "01_sseq_cfa_loadings.csv", index=False)
@@ -209,7 +230,7 @@ def irt_sdbs_pros(s: pd.DataFrame) -> None:
     except ImportError as e:
         print(f"  girth not available: {e}"); return
     pros, _ = _sdbs_items(s)
-    X = pros.dropna().astype(int)
+    X = pros.dropna().astype(int) - 1  # GRM expects 0-indexed categories (0–4)
     try:
         res = grm_mml(X.T.to_numpy())
         disc = res["Discrimination"]
@@ -254,8 +275,10 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
             else:
                 terms = items
             return f"{fac} =~ " + " + ".join(terms)
+        # Same item measured twice shares residual variance — required for adequate fit
+        resid = "\n".join(f"{a} ~~ {b}" for a, b in zip(it1, it2))
         return (side("Wave1", it1, constrain_loadings) + "\n"
-                + side("Wave2", it2, constrain_loadings) + "\nWave1 ~~ Wave2")
+                + side("Wave2", it2, constrain_loadings) + "\nWave1 ~~ Wave2\n" + resid)
 
     def fit_model(desc: str) -> tuple[float, float, float]:
         m = semopy.Model(desc)
@@ -272,8 +295,14 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
         p = 1 - chi2dist.cdf(dchi, ddf) if ddf > 0 else 1.0
         print(f"  configural CFI={cfif:.3f} | metric CFI={cfie:.3f}")
         print(f"  Δchi2={dchi:.1f} (df={ddf:.0f}) p={p:.3f} | ΔCFI={cfie-cfif:+.3f}")
-        verdict = ("supported" if abs(cfie - cfif) < 0.01 or p > 0.05
-                   else "NOT supported")
+        if dchi < 0:
+            verdict = (f"INDETERMINATE (Δchi²={dchi:.1f} < 0 — "
+                       "configural model non-convergence; check starting values)")
+        elif cfif < 0.90:
+            verdict = f"INDETERMINATE (configural CFI={cfif:.3f} < 0.90; baseline misfit)"
+        else:
+            verdict = ("supported" if abs(cfie - cfif) < 0.01 and p > 0.05
+                       else "NOT supported")
         print(f"  → metric invariance {verdict}")
         pd.DataFrame([{
             "CFI_configural": round(cfif, 3), "CFI_metric": round(cfie, 3),
