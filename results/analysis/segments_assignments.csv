@@ -1,0 +1,7708 @@
+pid,segment,cluster
+1,High engagers,0
+2,Moderate,1
+3,High engagers,0
+4,High engagers,0
+5,High engagers,0
+7,Moderate,1
+8,High engagers,0
+9,High engagers,0
+10,Moderate,1
+11,Passive,2
+12,High engagers,0
+13,Passive,2
+14,Passive,2
+15,Moderate,1
+16,Moderate,1
+17,High engagers,0
+18,Moderate,1
+19,Passive,2
+20,High engagers,0
+21,Passive,2
+22,Passive,2
+24,High engagers,0
+25,Moderate,1
+26,Passive,2
+27,Moderate,1
+28,High engagers,0
+29,Moderate,1
+30,High engagers,0
+31,Moderate,1
+33,High engagers,0
+34,Passive,2
+35,Moderate,1
+36,High engagers,0
+37,Passive,2
+38,Moderate,1
+39,High engagers,0
+40,Passive,2
+41,High engagers,0
+42,Passive,2
+43,High engagers,0
+44,Passive,2
+45,High engagers,0
+46,Moderate,1
+47,High engagers,0
+48,High engagers,0
+49,Passive,2
+50,Passive,2
+51,Moderate,1
+52,High engagers,0
+53,Moderate,1
+54,Moderate,1
+55,Moderate,1
+56,Passive,2
+57,Passive,2
+58,High engagers,0
+59,High engagers,0
+60,High engagers,0
+61,Moderate,1
+62,High engagers,0
+63,High engagers,0
+64,High engagers,0
+65,High engagers,0
+66,Moderate,1
+67,Passive,2
+68,Moderate,1
+69,High engagers,0
+70,High engagers,0
+71,High engagers,0
+72,Moderate,1
+73,Moderate,1
+74,Moderate,1
+75,Moderate,1
+76,Passive,2
+77,Passive,2
+78,Moderate,1
+79,High engagers,0
+80,Moderate,1
+81,Moderate,1
+82,Passive,2
+83,High engagers,0
+84,Passive,2
+85,Passive,2
+86,Moderate,1
+87,Moderate,1
+88,High engagers,0
+89,Moderate,1
+90,High engagers,0
+91,High engagers,0
+92,High engagers,0
+93,High engagers,0
+94,High engagers,0
+95,Moderate,1
+96,Moderate,1
+97,Moderate,1
+98,High engagers,0
+99,High engagers,0
+101,Moderate,1
+102,High engagers,0
+103,High engagers,0
+105,Passive,2
+106,Moderate,1
+107,Moderate,1
+108,High engagers,0
+109,High engagers,0
+110,High engagers,0
+111,High engagers,0
+112,High engagers,0
+113,Passive,2
+114,Passive,2
+115,Passive,2
+116,Moderate,1
+117,High engagers,0
+118,Moderate,1
+119,Moderate,1
+120,Moderate,1
+121,High engagers,0
+122,High engagers,0
+123,Moderate,1
+124,High engagers,0
+125,Passive,2
+126,High engagers,0
+127,Passive,2
+128,High engagers,0
+129,Moderate,1
+130,High engagers,0
+131,High engagers,0
+132,High engagers,0
+133,High engagers,0
+134,Passive,2
+135,High engagers,0
+136,High engagers,0
+137,Passive,2
+138,High engagers,0
+139,High engagers,0
+140,High engagers,0
+141,Passive,2
+142,Passive,2
+143,High engagers,0
+144,Moderate,1
+145,Passive,2
+146,Passive,2
+147,Moderate,1
+148,Moderate,1
+149,Passive,2
+150,High engagers,0
+151,High engagers,0
+152,Passive,2
+153,High engagers,0
+154,Passive,2
+155,Moderate,1
+156,Moderate,1
+157,Passive,2
+158,High engagers,0
+159,Passive,2
+160,High engagers,0
+161,Moderate,1
+162,High engagers,0
+163,Moderate,1
+164,Moderate,1
+165,Passive,2
+166,Moderate,1
+167,Passive,2
+168,Passive,2
+169,High engagers,0
+171,High engagers,0
+172,Passive,2
+173,Passive,2
+174,Passive,2
+175,Passive,2
+176,Moderate,1
+177,Passive,2
+179,Moderate,1
+180,Moderate,1
+181,Moderate,1
+182,High engagers,0
+183,Passive,2
+184,Moderate,1
+185,High engagers,0
+186,High engagers,0
+187,High engagers,0
+188,Moderate,1
+189,High engagers,0
+190,High engagers,0
+191,Passive,2
+192,High engagers,0
+193,High engagers,0
+194,High engagers,0
+195,Moderate,1
+196,High engagers,0
+197,Passive,2
+198,Passive,2
+199,Moderate,1
+200,Passive,2
+201,High engagers,0
+203,High engagers,0
+204,High engagers,0
+205,Moderate,1
+206,Moderate,1
+207,High engagers,0
+208,High engagers,0
+209,Moderate,1
+210,High engagers,0
+211,High engagers,0
+212,Moderate,1
+213,High engagers,0
+214,Moderate,1
+215,High engagers,0
+216,Passive,2
+217,Passive,2
+218,Moderate,1
+219,Passive,2
+220,Passive,2
+221,Moderate,1
+222,Moderate,1
+223,High engagers,0
+225,Moderate,1
+226,High engagers,0
+227,High engagers,0
+228,Passive,2
+229,High engagers,0
+230,Passive,2
+231,Moderate,1
+232,Passive,2
+234,High engagers,0
+235,Passive,2
+236,Passive,2
+237,Moderate,1
+238,Moderate,1
+239,High engagers,0
+240,High engagers,0
+241,Moderate,1
+242,High engagers,0
+243,Passive,2
+244,High engagers,0
+245,High engagers,0
+246,Moderate,1
+247,Moderate,1
+248,Passive,2
+249,Moderate,1
+250,Passive,2
+251,High engagers,0
+252,Moderate,1
+253,High engagers,0
+254,High engagers,0
+255,Moderate,1
+256,Moderate,1
+257,High engagers,0
+258,Moderate,1
+259,High engagers,0
+260,Moderate,1
+261,Moderate,1
+262,Passive,2
+263,High engagers,0
+264,Passive,2
+265,Moderate,1
+266,Passive,2
+267,Moderate,1
+268,High engagers,0
+269,Passive,2
+270,High engagers,0
+271,Moderate,1
+272,High engagers,0
+273,Moderate,1
+274,Passive,2
+275,High engagers,0
+276,Passive,2
+277,Moderate,1
+278,Passive,2
+279,Passive,2
+280,Moderate,1
+281,Passive,2
+282,Passive,2
+283,High engagers,0
+284,High engagers,0
+285,Passive,2
+286,High engagers,0
+287,High engagers,0
+288,High engagers,0
+289,High engagers,0
+290,High engagers,0
+291,Moderate,1
+292,Moderate,1
+294,High engagers,0
+295,Passive,2
+296,High engagers,0
+298,High engagers,0
+299,Passive,2
+300,High engagers,0
+301,Passive,2
+302,Passive,2
+303,High engagers,0
+304,Passive,2
+305,High engagers,0
+306,Moderate,1
+307,High engagers,0
+308,High engagers,0
+309,High engagers,0
+310,Passive,2
+311,Moderate,1
+312,High engagers,0
+313,Passive,2
+314,High engagers,0
+315,Moderate,1
+316,Passive,2
+317,Moderate,1
+318,Passive,2
+319,Passive,2
+320,High engagers,0
+321,High engagers,0
+322,Passive,2
+323,High engagers,0
+324,High engagers,0
+325,Passive,2
+326,Moderate,1
+327,High engagers,0
+328,Moderate,1
+329,High engagers,0
+330,Moderate,1
+331,Passive,2
+332,High engagers,0
+333,Passive,2
+334,Moderate,1
+335,Moderate,1
+336,High engagers,0
+337,High engagers,0
+338,High engagers,0
+339,Passive,2
+340,High engagers,0
+341,Moderate,1
+342,Passive,2
+343,High engagers,0
+344,High engagers,0
+345,Moderate,1
+346,Passive,2
+347,High engagers,0
+348,Moderate,1
+349,Passive,2
+350,Passive,2
+351,High engagers,0
+352,Moderate,1
+353,High engagers,0
+354,High engagers,0
+355,Moderate,1
+356,High engagers,0
+357,Passive,2
+358,Passive,2
+359,Passive,2
+360,High engagers,0
+361,High engagers,0
+362,Moderate,1
+363,High engagers,0
+364,Passive,2
+365,Passive,2
+366,High engagers,0
+367,High engagers,0
+368,High engagers,0
+369,Passive,2
+370,Passive,2
+371,Moderate,1
+372,High engagers,0
+373,Moderate,1
+374,Passive,2
+375,Passive,2
+376,Moderate,1
+377,Passive,2
+378,Passive,2
+379,High engagers,0
+380,Passive,2
+381,Moderate,1
+382,Passive,2
+383,Moderate,1
+384,High engagers,0
+385,Passive,2
+386,High engagers,0
+387,Moderate,1
+389,High engagers,0
+390,High engagers,0
+391,Moderate,1
+392,Passive,2
+393,High engagers,0
+394,Passive,2
+395,Moderate,1
+396,High engagers,0
+397,High engagers,0
+398,High engagers,0
+399,Moderate,1
+400,Moderate,1
+401,Moderate,1
+402,High engagers,0
+403,High engagers,0
+404,Passive,2
+406,High engagers,0
+407,High engagers,0
+408,Moderate,1
+409,Moderate,1
+411,Passive,2
+412,High engagers,0
+413,Passive,2
+414,High engagers,0
+415,Passive,2
+416,Passive,2
+417,High engagers,0
+418,Passive,2
+419,High engagers,0
+420,Passive,2
+421,High engagers,0
+422,Passive,2
+423,High engagers,0
+424,Moderate,1
+425,Moderate,1
+426,Moderate,1
+427,Moderate,1
+428,High engagers,0
+429,High engagers,0
+430,Moderate,1
+431,Passive,2
+432,Passive,2
+433,Passive,2
+434,High engagers,0
+435,Passive,2
+436,Moderate,1
+437,High engagers,0
+438,High engagers,0
+439,Passive,2
+440,Moderate,1
+441,High engagers,0
+442,Moderate,1
+443,High engagers,0
+444,Passive,2
+445,High engagers,0
+446,High engagers,0
+448,Passive,2
+449,Moderate,1
+450,Moderate,1
+451,High engagers,0
+452,Passive,2
+453,High engagers,0
+454,High engagers,0
+455,Moderate,1
+456,High engagers,0
+458,Passive,2
+459,High engagers,0
+460,Passive,2
+461,Moderate,1
+462,High engagers,0
+463,High engagers,0
+464,High engagers,0
+465,Moderate,1
+466,High engagers,0
+467,Passive,2
+468,Moderate,1
+469,High engagers,0
+470,High engagers,0
+471,High engagers,0
+472,Passive,2
+473,Moderate,1
+474,High engagers,0
+475,Passive,2
+476,Passive,2
+477,High engagers,0
+478,High engagers,0
+479,Passive,2
+480,High engagers,0
+481,High engagers,0
+482,Moderate,1
+483,High engagers,0
+484,Passive,2
+485,Moderate,1
+486,High engagers,0
+487,Passive,2
+488,Passive,2
+489,High engagers,0
+490,Passive,2
+491,High engagers,0
+492,Passive,2
+493,Passive,2
+494,Passive,2
+495,High engagers,0
+496,High engagers,0
+497,Passive,2
+498,Passive,2
+499,High engagers,0
+500,Moderate,1
+501,High engagers,0
+502,High engagers,0
+503,Moderate,1
+504,High engagers,0
+505,Moderate,1
+506,Moderate,1
+507,High engagers,0
+508,Moderate,1
+509,Moderate,1
+510,High engagers,0
+511,Moderate,1
+512,Passive,2
+513,Moderate,1
+514,High engagers,0
+515,Moderate,1
+516,Moderate,1
+517,Moderate,1
+518,Passive,2
+519,High engagers,0
+520,Passive,2
+521,High engagers,0
+522,Passive,2
+523,High engagers,0
+524,Passive,2
+525,Moderate,1
+526,Passive,2
+529,High engagers,0
+530,High engagers,0
+531,Passive,2
+532,High engagers,0
+533,High engagers,0
+534,High engagers,0
+535,High engagers,0
+536,Moderate,1
+537,Moderate,1
+538,Passive,2
+539,Moderate,1
+540,Moderate,1
+542,High engagers,0
+543,High engagers,0
+545,Moderate,1
+546,Passive,2
+547,Passive,2
+548,Moderate,1
+549,High engagers,0
+550,Moderate,1
+551,High engagers,0
+552,High engagers,0
+553,Passive,2
+554,Moderate,1
+555,Moderate,1
+556,High engagers,0
+557,High engagers,0
+558,High engagers,0
+559,Moderate,1
+560,Passive,2
+561,High engagers,0
+562,High engagers,0
+563,Moderate,1
+564,Passive,2
+565,High engagers,0
+566,Moderate,1
+567,Passive,2
+568,Moderate,1
+569,High engagers,0
+570,Passive,2
+571,Moderate,1
+572,High engagers,0
+573,High engagers,0
+574,Moderate,1
+575,Passive,2
+576,High engagers,0
+577,High engagers,0
+578,High engagers,0
+579,Moderate,1
+580,High engagers,0
+581,Moderate,1
+582,High engagers,0
+583,Passive,2
+584,High engagers,0
+585,High engagers,0
+586,High engagers,0
+587,Passive,2
+588,Moderate,1
+589,Moderate,1
+590,Passive,2
+591,High engagers,0
+592,High engagers,0
+593,Passive,2
+594,Passive,2
+595,High engagers,0
+596,Passive,2
+597,Passive,2
+598,Passive,2
+600,High engagers,0
+601,High engagers,0
+602,Passive,2
+603,Moderate,1
+604,High engagers,0
+605,Passive,2
+606,Passive,2
+607,Moderate,1
+608,High engagers,0
+609,Passive,2
+610,High engagers,0
+611,Moderate,1
+612,Moderate,1
+613,Moderate,1
+615,Moderate,1
+616,Moderate,1
+617,Moderate,1
+618,Moderate,1
+619,Passive,2
+620,High engagers,0
+621,Moderate,1
+622,High engagers,0
+624,Passive,2
+625,Moderate,1
+626,Moderate,1
+627,Moderate,1
+628,Moderate,1
+629,High engagers,0
+630,Moderate,1
+631,High engagers,0
+632,Moderate,1
+633,High engagers,0
+634,Moderate,1
+635,Moderate,1
+636,Passive,2
+637,Passive,2
+638,Moderate,1
+639,High engagers,0
+640,High engagers,0
+641,High engagers,0
+642,High engagers,0
+643,Moderate,1
+644,Moderate,1
+645,Moderate,1
+646,High engagers,0
+647,Passive,2
+648,High engagers,0
+649,Passive,2
+650,High engagers,0
+651,High engagers,0
+652,High engagers,0
+653,Moderate,1
+654,Passive,2
+655,Moderate,1
+656,Moderate,1
+657,High engagers,0
+658,High engagers,0
+659,Passive,2
+660,Passive,2
+661,Passive,2
+662,Moderate,1
+663,Moderate,1
+664,Passive,2
+665,High engagers,0
+666,Passive,2
+667,Moderate,1
+669,High engagers,0
+670,High engagers,0
+671,High engagers,0
+672,Passive,2
+674,Moderate,1
+675,High engagers,0
+676,Moderate,1
+677,Moderate,1
+678,High engagers,0
+679,High engagers,0
+680,High engagers,0
+681,High engagers,0
+682,Passive,2
+683,High engagers,0
+684,Passive,2
+685,Moderate,1
+686,High engagers,0
+687,Moderate,1
+689,Passive,2
+690,Passive,2
+691,Moderate,1
+692,High engagers,0
+693,High engagers,0
+694,High engagers,0
+695,High engagers,0
+696,Passive,2
+697,Moderate,1
+698,High engagers,0
+699,High engagers,0
+700,High engagers,0
+701,Moderate,1
+702,Moderate,1
+703,High engagers,0
+704,High engagers,0
+705,High engagers,0
+706,Moderate,1
+707,High engagers,0
+708,High engagers,0
+709,High engagers,0
+710,High engagers,0
+712,Moderate,1
+713,Moderate,1
+714,Passive,2
+715,High engagers,0
+716,Moderate,1
+717,High engagers,0
+718,High engagers,0
+719,Moderate,1
+720,Moderate,1
+721,Passive,2
+722,Moderate,1
+723,High engagers,0
+725,Moderate,1
+726,Moderate,1
+727,Moderate,1
+728,High engagers,0
+729,Passive,2
+730,High engagers,0
+731,Moderate,1
+732,Moderate,1
+733,High engagers,0
+734,Passive,2
+735,Passive,2
+736,High engagers,0
+737,Moderate,1
+738,Passive,2
+739,Passive,2
+740,Passive,2
+741,Moderate,1
+742,High engagers,0
+743,Moderate,1
+744,High engagers,0
+745,High engagers,0
+746,Moderate,1
+747,Moderate,1
+748,Passive,2
+749,High engagers,0
+750,Moderate,1
+751,Moderate,1
+752,High engagers,0
+753,Moderate,1
+754,Passive,2
+755,Moderate,1
+756,Passive,2
+757,High engagers,0
+758,Moderate,1
+759,High engagers,0
+760,Passive,2
+761,Passive,2
+762,Moderate,1
+763,Moderate,1
+764,High engagers,0
+765,High engagers,0
+766,High engagers,0
+767,High engagers,0
+768,Passive,2
+769,Moderate,1
+770,Moderate,1
+771,Passive,2
+772,Moderate,1
+773,High engagers,0
+774,High engagers,0
+775,Moderate,1
+776,High engagers,0
+777,Passive,2
+778,Moderate,1
+779,Moderate,1
+780,Moderate,1
+781,High engagers,0
+782,High engagers,0
+783,High engagers,0
+784,High engagers,0
+786,Moderate,1
+787,High engagers,0
+788,Moderate,1
+789,Moderate,1
+790,High engagers,0
+791,Moderate,1
+792,Passive,2
+793,High engagers,0
+794,Passive,2
+795,High engagers,0
+796,Passive,2
+797,Passive,2
+798,Moderate,1
+799,High engagers,0
+800,High engagers,0
+801,High engagers,0
+802,Moderate,1
+803,High engagers,0
+804,High engagers,0
+805,High engagers,0
+806,High engagers,0
+807,Moderate,1
+808,High engagers,0
+809,High engagers,0
+810,Passive,2
+811,Moderate,1
+812,Moderate,1
+814,Moderate,1
+815,High engagers,0
+816,Passive,2
+817,High engagers,0
+818,Passive,2
+819,High engagers,0
+820,Passive,2
+821,High engagers,0
+822,Passive,2
+823,High engagers,0
+824,Moderate,1
+825,High engagers,0
+826,Moderate,1
+827,High engagers,0
+828,Passive,2
+829,High engagers,0
+830,High engagers,0
+831,High engagers,0
+832,High engagers,0
+833,Passive,2
+834,High engagers,0
+835,Passive,2
+836,High engagers,0
+837,Passive,2
+839,Moderate,1
+840,High engagers,0
+841,Moderate,1
+842,Passive,2
+843,High engagers,0
+844,High engagers,0
+845,High engagers,0
+846,High engagers,0
+847,Moderate,1
+848,High engagers,0
+849,Passive,2
+850,Moderate,1
+851,High engagers,0
+852,Moderate,1
+853,High engagers,0
+854,Moderate,1
+855,Moderate,1
+856,High engagers,0
+857,Passive,2
+858,Moderate,1
+859,High engagers,0
+860,High engagers,0
+861,Passive,2
+862,Moderate,1
+863,Passive,2
+864,Moderate,1
+865,Moderate,1
+866,High engagers,0
+867,High engagers,0
+868,High engagers,0
+869,High engagers,0
+870,High engagers,0
+871,Passive,2
+872,Moderate,1
+873,Moderate,1
+874,Passive,2
+875,Moderate,1
+876,High engagers,0
+877,Passive,2
+878,High engagers,0
+879,High engagers,0
+880,High engagers,0
+881,High engagers,0
+882,High engagers,0
+883,Passive,2
+884,High engagers,0
+885,High engagers,0
+886,Moderate,1
+887,Passive,2
+888,Passive,2
+889,High engagers,0
+890,High engagers,0
+891,High engagers,0
+893,High engagers,0
+894,High engagers,0
+895,Moderate,1
+896,Passive,2
+897,High engagers,0
+898,Passive,2
+899,High engagers,0
+900,Passive,2
+901,High engagers,0
+902,High engagers,0
+903,High engagers,0
+904,Moderate,1
+905,High engagers,0
+906,High engagers,0
+907,High engagers,0
+908,High engagers,0
+909,High engagers,0
+910,High engagers,0
+911,High engagers,0
+912,Moderate,1
+913,High engagers,0
+917,Passive,2
+918,Passive,2
+919,High engagers,0
+920,Passive,2
+921,Moderate,1
+922,Moderate,1
+923,Moderate,1
+924,High engagers,0
+925,Passive,2
+926,Passive,2
+927,Passive,2
+928,High engagers,0
+929,High engagers,0
+930,Moderate,1
+931,High engagers,0
+932,High engagers,0
+933,High engagers,0
+934,High engagers,0
+935,Passive,2
+936,High engagers,0
+937,High engagers,0
+938,Passive,2
+939,Moderate,1
+940,High engagers,0
+941,High engagers,0
+942,Passive,2
+943,High engagers,0
+944,Moderate,1
+945,High engagers,0
+946,Passive,2
+947,Moderate,1
+948,High engagers,0
+949,Passive,2
+950,High engagers,0
+951,High engagers,0
+952,Passive,2
+953,High engagers,0
+954,Passive,2
+955,Passive,2
+956,High engagers,0
+957,Passive,2
+958,High engagers,0
+959,Moderate,1
+960,Moderate,1
+961,Moderate,1
+962,Moderate,1
+963,Moderate,1
+964,Passive,2
+966,Moderate,1
+967,Passive,2
+968,High engagers,0
+969,High engagers,0
+970,Moderate,1
+971,High engagers,0
+972,High engagers,0
+973,Passive,2
+974,Passive,2
+975,High engagers,0
+976,High engagers,0
+977,High engagers,0
+978,High engagers,0
+979,Moderate,1
+980,Passive,2
+982,High engagers,0
+983,High engagers,0
+984,Passive,2
+985,High engagers,0
+986,High engagers,0
+987,Moderate,1
+988,High engagers,0
+989,Passive,2
+990,Passive,2
+991,Moderate,1
+992,Passive,2
+993,High engagers,0
+994,High engagers,0
+995,Passive,2
+996,Moderate,1
+997,Passive,2
+998,Moderate,1
+999,High engagers,0
+1000,Moderate,1
+1001,High engagers,0
+1002,Moderate,1
+1003,Passive,2
+1004,High engagers,0
+1005,Passive,2
+1006,Moderate,1
+1007,Passive,2
+1008,Passive,2
+1009,Moderate,1
+1010,High engagers,0
+1011,Moderate,1
+1012,Moderate,1
+1013,Passive,2
+1014,High engagers,0
+1015,High engagers,0
+1016,Moderate,1
+1017,Passive,2
+1018,High engagers,0
+1019,High engagers,0
+1020,High engagers,0
+1021,High engagers,0
+1022,High engagers,0
+1024,Moderate,1
+1025,Passive,2
+1026,Moderate,1
+1027,High engagers,0
+1028,Moderate,1
+1029,Moderate,1
+1030,High engagers,0
+1031,Passive,2
+1032,Moderate,1
+1033,High engagers,0
+1034,Moderate,1
+1035,Passive,2
+1036,High engagers,0
+1037,Moderate,1
+1038,High engagers,0
+1039,Passive,2
+1040,High engagers,0
+1041,High engagers,0
+1042,High engagers,0
+1043,High engagers,0
+1044,High engagers,0
+1045,High engagers,0
+1046,Passive,2
+1047,High engagers,0
+1048,High engagers,0
+1049,Moderate,1
+1050,High engagers,0
+1051,Moderate,1
+1052,High engagers,0
+1053,High engagers,0
+1054,Passive,2
+1055,Passive,2
+1056,Moderate,1
+1057,High engagers,0
+1058,High engagers,0
+1059,Moderate,1
+1060,High engagers,0
+1062,High engagers,0
+1063,Passive,2
+1064,High engagers,0
+1065,High engagers,0
+1067,Moderate,1
+1068,High engagers,0
+1069,High engagers,0
+1070,High engagers,0
+1071,High engagers,0
+1072,High engagers,0
+1073,Moderate,1
+1074,Passive,2
+1075,High engagers,0
+1076,High engagers,0
+1077,High engagers,0
+1078,Passive,2
+1079,Moderate,1
+1080,Moderate,1
+1081,High engagers,0
+1082,High engagers,0
+1083,Passive,2
+1084,Moderate,1
+1085,High engagers,0
+1086,High engagers,0
+1087,High engagers,0
+1088,Moderate,1
+1089,High engagers,0
+1090,High engagers,0
+1091,Moderate,1
+1092,Moderate,1
+1093,Passive,2
+1094,High engagers,0
+1095,High engagers,0
+1096,Moderate,1
+1097,High engagers,0
+1098,Passive,2
+1099,High engagers,0
+1100,Passive,2
+1101,High engagers,0
+1102,High engagers,0
+1103,High engagers,0
+1104,Moderate,1
+1105,High engagers,0
+1106,Moderate,1
+1107,Passive,2
+1108,Passive,2
+1110,Passive,2
+1111,Passive,2
+1112,High engagers,0
+1113,High engagers,0
+1114,High engagers,0
+1116,High engagers,0
+1117,High engagers,0
+1118,Moderate,1
+1119,Moderate,1
+1120,High engagers,0
+1121,High engagers,0
+1122,High engagers,0
+1123,High engagers,0
+1124,Moderate,1
+1125,Passive,2
+1126,High engagers,0
+1127,Moderate,1
+1128,High engagers,0
+1129,Moderate,1
+1131,High engagers,0
+1132,Passive,2
+1133,Passive,2
+1134,Moderate,1
+1135,Passive,2
+1136,Moderate,1
+1137,Passive,2
+1138,High engagers,0
+1139,Moderate,1
+1140,Passive,2
+1141,High engagers,0
+1142,Passive,2
+1143,High engagers,0
+1144,Moderate,1
+1145,Passive,2
+1146,Passive,2
+1147,Moderate,1
+1148,Moderate,1
+1149,High engagers,0
+1150,Passive,2
+1151,Moderate,1
+1152,Passive,2
+1153,High engagers,0
+1154,Moderate,1
+1155,High engagers,0
+1156,Passive,2
+1157,Passive,2
+1158,Passive,2
+1159,Moderate,1
+1160,Moderate,1
+1161,High engagers,0
+1162,High engagers,0
+1163,High engagers,0
+1164,High engagers,0
+1165,Moderate,1
+1166,High engagers,0
+1167,Passive,2
+1168,High engagers,0
+1169,Moderate,1
+1170,High engagers,0
+1171,High engagers,0
+1172,High engagers,0
+1173,High engagers,0
+1174,Passive,2
+1175,Moderate,1
+1176,High engagers,0
+1177,High engagers,0
+1178,High engagers,0
+1179,Passive,2
+1180,High engagers,0
+1181,High engagers,0
+1182,Moderate,1
+1183,High engagers,0
+1184,High engagers,0
+1185,High engagers,0
+1186,High engagers,0
+1187,High engagers,0
+1189,Passive,2
+1190,High engagers,0
+1191,High engagers,0
+1192,High engagers,0
+1193,Moderate,1
+1195,High engagers,0
+1196,High engagers,0
+1197,Moderate,1
+1198,Moderate,1
+1199,High engagers,0
+1200,Moderate,1
+1201,Moderate,1
+1202,Passive,2
+1203,Moderate,1
+1204,Moderate,1
+1205,High engagers,0
+1206,Passive,2
+1207,Moderate,1
+1208,Moderate,1
+1209,High engagers,0
+1210,Passive,2
+1211,Moderate,1
+1212,Passive,2
+1213,Moderate,1
+1214,Moderate,1
+1215,Passive,2
+1216,Moderate,1
+1217,Passive,2
+1218,Moderate,1
+1219,High engagers,0
+1220,High engagers,0
+1221,Moderate,1
+1222,Passive,2
+1223,Passive,2
+1224,Passive,2
+1225,High engagers,0
+1226,Passive,2
+1227,Moderate,1
+1228,High engagers,0
+1229,High engagers,0
+1230,Passive,2
+1231,High engagers,0
+1232,High engagers,0
+1233,Moderate,1
+1234,Moderate,1
+1235,High engagers,0
+1236,High engagers,0
+1237,Passive,2
+1238,High engagers,0
+1239,High engagers,0
+1240,High engagers,0
+1241,Moderate,1
+1242,High engagers,0
+1243,High engagers,0
+1244,High engagers,0
+1245,High engagers,0
+1246,Moderate,1
+1247,Moderate,1
+1248,High engagers,0
+1249,High engagers,0
+1250,High engagers,0
+1251,Passive,2
+1252,High engagers,0
+1253,High engagers,0
+1254,Passive,2
+1255,High engagers,0
+1256,High engagers,0
+1257,Passive,2
+1258,Passive,2
+1259,High engagers,0
+1261,High engagers,0
+1262,High engagers,0
+1263,High engagers,0
+1264,High engagers,0
+1265,High engagers,0
+1266,Passive,2
+1267,High engagers,0
+1269,High engagers,0
+1270,Passive,2
+1272,Moderate,1
+1273,Passive,2
+1274,Passive,2
+1275,Moderate,1
+1276,Passive,2
+1277,Passive,2
+1278,High engagers,0
+1279,Passive,2
+1280,Moderate,1
+1281,High engagers,0
+1282,Moderate,1
+1283,High engagers,0
+1284,Passive,2
+1285,Passive,2
+1286,Moderate,1
+1287,High engagers,0
+1288,Passive,2
+1289,High engagers,0
+1290,High engagers,0
+1291,High engagers,0
+1292,Passive,2
+1293,Passive,2
+1294,Moderate,1
+1295,High engagers,0
+1296,High engagers,0
+1297,Moderate,1
+1298,High engagers,0
+1299,Passive,2
+1300,Passive,2
+1301,Moderate,1
+1302,Moderate,1
+1303,Moderate,1
+1304,High engagers,0
+1305,High engagers,0
+1306,Passive,2
+1307,Moderate,1
+1308,Passive,2
+1309,High engagers,0
+1310,Moderate,1
+1311,High engagers,0
+1312,High engagers,0
+1313,Passive,2
+1314,High engagers,0
+1315,High engagers,0
+1316,Passive,2
+1317,Passive,2
+1318,High engagers,0
+1319,High engagers,0
+1320,Passive,2
+1321,Moderate,1
+1322,Passive,2
+1323,Moderate,1
+1324,Passive,2
+1325,Passive,2
+1326,High engagers,0
+1327,Passive,2
+1328,Moderate,1
+1329,Passive,2
+1330,High engagers,0
+1331,Moderate,1
+1332,High engagers,0
+1333,High engagers,0
+1336,Passive,2
+1337,High engagers,0
+1338,High engagers,0
+1339,High engagers,0
+1340,Moderate,1
+1341,High engagers,0
+1342,Moderate,1
+1343,Moderate,1
+1344,Moderate,1
+1346,Moderate,1
+1347,Passive,2
+1348,High engagers,0
+1349,Passive,2
+1350,High engagers,0
+1351,Moderate,1
+1352,High engagers,0
+1353,Moderate,1
+1354,Passive,2
+1355,Moderate,1
+1356,Moderate,1
+1357,Passive,2
+1358,Passive,2
+1359,Passive,2
+1360,High engagers,0
+1361,High engagers,0
+1362,Passive,2
+1363,High engagers,0
+1364,Passive,2
+1365,High engagers,0
+1366,Moderate,1
+1367,Moderate,1
+1368,Passive,2
+1369,High engagers,0
+1370,High engagers,0
+1371,Passive,2
+1372,Moderate,1
+1373,Moderate,1
+1374,Passive,2
+1375,Passive,2
+1376,High engagers,0
+1377,High engagers,0
+1378,Passive,2
+1379,High engagers,0
+1380,Passive,2
+1381,Moderate,1
+1382,High engagers,0
+1383,Passive,2
+1384,High engagers,0
+1386,Passive,2
+1387,Moderate,1
+1388,Passive,2
+1389,Moderate,1
+1390,High engagers,0
+1391,Passive,2
+1392,High engagers,0
+1393,Moderate,1
+1394,High engagers,0
+1395,Passive,2
+1396,High engagers,0
+1397,High engagers,0
+1398,High engagers,0
+1399,Moderate,1
+1400,High engagers,0
+1401,High engagers,0
+1402,Moderate,1
+1404,Moderate,1
+1405,Passive,2
+1406,High engagers,0
+1408,Moderate,1
+1409,Moderate,1
+1410,Passive,2
+1411,Moderate,1
+1413,Moderate,1
+1414,High engagers,0
+1415,High engagers,0
+1416,High engagers,0
+1417,Moderate,1
+1418,Moderate,1
+1419,High engagers,0
+1421,Passive,2
+1422,Moderate,1
+1423,High engagers,0
+1424,High engagers,0
+1425,Moderate,1
+1426,High engagers,0
+1427,High engagers,0
+1428,Moderate,1
+1429,High engagers,0
+1430,High engagers,0
+1431,High engagers,0
+1432,High engagers,0
+1433,High engagers,0
+1434,High engagers,0
+1435,Moderate,1
+1437,Moderate,1
+1438,High engagers,0
+1439,Moderate,1
+1441,High engagers,0
+1442,Moderate,1
+1443,High engagers,0
+1444,Passive,2
+1445,High engagers,0
+1446,Moderate,1
+1447,Moderate,1
+1448,Passive,2
+1449,High engagers,0
+1450,Moderate,1
+1451,Moderate,1
+1452,High engagers,0
+1453,Passive,2
+1454,Passive,2
+1455,High engagers,0
+1456,Moderate,1
+1457,Passive,2
+1458,Passive,2
+1459,Moderate,1
+1460,High engagers,0
+1461,High engagers,0
+1462,High engagers,0
+1463,High engagers,0
+1464,High engagers,0
+1465,High engagers,0
+1466,Passive,2
+1467,High engagers,0
+1468,High engagers,0
+1469,High engagers,0
+1470,Moderate,1
+1471,High engagers,0
+1472,High engagers,0
+1473,High engagers,0
+1474,High engagers,0
+1475,High engagers,0
+1476,Passive,2
+1477,Passive,2
+1478,Moderate,1
+1479,High engagers,0
+1480,High engagers,0
+1481,Passive,2
+1482,High engagers,0
+1483,High engagers,0
+1484,High engagers,0
+1485,Passive,2
+1486,High engagers,0
+1488,Passive,2
+1489,High engagers,0
+1490,Moderate,1
+1491,High engagers,0
+1492,Moderate,1
+1493,Moderate,1
+1494,High engagers,0
+1495,Moderate,1
+1496,High engagers,0
+1497,High engagers,0
+1498,Moderate,1
+1499,Moderate,1
+1500,Moderate,1
+1501,Passive,2
+1503,High engagers,0
+1504,Passive,2
+1505,High engagers,0
+1506,Passive,2
+1507,Moderate,1
+1508,Moderate,1
+1509,Passive,2
+1510,High engagers,0
+1511,Moderate,1
+1512,Moderate,1
+1513,Passive,2
+1514,High engagers,0
+1515,High engagers,0
+1516,Passive,2
+1517,Moderate,1
+1519,Moderate,1
+1520,High engagers,0
+1521,Moderate,1
+1522,Passive,2
+1523,Moderate,1
+1524,High engagers,0
+1525,Passive,2
+1526,High engagers,0
+1527,High engagers,0
+1528,Passive,2
+1529,High engagers,0
+1530,Passive,2
+1531,High engagers,0
+1532,High engagers,0
+1533,Passive,2
+1534,Moderate,1
+1535,Moderate,1
+1536,Moderate,1
+1537,Passive,2
+1538,High engagers,0
+1539,High engagers,0
+1540,High engagers,0
+1541,Passive,2
+1542,Moderate,1
+1543,Moderate,1
+1544,High engagers,0
+1545,Passive,2
+1546,High engagers,0
+1547,Moderate,1
+1548,High engagers,0
+1549,High engagers,0
+1550,High engagers,0
+1551,Passive,2
+1552,Moderate,1
+1553,High engagers,0
+1554,High engagers,0
+1555,Passive,2
+1556,High engagers,0
+1557,Moderate,1
+1558,High engagers,0
+1559,High engagers,0
+1560,High engagers,0
+1562,Moderate,1
+1563,High engagers,0
+1564,Moderate,1
+1565,Moderate,1
+1566,High engagers,0
+1567,Passive,2
+1568,High engagers,0
+1569,High engagers,0
+1570,High engagers,0
+1571,High engagers,0
+1572,High engagers,0
+1573,Moderate,1
+1574,High engagers,0
+1575,High engagers,0
+1576,High engagers,0
+1577,High engagers,0
+1578,Passive,2
+1580,High engagers,0
+1581,High engagers,0
+1582,Passive,2
+1583,High engagers,0
+1584,Moderate,1
+1585,High engagers,0
+1586,Moderate,1
+1587,High engagers,0
+1588,High engagers,0
+1589,High engagers,0
+1590,Moderate,1
+1591,High engagers,0
+1592,Moderate,1
+1593,Moderate,1
+1594,High engagers,0
+1595,High engagers,0
+1596,Passive,2
+1597,Moderate,1
+1598,High engagers,0
+1599,High engagers,0
+1600,Passive,2
+1601,Moderate,1
+1602,High engagers,0
+1603,Passive,2
+1604,Moderate,1
+1605,Moderate,1
+1606,Moderate,1
+1608,High engagers,0
+1609,Passive,2
+1610,High engagers,0
+1611,Moderate,1
+1612,High engagers,0
+1613,Passive,2
+1614,Moderate,1
+1615,Passive,2
+1616,High engagers,0
+1617,Passive,2
+1618,Moderate,1
+1620,Moderate,1
+1621,Moderate,1
+1622,High engagers,0
+1623,High engagers,0
+1624,Passive,2
+1625,Moderate,1
+1626,High engagers,0
+1627,Passive,2
+1628,High engagers,0
+1629,Moderate,1
+1630,High engagers,0
+1631,Moderate,1
+1632,Moderate,1
+1633,High engagers,0
+1634,High engagers,0
+1636,High engagers,0
+1637,Passive,2
+1638,Moderate,1
+1639,High engagers,0
+1640,High engagers,0
+1641,Moderate,1
+1642,Moderate,1
+1643,Moderate,1
+1644,High engagers,0
+1645,High engagers,0
+1646,High engagers,0
+1647,High engagers,0
+1648,High engagers,0
+1649,Moderate,1
+1650,High engagers,0
+1651,Passive,2
+1652,Passive,2
+1653,High engagers,0
+1654,Passive,2
+1655,High engagers,0
+1656,Moderate,1
+1657,High engagers,0
+1658,Moderate,1
+1659,Moderate,1
+1660,Passive,2
+1661,High engagers,0
+1662,Moderate,1
+1663,High engagers,0
+1664,Passive,2
+1665,Moderate,1
+1666,High engagers,0
+1667,High engagers,0
+1668,High engagers,0
+1669,Passive,2
+1670,High engagers,0
+1671,Passive,2
+1672,High engagers,0
+1673,Passive,2
+1674,High engagers,0
+1675,Moderate,1
+1676,Moderate,1
+1677,Moderate,1
+1678,Moderate,1
+1679,Passive,2
+1680,High engagers,0
+1681,Passive,2
+1682,High engagers,0
+1683,Passive,2
+1684,Moderate,1
+1685,High engagers,0
+1686,High engagers,0
+1687,Passive,2
+1688,High engagers,0
+1689,High engagers,0
+1690,High engagers,0
+1691,High engagers,0
+1692,Moderate,1
+1693,Passive,2
+1694,High engagers,0
+1695,Passive,2
+1696,High engagers,0
+1697,Moderate,1
+1698,High engagers,0
+1700,Passive,2
+1701,Moderate,1
+1702,Moderate,1
+1703,Moderate,1
+1704,Passive,2
+1705,High engagers,0
+1707,Passive,2
+1708,High engagers,0
+1709,Moderate,1
+1710,Moderate,1
+1711,High engagers,0
+1712,High engagers,0
+1714,High engagers,0
+1715,Moderate,1
+1716,High engagers,0
+1717,Passive,2
+1718,High engagers,0
+1719,Moderate,1
+1720,Moderate,1
+1721,Passive,2
+1722,High engagers,0
+1723,Moderate,1
+1724,Passive,2
+1725,Moderate,1
+1726,Passive,2
+1727,Moderate,1
+1728,High engagers,0
+1729,Moderate,1
+1730,Passive,2
+1731,High engagers,0
+1732,High engagers,0
+1733,Passive,2
+1734,High engagers,0
+1735,Moderate,1
+1736,Passive,2
+1737,Moderate,1
+1738,Passive,2
+1739,High engagers,0
+1740,High engagers,0
+1741,Passive,2
+1742,High engagers,0
+1743,Moderate,1
+1745,Moderate,1
+1746,High engagers,0
+1747,High engagers,0
+1748,High engagers,0
+1749,Moderate,1
+1750,Moderate,1
+1751,High engagers,0
+1752,High engagers,0
+1753,High engagers,0
+1754,Moderate,1
+1755,High engagers,0
+1756,Passive,2
+1757,Passive,2
+1759,High engagers,0
+1760,Moderate,1
+1761,Passive,2
+1762,Moderate,1
+1763,Moderate,1
+1764,Moderate,1
+1765,Passive,2
+1766,Passive,2
+1768,Moderate,1
+1769,Moderate,1
+1770,High engagers,0
+1771,Passive,2
+1772,High engagers,0
+1773,High engagers,0
+1774,Moderate,1
+1775,High engagers,0
+1776,Moderate,1
+1777,High engagers,0
+1778,High engagers,0
+1779,Passive,2
+1780,High engagers,0
+1781,Passive,2
+1782,Passive,2
+1783,Moderate,1
+1784,Passive,2
+1785,Moderate,1
+1786,High engagers,0
+1787,High engagers,0
+1788,Passive,2
+1789,High engagers,0
+1790,Passive,2
+1791,High engagers,0
+1792,Passive,2
+1793,High engagers,0
+1794,Passive,2
+1795,Passive,2
+1796,High engagers,0
+1797,Moderate,1
+1798,Moderate,1
+1799,Moderate,1
+1800,Passive,2
+1801,Passive,2
+1802,Passive,2
+1803,High engagers,0
+1804,Passive,2
+1805,High engagers,0
+1806,High engagers,0
+1807,Moderate,1
+1808,Moderate,1
+1809,High engagers,0
+1810,High engagers,0
+1811,High engagers,0
+1812,Moderate,1
+1813,High engagers,0
+1814,Moderate,1
+1815,Moderate,1
+1816,High engagers,0
+1817,High engagers,0
+1818,High engagers,0
+1819,High engagers,0
+1820,Moderate,1
+1821,High engagers,0
+1822,High engagers,0
+1823,Moderate,1
+1824,Passive,2
+1825,High engagers,0
+1826,High engagers,0
+1827,High engagers,0
+1828,High engagers,0
+1829,Passive,2
+1830,Passive,2
+1831,High engagers,0
+1833,Moderate,1
+1834,High engagers,0
+1835,Moderate,1
+1836,High engagers,0
+1837,Moderate,1
+1838,High engagers,0
+1839,High engagers,0
+1840,Passive,2
+1841,High engagers,0
+1842,Passive,2
+1843,High engagers,0
+1844,Moderate,1
+1845,High engagers,0
+1846,High engagers,0
+1847,High engagers,0
+1848,High engagers,0
+1849,Moderate,1
+1850,Passive,2
+1851,Passive,2
+1852,High engagers,0
+1853,High engagers,0
+1854,High engagers,0
+1855,Moderate,1
+1856,Moderate,1
+1857,High engagers,0
+1858,Moderate,1
+1859,Moderate,1
+1860,High engagers,0
+1861,High engagers,0
+1863,Passive,2
+1864,Moderate,1
+1865,Passive,2
+1866,High engagers,0
+1867,Moderate,1
+1868,High engagers,0
+1869,Moderate,1
+1870,Moderate,1
+1871,Passive,2
+1872,Moderate,1
+1875,High engagers,0
+1876,Passive,2
+1877,Moderate,1
+1878,Passive,2
+1879,High engagers,0
+1880,High engagers,0
+1881,High engagers,0
+1882,Passive,2
+1883,Moderate,1
+1884,Passive,2
+1885,Moderate,1
+1886,High engagers,0
+1887,Passive,2
+1888,Passive,2
+1889,Moderate,1
+1890,Moderate,1
+1891,High engagers,0
+1892,Passive,2
+1893,Moderate,1
+1894,High engagers,0
+1895,High engagers,0
+1896,High engagers,0
+1897,Passive,2
+1898,Moderate,1
+1899,High engagers,0
+1900,Passive,2
+1901,Passive,2
+1902,Moderate,1
+1903,High engagers,0
+1904,Moderate,1
+1905,High engagers,0
+1906,High engagers,0
+1907,High engagers,0
+1908,Moderate,1
+1909,Passive,2
+1910,Moderate,1
+1911,Passive,2
+1912,High engagers,0
+1913,High engagers,0
+1914,High engagers,0
+1915,High engagers,0
+1916,High engagers,0
+1917,Passive,2
+1918,Moderate,1
+1919,Passive,2
+1921,Moderate,1
+1922,High engagers,0
+1923,Moderate,1
+1924,High engagers,0
+1925,High engagers,0
+1926,Moderate,1
+1927,Passive,2
+1928,High engagers,0
+1929,High engagers,0
+1930,Passive,2
+1931,Moderate,1
+1932,Moderate,1
+1933,High engagers,0
+1934,Moderate,1
+1935,Moderate,1
+1936,High engagers,0
+1937,Moderate,1
+1938,High engagers,0
+1939,High engagers,0
+1940,Passive,2
+1941,Moderate,1
+1942,Passive,2
+1943,High engagers,0
+1944,High engagers,0
+1945,High engagers,0
+1946,High engagers,0
+1947,Moderate,1
+1948,High engagers,0
+1949,Moderate,1
+1950,Moderate,1
+1951,High engagers,0
+1952,High engagers,0
+1953,High engagers,0
+1955,High engagers,0
+1957,Moderate,1
+1958,Moderate,1
+1959,High engagers,0
+1960,Passive,2
+1961,Moderate,1
+1962,Moderate,1
+1963,High engagers,0
+1964,Passive,2
+1965,High engagers,0
+1966,Passive,2
+1967,High engagers,0
+1968,High engagers,0
+1969,High engagers,0
+1970,High engagers,0
+1971,High engagers,0
+1974,Moderate,1
+1975,Moderate,1
+1976,High engagers,0
+1977,High engagers,0
+1978,Passive,2
+1979,High engagers,0
+1980,Passive,2
+1981,High engagers,0
+1982,High engagers,0
+1983,Moderate,1
+1984,Moderate,1
+1985,Passive,2
+1986,Passive,2
+1987,High engagers,0
+1988,High engagers,0
+1990,Passive,2
+1991,High engagers,0
+1992,Moderate,1
+1993,High engagers,0
+1994,Passive,2
+1995,High engagers,0
+1996,Moderate,1
+1997,Moderate,1
+1998,Moderate,1
+1999,Passive,2
+2000,Moderate,1
+2001,Passive,2
+2002,High engagers,0
+2003,Moderate,1
+2004,Passive,2
+2005,Moderate,1
+2006,Moderate,1
+2007,Passive,2
+2008,Passive,2
+2009,Passive,2
+2010,Passive,2
+2011,Passive,2
+2012,High engagers,0
+2013,High engagers,0
+2014,High engagers,0
+2015,High engagers,0
+2016,High engagers,0
+2017,High engagers,0
+2018,Moderate,1
+2019,High engagers,0
+2020,Passive,2
+2021,High engagers,0
+2022,Moderate,1
+2023,Passive,2
+2024,High engagers,0
+2025,High engagers,0
+2026,High engagers,0
+2027,Passive,2
+2028,Passive,2
+2029,Moderate,1
+2030,Moderate,1
+2031,Passive,2
+2032,High engagers,0
+2033,Passive,2
+2034,Passive,2
+2035,Passive,2
+2036,Moderate,1
+2037,Passive,2
+2038,High engagers,0
+2039,Passive,2
+2040,Moderate,1
+2041,High engagers,0
+2042,Passive,2
+2043,High engagers,0
+2044,Moderate,1
+2046,Passive,2
+2047,High engagers,0
+2048,Passive,2
+2049,High engagers,0
+2050,Passive,2
+2051,Moderate,1
+2052,High engagers,0
+2053,Moderate,1
+2054,High engagers,0
+2055,High engagers,0
+2056,High engagers,0
+2057,Passive,2
+2058,Moderate,1
+2059,Moderate,1
+2060,Passive,2
+2061,Moderate,1
+2062,Passive,2
+2063,High engagers,0
+2064,Moderate,1
+2065,High engagers,0
+2066,High engagers,0
+2067,High engagers,0
+2069,High engagers,0
+2070,Moderate,1
+2071,High engagers,0
+2072,Moderate,1
+2073,High engagers,0
+2074,Moderate,1
+2075,High engagers,0
+2076,High engagers,0
+2078,Moderate,1
+2079,High engagers,0
+2080,High engagers,0
+2081,High engagers,0
+2082,High engagers,0
+2083,High engagers,0
+2084,High engagers,0
+2085,High engagers,0
+2086,High engagers,0
+2087,High engagers,0
+2088,Passive,2
+2089,Moderate,1
+2090,Moderate,1
+2091,Passive,2
+2092,High engagers,0
+2093,Passive,2
+2094,Passive,2
+2095,High engagers,0
+2096,Passive,2
+2097,Passive,2
+2098,High engagers,0
+2099,High engagers,0
+2100,High engagers,0
+2101,Moderate,1
+2102,High engagers,0
+2103,Moderate,1
+2104,High engagers,0
+2105,Moderate,1
+2106,Passive,2
+2107,Moderate,1
+2108,Passive,2
+2109,High engagers,0
+2110,Moderate,1
+2111,Moderate,1
+2112,Passive,2
+2113,Passive,2
+2114,Passive,2
+2115,High engagers,0
+2116,High engagers,0
+2117,High engagers,0
+2118,High engagers,0
+2119,High engagers,0
+2120,High engagers,0
+2121,High engagers,0
+2122,High engagers,0
+2123,High engagers,0
+2124,Moderate,1
+2125,Moderate,1
+2126,Moderate,1
+2127,Passive,2
+2128,High engagers,0
+2129,Passive,2
+2130,High engagers,0
+2131,Moderate,1
+2132,Passive,2
+2134,High engagers,0
+2135,High engagers,0
+2136,Moderate,1
+2137,Moderate,1
+2138,High engagers,0
+2139,High engagers,0
+2140,Passive,2
+2141,High engagers,0
+2142,Passive,2
+2143,Moderate,1
+2144,Moderate,1
+2145,Moderate,1
+2146,High engagers,0
+2147,Passive,2
+2148,Moderate,1
+2149,High engagers,0
+2150,High engagers,0
+2151,High engagers,0
+2152,High engagers,0
+2153,High engagers,0
+2154,Passive,2
+2155,High engagers,0
+2156,High engagers,0
+2157,Passive,2
+2158,Moderate,1
+2159,High engagers,0
+2160,Moderate,1
+2161,Moderate,1
+2162,Moderate,1
+2163,Passive,2
+2164,High engagers,0
+2165,High engagers,0
+2166,Moderate,1
+2167,High engagers,0
+2168,High engagers,0
+2169,Passive,2
+2170,High engagers,0
+2171,High engagers,0
+2172,High engagers,0
+2173,High engagers,0
+2174,High engagers,0
+2175,High engagers,0
+2176,High engagers,0
+2177,Moderate,1
+2178,Passive,2
+2179,High engagers,0
+2181,Passive,2
+2182,High engagers,0
+2183,Passive,2
+2184,High engagers,0
+2185,High engagers,0
+2186,Passive,2
+2187,Moderate,1
+2188,Passive,2
+2189,High engagers,0
+2190,High engagers,0
+2191,Moderate,1
+2192,High engagers,0
+2193,High engagers,0
+2194,High engagers,0
+2195,High engagers,0
+2196,High engagers,0
+2197,High engagers,0
+2198,High engagers,0
+2199,Moderate,1
+2200,Moderate,1
+2201,Moderate,1
+2202,Moderate,1
+2203,Moderate,1
+2204,High engagers,0
+2205,Passive,2
+2206,High engagers,0
+2207,Moderate,1
+2208,Moderate,1
+2209,High engagers,0
+2210,Passive,2
+2211,Moderate,1
+2212,High engagers,0
+2213,Passive,2
+2214,Moderate,1
+2215,High engagers,0
+2216,Moderate,1
+2217,High engagers,0
+2218,Passive,2
+2219,High engagers,0
+2220,High engagers,0
+2221,Passive,2
+2222,High engagers,0
+2223,High engagers,0
+2224,Moderate,1
+2225,High engagers,0
+2226,High engagers,0
+2227,Passive,2
+2228,High engagers,0
+2229,High engagers,0
+2230,High engagers,0
+2231,Moderate,1
+2232,Passive,2
+2233,High engagers,0
+2234,High engagers,0
+2235,High engagers,0
+2236,High engagers,0
+2237,Moderate,1
+2238,Moderate,1
+2239,High engagers,0
+2240,Moderate,1
+2241,Moderate,1
+2242,Passive,2
+2243,High engagers,0
+2244,Moderate,1
+2245,High engagers,0
+2246,Moderate,1
+2247,Moderate,1
+2248,High engagers,0
+2249,Moderate,1
+2250,High engagers,0
+2251,High engagers,0
+2252,Moderate,1
+2253,Moderate,1
+2254,Passive,2
+2256,Passive,2
+2257,Passive,2
+2258,Passive,2
+2259,High engagers,0
+2260,High engagers,0
+2261,High engagers,0
+2263,Moderate,1
+2264,High engagers,0
+2265,Passive,2
+2266,High engagers,0
+2267,Moderate,1
+2268,High engagers,0
+2269,Moderate,1
+2270,High engagers,0
+2271,High engagers,0
+2272,High engagers,0
+2273,Passive,2
+2274,Moderate,1
+2275,Passive,2
+2276,Moderate,1
+2277,Passive,2
+2278,Moderate,1
+2279,Passive,2
+2280,Moderate,1
+2281,High engagers,0
+2282,Passive,2
+2283,Moderate,1
+2284,Moderate,1
+2285,Passive,2
+2286,Passive,2
+2287,Passive,2
+2288,Passive,2
+2289,Moderate,1
+2290,High engagers,0
+2292,Passive,2
+2293,High engagers,0
+2294,High engagers,0
+2295,Moderate,1
+2296,High engagers,0
+2297,Moderate,1
+2298,High engagers,0
+2299,High engagers,0
+2300,Passive,2
+2301,High engagers,0
+2302,High engagers,0
+2303,High engagers,0
+2304,High engagers,0
+2305,High engagers,0
+2306,Moderate,1
+2307,High engagers,0
+2308,Passive,2
+2309,Moderate,1
+2310,High engagers,0
+2311,High engagers,0
+2312,Passive,2
+2313,High engagers,0
+2314,High engagers,0
+2315,Moderate,1
+2316,High engagers,0
+2317,Moderate,1
+2318,Moderate,1
+2319,High engagers,0
+2320,Passive,2
+2321,High engagers,0
+2322,Passive,2
+2323,High engagers,0
+2324,Passive,2
+2325,High engagers,0
+2326,High engagers,0
+2327,High engagers,0
+2328,Moderate,1
+2329,High engagers,0
+2330,Passive,2
+2331,High engagers,0
+2332,High engagers,0
+2333,High engagers,0
+2334,Passive,2
+2335,High engagers,0
+2336,Moderate,1
+2337,Moderate,1
+2338,High engagers,0
+2339,Passive,2
+2340,High engagers,0
+2341,Moderate,1
+2342,Passive,2
+2343,Passive,2
+2344,High engagers,0
+2345,Passive,2
+2346,Moderate,1
+2347,Moderate,1
+2348,Moderate,1
+2349,Passive,2
+2350,Passive,2
+2351,High engagers,0
+2352,High engagers,0
+2353,High engagers,0
+2354,High engagers,0
+2355,High engagers,0
+2356,Moderate,1
+2357,Passive,2
+2358,Moderate,1
+2360,Passive,2
+2361,High engagers,0
+2362,Passive,2
+2363,High engagers,0
+2364,High engagers,0
+2365,Passive,2
+2366,Passive,2
+2367,High engagers,0
+2368,High engagers,0
+2369,Passive,2
+2370,High engagers,0
+2371,Passive,2
+2372,Passive,2
+2373,Moderate,1
+2374,Passive,2
+2375,Passive,2
+2376,Passive,2
+2377,High engagers,0
+2378,Passive,2
+2379,Moderate,1
+2380,Moderate,1
+2381,High engagers,0
+2382,High engagers,0
+2383,Moderate,1
+2384,Passive,2
+2385,Passive,2
+2386,Passive,2
+2388,High engagers,0
+2389,High engagers,0
+2390,High engagers,0
+2391,High engagers,0
+2392,High engagers,0
+2393,Moderate,1
+2394,High engagers,0
+2395,Moderate,1
+2397,High engagers,0
+2398,Moderate,1
+2399,Passive,2
+2400,Passive,2
+2401,High engagers,0
+2402,High engagers,0
+2403,Moderate,1
+2404,High engagers,0
+2405,Passive,2
+2406,Moderate,1
+2407,High engagers,0
+2408,Passive,2
+2409,High engagers,0
+2410,Moderate,1
+2411,Moderate,1
+2412,High engagers,0
+2413,Moderate,1
+2414,High engagers,0
+2415,Passive,2
+2416,Passive,2
+2417,High engagers,0
+2418,High engagers,0
+2419,High engagers,0
+2420,High engagers,0
+2421,Passive,2
+2422,Moderate,1
+2423,Moderate,1
+2424,High engagers,0
+2425,High engagers,0
+2426,High engagers,0
+2427,Moderate,1
+2428,High engagers,0
+2429,Passive,2
+2430,Passive,2
+2431,Moderate,1
+2432,Moderate,1
+2433,Moderate,1
+2434,Moderate,1
+2435,High engagers,0
+2437,Moderate,1
+2438,Moderate,1
+2439,Passive,2
+2440,High engagers,0
+2441,High engagers,0
+2442,Passive,2
+2443,Passive,2
+2444,Moderate,1
+2445,Moderate,1
+2446,Moderate,1
+2447,Passive,2
+2448,Passive,2
+2449,Passive,2
+2450,High engagers,0
+2451,Passive,2
+2452,High engagers,0
+2453,Passive,2
+2454,High engagers,0
+2455,Moderate,1
+2456,High engagers,0
+2457,Moderate,1
+2458,High engagers,0
+2459,High engagers,0
+2460,High engagers,0
+2461,High engagers,0
+2462,Passive,2
+2463,High engagers,0
+2464,Moderate,1
+2465,Passive,2
+2466,High engagers,0
+2467,Moderate,1
+2468,Passive,2
+2469,Moderate,1
+2470,Passive,2
+2471,Passive,2
+2472,High engagers,0
+2473,Moderate,1
+2474,High engagers,0
+2475,High engagers,0
+2476,Passive,2
+2477,Passive,2
+2478,High engagers,0
+2479,High engagers,0
+2480,Moderate,1
+2481,Moderate,1
+2482,High engagers,0
+2483,Passive,2
+2484,Passive,2
+2485,Passive,2
+2486,Moderate,1
+2487,High engagers,0
+2488,Passive,2
+2489,High engagers,0
+2490,High engagers,0
+2491,Passive,2
+2492,Passive,2
+2493,High engagers,0
+2494,Moderate,1
+2495,Moderate,1
+2496,High engagers,0
+2497,High engagers,0
+2498,Passive,2
+2499,Moderate,1
+2500,High engagers,0
+2501,Moderate,1
+2502,Moderate,1
+2504,High engagers,0
+2505,Moderate,1
+2506,Passive,2
+2507,High engagers,0
+2508,Moderate,1
+2509,High engagers,0
+2510,Passive,2
+2511,High engagers,0
+2512,High engagers,0
+2513,High engagers,0
+2514,High engagers,0
+2515,Passive,2
+2516,High engagers,0
+2517,Passive,2
+2518,High engagers,0
+2519,Moderate,1
+2520,Moderate,1
+2521,High engagers,0
+2522,Passive,2
+2523,High engagers,0
+2524,Moderate,1
+2525,High engagers,0
+2526,Moderate,1
+2527,Moderate,1
+2528,Passive,2
+2529,Passive,2
+2530,Passive,2
+2531,Passive,2
+2532,Moderate,1
+2533,High engagers,0
+2534,Passive,2
+2536,Moderate,1
+2537,High engagers,0
+2538,Passive,2
+2539,High engagers,0
+2540,Moderate,1
+2541,High engagers,0
+2542,Moderate,1
+2543,High engagers,0
+2544,Moderate,1
+2545,Moderate,1
+2546,Moderate,1
+2548,Moderate,1
+2549,Passive,2
+2550,Passive,2
+2551,High engagers,0
+2552,Passive,2
+2553,High engagers,0
+2554,Moderate,1
+2555,Passive,2
+2556,Moderate,1
+2557,High engagers,0
+2558,High engagers,0
+2559,Passive,2
+2560,Passive,2
+2561,High engagers,0
+2562,High engagers,0
+2563,Moderate,1
+2564,Moderate,1
+2565,Moderate,1
+2566,High engagers,0
+2567,High engagers,0
+2568,Passive,2
+2569,High engagers,0
+2570,Moderate,1
+2571,Moderate,1
+2572,High engagers,0
+2573,High engagers,0
+2574,Passive,2
+2575,High engagers,0
+2576,Passive,2
+2577,Moderate,1
+2578,Passive,2
+2579,High engagers,0
+2580,Moderate,1
+2581,Moderate,1
+2582,High engagers,0
+2583,High engagers,0
+2584,High engagers,0
+2585,Moderate,1
+2586,High engagers,0
+2587,Moderate,1
+2588,Moderate,1
+2589,Moderate,1
+2590,Moderate,1
+2591,Passive,2
+2592,Passive,2
+2593,Passive,2
+2594,Moderate,1
+2595,High engagers,0
+2596,Moderate,1
+2597,High engagers,0
+2598,High engagers,0
+2599,High engagers,0
+2601,Passive,2
+2602,High engagers,0
+2603,High engagers,0
+2604,Passive,2
+2605,Moderate,1
+2606,High engagers,0
+2607,Passive,2
+2608,Moderate,1
+2609,High engagers,0
+2610,High engagers,0
+2611,High engagers,0
+2612,High engagers,0
+2613,High engagers,0
+2614,Moderate,1
+2615,High engagers,0
+2616,Moderate,1
+2617,High engagers,0
+2618,Passive,2
+2619,High engagers,0
+2620,High engagers,0
+2621,Moderate,1
+2623,Passive,2
+2624,High engagers,0
+2625,Moderate,1
+2626,High engagers,0
+2627,Moderate,1
+2628,Moderate,1
+2629,High engagers,0
+2630,High engagers,0
+2631,Passive,2
+2632,High engagers,0
+2633,Moderate,1
+2634,Passive,2
+2635,Passive,2
+2636,High engagers,0
+2637,Passive,2
+2638,High engagers,0
+2639,High engagers,0
+2640,Passive,2
+2641,High engagers,0
+2642,Passive,2
+2643,Moderate,1
+2644,High engagers,0
+2645,High engagers,0
+2646,High engagers,0
+2647,Passive,2
+2648,High engagers,0
+2649,Moderate,1
+2650,High engagers,0
+2652,High engagers,0
+2653,High engagers,0
+2654,High engagers,0
+2655,High engagers,0
+2656,High engagers,0
+2657,Moderate,1
+2658,High engagers,0
+2659,Moderate,1
+2660,Moderate,1
+2661,High engagers,0
+2662,Passive,2
+2663,Passive,2
+2664,High engagers,0
+2665,High engagers,0
+2666,High engagers,0
+2667,Passive,2
+2668,High engagers,0
+2669,Moderate,1
+2670,High engagers,0
+2671,Moderate,1
+2672,Moderate,1
+2673,High engagers,0
+2674,Passive,2
+2675,High engagers,0
+2676,Passive,2
+2677,High engagers,0
+2678,Passive,2
+2679,High engagers,0
+2680,Moderate,1
+2681,Moderate,1
+2682,High engagers,0
+2683,High engagers,0
+2684,High engagers,0
+2685,High engagers,0
+2686,Passive,2
+2687,High engagers,0
+2688,Moderate,1
+2689,Moderate,1
+2690,High engagers,0
+2691,High engagers,0
+2692,Moderate,1
+2693,High engagers,0
+2695,Passive,2
+2696,Passive,2
+2697,High engagers,0
+2698,Passive,2
+2699,Moderate,1
+2700,High engagers,0
+2701,Moderate,1
+2702,High engagers,0
+2703,Passive,2
+2704,Passive,2
+2705,High engagers,0
+2706,Passive,2
+2707,High engagers,0
+2708,High engagers,0
+2709,Moderate,1
+2710,High engagers,0
+2711,Passive,2
+2712,High engagers,0
+2713,Moderate,1
+2714,Moderate,1
+2715,Passive,2
+2716,Moderate,1
+2717,Moderate,1
+2718,High engagers,0
+2719,Passive,2
+2720,Passive,2
+2721,High engagers,0
+2722,Moderate,1
+2723,High engagers,0
+2724,Moderate,1
+2725,High engagers,0
+2726,Moderate,1
+2727,High engagers,0
+2728,Moderate,1
+2729,High engagers,0
+2730,Moderate,1
+2731,High engagers,0
+2732,High engagers,0
+2733,Passive,2
+2734,Moderate,1
+2735,Moderate,1
+2736,High engagers,0
+2737,Moderate,1
+2738,High engagers,0
+2739,Moderate,1
+2740,Moderate,1
+2741,Moderate,1
+2742,High engagers,0
+2743,Passive,2
+2744,High engagers,0
+2745,High engagers,0
+2746,High engagers,0
+2747,Moderate,1
+2748,Moderate,1
+2749,High engagers,0
+2750,High engagers,0
+2751,Moderate,1
+2752,Passive,2
+2753,Moderate,1
+2754,Moderate,1
+2755,Moderate,1
+2756,Passive,2
+2757,High engagers,0
+2758,Passive,2
+2759,High engagers,0
+2760,Passive,2
+2761,Passive,2
+2762,High engagers,0
+2763,Moderate,1
+2764,High engagers,0
+2765,High engagers,0
+2766,Moderate,1
+2767,Moderate,1
+2768,High engagers,0
+2769,Moderate,1
+2771,Passive,2
+2772,High engagers,0
+2773,High engagers,0
+2774,High engagers,0
+2775,Passive,2
+2776,High engagers,0
+2777,High engagers,0
+2778,High engagers,0
+2779,High engagers,0
+2780,High engagers,0
+2781,Passive,2
+2782,Moderate,1
+2783,High engagers,0
+2784,Moderate,1
+2785,Moderate,1
+2786,Moderate,1
+2787,Moderate,1
+2788,Moderate,1
+2789,Moderate,1
+2790,High engagers,0
+2791,High engagers,0
+2792,High engagers,0
+2793,High engagers,0
+2795,High engagers,0
+2796,High engagers,0
+2797,Moderate,1
+2798,Passive,2
+2799,Moderate,1
+2800,High engagers,0
+2802,Moderate,1
+2803,Passive,2
+2804,High engagers,0
+2805,High engagers,0
+2806,Moderate,1
+2807,Passive,2
+2808,Moderate,1
+2809,Passive,2
+2810,Passive,2
+2811,Passive,2
+2812,Passive,2
+2813,Moderate,1
+2814,High engagers,0
+2815,Moderate,1
+2816,High engagers,0
+2817,Passive,2
+2818,Moderate,1
+2819,Moderate,1
+2820,Moderate,1
+2821,Passive,2
+2822,Moderate,1
+2823,High engagers,0
+2826,Moderate,1
+2827,Moderate,1
+2828,High engagers,0
+2829,High engagers,0
+2830,Passive,2
+2831,High engagers,0
+2832,Passive,2
+2833,High engagers,0
+2834,Moderate,1
+2835,Passive,2
+2836,Passive,2
+2837,Passive,2
+2838,High engagers,0
+2839,Moderate,1
+2840,Passive,2
+2841,Passive,2
+2842,High engagers,0
+2843,High engagers,0
+2844,High engagers,0
+2845,High engagers,0
+2846,Passive,2
+2847,High engagers,0
+2848,High engagers,0
+2849,Moderate,1
+2850,Moderate,1
+2851,Moderate,1
+2852,Moderate,1
+2853,Moderate,1
+2854,High engagers,0
+2855,Moderate,1
+2856,High engagers,0
+2857,High engagers,0
+2858,High engagers,0
+2859,High engagers,0
+2860,High engagers,0
+2861,Passive,2
+2862,Passive,2
+2863,High engagers,0
+2864,High engagers,0
+2865,Passive,2
+2866,High engagers,0
+2867,Passive,2
+2868,High engagers,0
+2869,Moderate,1
+2870,High engagers,0
+2871,High engagers,0
+2872,High engagers,0
+2873,Moderate,1
+2874,High engagers,0
+2875,Passive,2
+2876,Moderate,1
+2877,High engagers,0
+2878,Moderate,1
+2879,Moderate,1
+2880,Moderate,1
+2881,Passive,2
+2882,Moderate,1
+2883,Moderate,1
+2884,Passive,2
+2885,High engagers,0
+2886,High engagers,0
+2887,Moderate,1
+2888,High engagers,0
+2889,Passive,2
+2890,Moderate,1
+2891,Moderate,1
+2892,Passive,2
+2893,Passive,2
+2894,High engagers,0
+2896,High engagers,0
+2898,High engagers,0
+2899,High engagers,0
+2900,Passive,2
+2901,High engagers,0
+2902,Moderate,1
+2903,Moderate,1
+2904,Moderate,1
+2905,High engagers,0
+2906,High engagers,0
+2908,High engagers,0
+2909,High engagers,0
+2910,High engagers,0
+2911,Moderate,1
+2912,High engagers,0
+2913,High engagers,0
+2914,Moderate,1
+2915,High engagers,0
+2916,Moderate,1
+2917,High engagers,0
+2918,High engagers,0
+2919,Moderate,1
+2920,Moderate,1
+2922,High engagers,0
+2923,Moderate,1
+2924,High engagers,0
+2925,High engagers,0
+2926,High engagers,0
+2927,High engagers,0
+2928,Passive,2
+2929,Moderate,1
+2930,Moderate,1
+2931,High engagers,0
+2932,High engagers,0
+2933,High engagers,0
+2934,Passive,2
+2935,High engagers,0
+2936,High engagers,0
+2937,High engagers,0
+2938,High engagers,0
+2939,High engagers,0
+2940,Moderate,1
+2941,High engagers,0
+2942,High engagers,0
+2943,High engagers,0
+2944,High engagers,0
+2945,High engagers,0
+2946,Moderate,1
+2947,Moderate,1
+2948,High engagers,0
+2950,Passive,2
+2951,High engagers,0
+2952,Passive,2
+2953,High engagers,0
+2954,High engagers,0
+2955,High engagers,0
+2956,Moderate,1
+2957,High engagers,0
+2958,High engagers,0
+2959,Passive,2
+2960,Moderate,1
+2961,Moderate,1
+2963,High engagers,0
+2964,High engagers,0
+2965,High engagers,0
+2966,High engagers,0
+2967,Moderate,1
+2968,Passive,2
+2969,Passive,2
+2970,High engagers,0
+2971,High engagers,0
+2972,Moderate,1
+2973,High engagers,0
+2974,Passive,2
+2975,High engagers,0
+2976,High engagers,0
+2977,Moderate,1
+2978,High engagers,0
+2979,High engagers,0
+2980,Passive,2
+2981,Passive,2
+2982,Moderate,1
+2983,High engagers,0
+2984,High engagers,0
+2985,High engagers,0
+2986,Passive,2
+2987,Moderate,1
+2988,High engagers,0
+2989,High engagers,0
+2990,Passive,2
+2991,High engagers,0
+2992,Passive,2
+2993,Moderate,1
+2994,Passive,2
+2995,Passive,2
+2996,High engagers,0
+2997,Moderate,1
+2998,High engagers,0
+2999,High engagers,0
+3000,High engagers,0
+3001,Passive,2
+3002,Moderate,1
+3003,High engagers,0
+3004,High engagers,0
+3005,Passive,2
+3006,High engagers,0
+3007,Moderate,1
+3008,High engagers,0
+3009,Moderate,1
+3010,Moderate,1
+3011,High engagers,0
+3012,High engagers,0
+3013,High engagers,0
+3014,High engagers,0
+3015,High engagers,0
+3016,High engagers,0
+3017,Passive,2
+3018,High engagers,0
+3019,High engagers,0
+3020,Passive,2
+3021,Moderate,1
+3022,High engagers,0
+3023,Passive,2
+3024,High engagers,0
+3025,High engagers,0
+3026,Moderate,1
+3027,Moderate,1
+3028,Passive,2
+3029,Moderate,1
+3030,High engagers,0
+3031,Passive,2
+3032,High engagers,0
+3033,High engagers,0
+3034,High engagers,0
+3036,Moderate,1
+3037,Moderate,1
+3038,High engagers,0
+3039,Passive,2
+3040,High engagers,0
+3041,High engagers,0
+3042,High engagers,0
+3043,Moderate,1
+3044,Moderate,1
+3045,Moderate,1
+3047,Moderate,1
+3048,High engagers,0
+3049,High engagers,0
+3050,High engagers,0
+3051,Moderate,1
+3052,Passive,2
+3053,High engagers,0
+3054,High engagers,0
+3055,Passive,2
+3056,High engagers,0
+3057,High engagers,0
+3058,Moderate,1
+3059,Moderate,1
+3060,High engagers,0
+3061,High engagers,0
+3062,High engagers,0
+3063,Passive,2
+3064,High engagers,0
+3065,Moderate,1
+3066,Moderate,1
+3067,Passive,2
+3068,Moderate,1
+3069,High engagers,0
+3070,Passive,2
+3071,Moderate,1
+3073,Moderate,1
+3074,High engagers,0
+3075,Moderate,1
+3076,High engagers,0
+3077,Passive,2
+3078,Moderate,1
+3079,Passive,2
+3080,Moderate,1
+3081,Passive,2
+3082,High engagers,0
+3083,Moderate,1
+3084,Passive,2
+3085,High engagers,0
+3086,High engagers,0
+3087,Moderate,1
+3088,High engagers,0
+3089,Moderate,1
+3090,Passive,2
+3091,Passive,2
+3092,High engagers,0
+3093,Moderate,1
+3095,Moderate,1
+3096,Passive,2
+3097,Moderate,1
+3098,Passive,2
+3099,High engagers,0
+3100,Moderate,1
+3101,Moderate,1
+3102,High engagers,0
+3104,Moderate,1
+3105,High engagers,0
+3106,Passive,2
+3107,Moderate,1
+3108,Moderate,1
+3109,High engagers,0
+3110,Passive,2
+3111,Moderate,1
+3112,Moderate,1
+3113,High engagers,0
+3114,Passive,2
+3115,Moderate,1
+3116,Moderate,1
+3117,Moderate,1
+3118,High engagers,0
+3119,Moderate,1
+3120,High engagers,0
+3121,High engagers,0
+3122,Moderate,1
+3123,High engagers,0
+3124,High engagers,0
+3125,High engagers,0
+3126,High engagers,0
+3127,Moderate,1
+3128,High engagers,0
+3129,High engagers,0
+3130,High engagers,0
+3131,High engagers,0
+3132,High engagers,0
+3133,Passive,2
+3134,Moderate,1
+3135,Passive,2
+3136,Moderate,1
+3137,High engagers,0
+3138,Moderate,1
+3139,High engagers,0
+3140,Passive,2
+3141,Passive,2
+3142,Moderate,1
+3144,High engagers,0
+3145,Passive,2
+3146,High engagers,0
+3147,Passive,2
+3148,Moderate,1
+3149,Moderate,1
+3150,High engagers,0
+3151,Passive,2
+3152,High engagers,0
+3153,Moderate,1
+3154,Passive,2
+3155,High engagers,0
+3156,High engagers,0
+3157,Passive,2
+3158,High engagers,0
+3159,Passive,2
+3160,High engagers,0
+3161,High engagers,0
+3162,High engagers,0
+3163,Passive,2
+3164,Moderate,1
+3165,High engagers,0
+3166,Moderate,1
+3167,Moderate,1
+3168,Passive,2
+3169,Moderate,1
+3170,Moderate,1
+3172,Passive,2
+3173,High engagers,0
+3174,High engagers,0
+3175,High engagers,0
+3176,High engagers,0
+3177,Passive,2
+3178,Moderate,1
+3179,Passive,2
+3180,High engagers,0
+3181,High engagers,0
+3182,Moderate,1
+3183,Moderate,1
+3184,Moderate,1
+3185,High engagers,0
+3186,Passive,2
+3187,Passive,2
+3188,High engagers,0
+3189,Passive,2
+3190,Passive,2
+3191,Moderate,1
+3192,High engagers,0
+3193,Passive,2
+3194,High engagers,0
+3195,Moderate,1
+3196,High engagers,0
+3197,Passive,2
+3198,High engagers,0
+3199,Moderate,1
+3200,Passive,2
+3201,High engagers,0
+3202,Passive,2
+3203,Moderate,1
+3204,High engagers,0
+3205,High engagers,0
+3206,High engagers,0
+3207,Moderate,1
+3208,Moderate,1
+3209,Moderate,1
+3210,Moderate,1
+3211,Moderate,1
+3212,High engagers,0
+3213,High engagers,0
+3214,Passive,2
+3215,High engagers,0
+3216,Passive,2
+3217,High engagers,0
+3218,Moderate,1
+3219,Passive,2
+3220,High engagers,0
+3221,Passive,2
+3222,Moderate,1
+3223,Passive,2
+3224,Moderate,1
+3225,Moderate,1
+3226,Moderate,1
+3227,Moderate,1
+3228,High engagers,0
+3229,High engagers,0
+3230,High engagers,0
+3231,Passive,2
+3232,High engagers,0
+3233,High engagers,0
+3234,High engagers,0
+3235,Passive,2
+3236,High engagers,0
+3238,High engagers,0
+3239,High engagers,0
+3240,Passive,2
+3241,Moderate,1
+3242,Moderate,1
+3243,Moderate,1
+3244,Passive,2
+3245,High engagers,0
+3246,Moderate,1
+3247,Moderate,1
+3248,High engagers,0
+3249,High engagers,0
+3250,Passive,2
+3252,High engagers,0
+3253,Passive,2
+3254,Moderate,1
+3255,Passive,2
+3256,High engagers,0
+3257,High engagers,0
+3258,Moderate,1
+3259,High engagers,0
+3260,High engagers,0
+3261,High engagers,0
+3262,Moderate,1
+3263,High engagers,0
+3264,High engagers,0
+3265,Moderate,1
+3266,High engagers,0
+3267,High engagers,0
+3268,High engagers,0
+3269,Moderate,1
+3270,High engagers,0
+3272,High engagers,0
+3273,Passive,2
+3274,High engagers,0
+3275,Passive,2
+3276,Passive,2
+3277,Passive,2
+3278,High engagers,0
+3279,Passive,2
+3280,Moderate,1
+3281,High engagers,0
+3282,High engagers,0
+3283,High engagers,0
+3284,Moderate,1
+3285,High engagers,0
+3286,High engagers,0
+3287,Passive,2
+3288,High engagers,0
+3289,High engagers,0
+3290,Passive,2
+3291,Moderate,1
+3292,Passive,2
+3293,Moderate,1
+3294,Passive,2
+3295,Moderate,1
+3297,High engagers,0
+3298,Passive,2
+3299,High engagers,0
+3300,High engagers,0
+3301,Passive,2
+3302,Moderate,1
+3303,High engagers,0
+3305,Passive,2
+3306,High engagers,0
+3307,Passive,2
+3308,Passive,2
+3309,High engagers,0
+3310,Moderate,1
+3311,Passive,2
+3312,Passive,2
+3313,High engagers,0
+3314,Passive,2
+3315,High engagers,0
+3316,High engagers,0
+3317,High engagers,0
+3318,Passive,2
+3319,Passive,2
+3320,High engagers,0
+3321,High engagers,0
+3322,High engagers,0
+3323,High engagers,0
+3324,High engagers,0
+3325,Moderate,1
+3326,High engagers,0
+3327,High engagers,0
+3328,High engagers,0
+3329,High engagers,0
+3330,Moderate,1
+3331,High engagers,0
+3332,Passive,2
+3333,High engagers,0
+3334,High engagers,0
+3335,High engagers,0
+3336,Moderate,1
+3337,High engagers,0
+3338,Moderate,1
+3339,Moderate,1
+3340,High engagers,0
+3341,Moderate,1
+3342,Moderate,1
+3343,Moderate,1
+3344,Passive,2
+3345,High engagers,0
+3346,High engagers,0
+3347,High engagers,0
+3348,Passive,2
+3349,High engagers,0
+3350,High engagers,0
+3351,Moderate,1
+3352,Passive,2
+3353,Passive,2
+3354,Passive,2
+3355,Moderate,1
+3356,Passive,2
+3357,High engagers,0
+3358,High engagers,0
+3359,High engagers,0
+3360,Moderate,1
+3361,Moderate,1
+3362,Passive,2
+3363,High engagers,0
+3364,Passive,2
+3365,High engagers,0
+3366,High engagers,0
+3367,Passive,2
+3368,High engagers,0
+3369,High engagers,0
+3370,High engagers,0
+3371,High engagers,0
+3372,High engagers,0
+3373,High engagers,0
+3374,Moderate,1
+3375,Moderate,1
+3376,Moderate,1
+3377,Passive,2
+3378,Passive,2
+3379,Moderate,1
+3381,Moderate,1
+3382,Passive,2
+3383,Moderate,1
+3384,Passive,2
+3385,Passive,2
+3386,Moderate,1
+3387,High engagers,0
+3388,Passive,2
+3389,Passive,2
+3390,High engagers,0
+3391,High engagers,0
+3392,High engagers,0
+3393,High engagers,0
+3394,High engagers,0
+3395,High engagers,0
+3396,High engagers,0
+3397,Moderate,1
+3398,Passive,2
+3399,Passive,2
+3400,High engagers,0
+3401,Passive,2
+3402,Moderate,1
+3403,High engagers,0
+3404,High engagers,0
+3405,High engagers,0
+3406,Passive,2
+3407,Passive,2
+3408,Moderate,1
+3409,Passive,2
+3410,High engagers,0
+3411,Passive,2
+3412,Passive,2
+3413,High engagers,0
+3414,High engagers,0
+3415,High engagers,0
+3416,Moderate,1
+3417,High engagers,0
+3418,High engagers,0
+3419,High engagers,0
+3420,High engagers,0
+3421,Passive,2
+3422,High engagers,0
+3423,Passive,2
+3424,High engagers,0
+3425,Moderate,1
+3426,High engagers,0
+3427,High engagers,0
+3428,High engagers,0
+3429,High engagers,0
+3430,High engagers,0
+3431,Moderate,1
+3432,Passive,2
+3434,High engagers,0
+3435,Moderate,1
+3436,Passive,2
+3437,Moderate,1
+3438,High engagers,0
+3439,High engagers,0
+3440,Passive,2
+3441,High engagers,0
+3442,Passive,2
+3443,High engagers,0
+3444,High engagers,0
+3445,High engagers,0
+3446,Passive,2
+3447,Moderate,1
+3448,High engagers,0
+3449,High engagers,0
+3450,Passive,2
+3451,Moderate,1
+3452,Moderate,1
+3453,High engagers,0
+3454,High engagers,0
+3456,High engagers,0
+3457,Moderate,1
+3458,Moderate,1
+3459,Moderate,1
+3460,Moderate,1
+3461,Passive,2
+3462,High engagers,0
+3463,Moderate,1
+3464,Moderate,1
+3465,High engagers,0
+3466,Moderate,1
+3467,High engagers,0
+3468,High engagers,0
+3469,Passive,2
+3471,Moderate,1
+3472,High engagers,0
+3473,High engagers,0
+3474,High engagers,0
+3475,High engagers,0
+3476,High engagers,0
+3477,Passive,2
+3478,Moderate,1
+3479,Moderate,1
+3480,Moderate,1
+3481,Moderate,1
+3482,Passive,2
+3483,Moderate,1
+3484,High engagers,0
+3485,Passive,2
+3486,Passive,2
+3487,High engagers,0
+3488,Passive,2
+3489,Moderate,1
+3490,High engagers,0
+3491,Moderate,1
+3492,Passive,2
+3493,High engagers,0
+3494,Passive,2
+3495,Passive,2
+3496,High engagers,0
+3497,High engagers,0
+3498,Moderate,1
+3499,Moderate,1
+3500,Passive,2
+3501,High engagers,0
+3502,Moderate,1
+3503,Moderate,1
+3504,Passive,2
+3505,High engagers,0
+3506,Moderate,1
+3507,Moderate,1
+3508,Moderate,1
+3509,Moderate,1
+3510,Passive,2
+3512,Moderate,1
+3515,High engagers,0
+3516,High engagers,0
+3517,Moderate,1
+3518,Passive,2
+3519,Moderate,1
+3520,High engagers,0
+3521,High engagers,0
+3522,High engagers,0
+3523,High engagers,0
+3524,Passive,2
+3525,Moderate,1
+3526,Moderate,1
+3527,High engagers,0
+3528,High engagers,0
+3529,Passive,2
+3530,High engagers,0
+3531,High engagers,0
+3532,Moderate,1
+3533,High engagers,0
+3534,Passive,2
+3535,High engagers,0
+3536,Passive,2
+3537,High engagers,0
+3538,Passive,2
+3539,High engagers,0
+3540,High engagers,0
+3541,High engagers,0
+3542,Moderate,1
+3543,Passive,2
+3544,High engagers,0
+3545,Moderate,1
+3546,Moderate,1
+3547,High engagers,0
+3548,Passive,2
+3549,High engagers,0
+3550,High engagers,0
+3551,Moderate,1
+3552,Passive,2
+3553,Passive,2
+3554,High engagers,0
+3555,Moderate,1
+3556,High engagers,0
+3557,High engagers,0
+3558,High engagers,0
+3559,Passive,2
+3560,Passive,2
+3561,High engagers,0
+3562,Moderate,1
+3563,Passive,2
+3564,Moderate,1
+3566,High engagers,0
+3567,Moderate,1
+3568,High engagers,0
+3569,Moderate,1
+3570,Moderate,1
+3571,High engagers,0
+3572,Passive,2
+3573,High engagers,0
+3574,Passive,2
+3575,High engagers,0
+3576,High engagers,0
+3577,Moderate,1
+3578,Passive,2
+3579,High engagers,0
+3580,Moderate,1
+3581,Passive,2
+3582,Passive,2
+3583,High engagers,0
+3584,High engagers,0
+3585,High engagers,0
+3586,High engagers,0
+3587,Moderate,1
+3588,Moderate,1
+3589,High engagers,0
+3590,High engagers,0
+3591,Moderate,1
+3592,Moderate,1
+3593,High engagers,0
+3594,High engagers,0
+3595,High engagers,0
+3597,Moderate,1
+3598,High engagers,0
+3600,Moderate,1
+3601,Moderate,1
+3602,High engagers,0
+3603,High engagers,0
+3604,Moderate,1
+3605,High engagers,0
+3606,Passive,2
+3607,High engagers,0
+3608,Moderate,1
+3609,Passive,2
+3610,Moderate,1
+3611,Passive,2
+3612,Passive,2
+3613,High engagers,0
+3614,High engagers,0
+3615,High engagers,0
+3616,High engagers,0
+3617,Moderate,1
+3618,High engagers,0
+3619,Moderate,1
+3621,Moderate,1
+3622,Passive,2
+3623,Moderate,1
+3624,High engagers,0
+3625,High engagers,0
+3626,Moderate,1
+3627,Passive,2
+3628,Moderate,1
+3629,High engagers,0
+3630,Passive,2
+3631,Moderate,1
+3633,High engagers,0
+3634,High engagers,0
+3635,High engagers,0
+3636,Passive,2
+3637,Moderate,1
+3638,High engagers,0
+3639,High engagers,0
+3640,High engagers,0
+3641,High engagers,0
+3642,High engagers,0
+3643,High engagers,0
+3644,High engagers,0
+3645,High engagers,0
+3646,Passive,2
+3647,Passive,2
+3648,Passive,2
+3649,High engagers,0
+3650,High engagers,0
+3651,High engagers,0
+3652,High engagers,0
+3653,Passive,2
+3654,Passive,2
+3655,Passive,2
+3656,Passive,2
+3657,Moderate,1
+3658,Moderate,1
+3659,High engagers,0
+3660,Moderate,1
+3661,High engagers,0
+3662,Moderate,1
+3663,High engagers,0
+3664,Passive,2
+3665,Moderate,1
+3666,High engagers,0
+3667,Moderate,1
+3668,Passive,2
+3669,High engagers,0
+3670,Moderate,1
+3671,Passive,2
+3672,High engagers,0
+3673,Moderate,1
+3674,Passive,2
+3675,High engagers,0
+3676,Passive,2
+3677,Moderate,1
+3678,High engagers,0
+3679,High engagers,0
+3680,High engagers,0
+3681,Moderate,1
+3682,Passive,2
+3683,Moderate,1
+3684,High engagers,0
+3685,Passive,2
+3686,Passive,2
+3687,Passive,2
+3689,Moderate,1
+3690,Passive,2
+3691,High engagers,0
+3692,Passive,2
+3693,High engagers,0
+3694,High engagers,0
+3695,Passive,2
+3696,Passive,2
+3697,High engagers,0
+3698,High engagers,0
+3699,Moderate,1
+3700,High engagers,0
+3701,High engagers,0
+3702,High engagers,0
+3703,Passive,2
+3704,High engagers,0
+3705,Passive,2
+3706,Passive,2
+3707,Moderate,1
+3708,Passive,2
+3709,High engagers,0
+3710,Moderate,1
+3711,Moderate,1
+3712,Moderate,1
+3714,High engagers,0
+3715,Passive,2
+3716,High engagers,0
+3717,High engagers,0
+3718,High engagers,0
+3719,High engagers,0
+3720,High engagers,0
+3721,Moderate,1
+3722,High engagers,0
+3723,Moderate,1
+3724,High engagers,0
+3725,Moderate,1
+3726,High engagers,0
+3728,High engagers,0
+3729,Passive,2
+3730,High engagers,0
+3731,Passive,2
+3732,High engagers,0
+3733,Moderate,1
+3734,High engagers,0
+3735,Moderate,1
+3737,High engagers,0
+3738,Moderate,1
+3739,High engagers,0
+3740,Moderate,1
+3741,High engagers,0
+3742,Passive,2
+3743,Moderate,1
+3744,High engagers,0
+3746,Moderate,1
+3747,Moderate,1
+3748,High engagers,0
+3749,Passive,2
+3750,Moderate,1
+3751,Passive,2
+3752,Passive,2
+3753,High engagers,0
+3754,Moderate,1
+3755,Passive,2
+3756,High engagers,0
+3757,High engagers,0
+3758,High engagers,0
+3759,High engagers,0
+3760,High engagers,0
+3761,High engagers,0
+3762,Moderate,1
+3763,High engagers,0
+3764,High engagers,0
+3765,Passive,2
+3766,Moderate,1
+3767,High engagers,0
+3768,Passive,2
+3769,High engagers,0
+3770,High engagers,0
+3771,High engagers,0
+3772,High engagers,0
+3773,High engagers,0
+3774,High engagers,0
+3775,Passive,2
+3776,High engagers,0
+3777,Passive,2
+3778,Passive,2
+3779,Passive,2
+3781,High engagers,0
+3782,Passive,2
+3783,High engagers,0
+3784,Moderate,1
+3785,Moderate,1
+3786,Moderate,1
+3788,High engagers,0
+3789,Moderate,1
+3790,Passive,2
+3791,High engagers,0
+3792,Passive,2
+3793,Passive,2
+3794,Moderate,1
+3795,Moderate,1
+3796,Passive,2
+3797,Passive,2
+3798,Moderate,1
+3799,Passive,2
+3800,High engagers,0
+3801,Moderate,1
+3802,High engagers,0
+3803,Moderate,1
+3804,Moderate,1
+3805,High engagers,0
+3806,High engagers,0
+3807,High engagers,0
+3808,High engagers,0
+3809,High engagers,0
+3810,High engagers,0
+3811,Moderate,1
+3812,Moderate,1
+3813,High engagers,0
+3814,High engagers,0
+3815,High engagers,0
+3816,High engagers,0
+3817,High engagers,0
+3818,High engagers,0
+3819,Passive,2
+3820,Passive,2
+3821,High engagers,0
+3822,Passive,2
+3823,Moderate,1
+3824,Moderate,1
+3825,High engagers,0
+3826,High engagers,0
+3827,Passive,2
+3828,High engagers,0
+3829,Passive,2
+3830,High engagers,0
+3831,High engagers,0
+3832,High engagers,0
+3833,High engagers,0
+3834,High engagers,0
+3835,Passive,2
+3836,Passive,2
+3837,Moderate,1
+3838,Passive,2
+3839,Moderate,1
+3840,Moderate,1
+3841,High engagers,0
+3842,Passive,2
+3843,High engagers,0
+3844,Passive,2
+3846,High engagers,0
+3847,Moderate,1
+3848,Moderate,1
+3849,Passive,2
+3850,High engagers,0
+3851,Passive,2
+3852,Moderate,1
+3853,High engagers,0
+3854,High engagers,0
+3855,Moderate,1
+3856,Passive,2
+3857,Passive,2
+3858,High engagers,0
+3859,Passive,2
+3860,Passive,2
+3861,Moderate,1
+3862,High engagers,0
+3863,Passive,2
+3864,High engagers,0
+3865,High engagers,0
+3866,High engagers,0
+3867,High engagers,0
+3868,Passive,2
+3869,High engagers,0
+3870,Passive,2
+3871,Moderate,1
+3872,Moderate,1
+3873,High engagers,0
+3874,High engagers,0
+3876,High engagers,0
+3877,High engagers,0
+3878,Passive,2
+3879,Passive,2
+3880,Moderate,1
+3881,Moderate,1
+3882,High engagers,0
+3883,Passive,2
+3884,Moderate,1
+3886,Moderate,1
+3888,Moderate,1
+3889,Moderate,1
+3890,High engagers,0
+3891,High engagers,0
+3892,Passive,2
+3893,High engagers,0
+3894,High engagers,0
+3895,Passive,2
+3896,Passive,2
+3897,High engagers,0
+3898,Moderate,1
+3899,Passive,2
+3900,High engagers,0
+3901,Passive,2
+3902,High engagers,0
+3903,Passive,2
+3904,Moderate,1
+3905,Moderate,1
+3906,High engagers,0
+3907,Moderate,1
+3908,Moderate,1
+3909,Passive,2
+3910,Passive,2
+3911,Moderate,1
+3912,High engagers,0
+3913,High engagers,0
+3914,High engagers,0
+3915,Moderate,1
+3916,High engagers,0
+3917,Passive,2
+3918,Passive,2
+3919,High engagers,0
+3920,Moderate,1
+3921,High engagers,0
+3922,Moderate,1
+3923,High engagers,0
+3924,High engagers,0
+3925,Passive,2
+3926,High engagers,0
+3927,Moderate,1
+3928,High engagers,0
+3929,Passive,2
+3930,Passive,2
+3931,High engagers,0
+3932,High engagers,0
+3933,Passive,2
+3934,High engagers,0
+3935,Passive,2
+3936,High engagers,0
+3937,High engagers,0
+3938,Passive,2
+3939,Moderate,1
+3940,Moderate,1
+3941,High engagers,0
+3942,Moderate,1
+3943,High engagers,0
+3944,Moderate,1
+3945,High engagers,0
+3946,Moderate,1
+3947,High engagers,0
+3948,Moderate,1
+3949,High engagers,0
+3950,Moderate,1
+3951,High engagers,0
+3953,High engagers,0
+3954,High engagers,0
+3955,High engagers,0
+3956,Passive,2
+3957,High engagers,0
+3958,Passive,2
+3959,Moderate,1
+3960,Passive,2
+3961,High engagers,0
+3962,High engagers,0
+3963,Passive,2
+3964,Moderate,1
+3965,Moderate,1
+3966,Moderate,1
+3967,Passive,2
+3968,Moderate,1
+3969,High engagers,0
+3970,High engagers,0
+3971,Moderate,1
+3972,High engagers,0
+3973,High engagers,0
+3974,Moderate,1
+3975,Moderate,1
+3976,Moderate,1
+3977,Moderate,1
+3978,Passive,2
+3979,High engagers,0
+3980,High engagers,0
+3981,High engagers,0
+3982,Moderate,1
+3983,High engagers,0
+3984,Moderate,1
+3985,High engagers,0
+3986,Passive,2
+3987,High engagers,0
+3988,Passive,2
+3992,High engagers,0
+3993,High engagers,0
+3994,High engagers,0
+3995,Moderate,1
+3996,Moderate,1
+3997,Moderate,1
+3998,Passive,2
+3999,Passive,2
+4000,Moderate,1
+4001,High engagers,0
+4002,High engagers,0
+4003,Moderate,1
+4004,High engagers,0
+4005,Moderate,1
+4006,Moderate,1
+4007,Moderate,1
+4008,Passive,2
+4009,Moderate,1
+4010,Passive,2
+4011,High engagers,0
+4012,Passive,2
+4013,Moderate,1
+4014,Passive,2
+4015,High engagers,0
+4016,Passive,2
+4017,High engagers,0
+4018,Moderate,1
+4019,Moderate,1
+4020,Passive,2
+4021,Moderate,1
+4022,Moderate,1
+4023,High engagers,0
+4024,High engagers,0
+4025,High engagers,0
+4026,High engagers,0
+4027,Moderate,1
+4028,High engagers,0
+4029,High engagers,0
+4030,Moderate,1
+4031,High engagers,0
+4032,High engagers,0
+4033,Moderate,1
+4034,High engagers,0
+4035,High engagers,0
+4036,High engagers,0
+4037,Moderate,1
+4038,Moderate,1
+4039,High engagers,0
+4040,High engagers,0
+4041,Passive,2
+4042,High engagers,0
+4043,High engagers,0
+4044,Passive,2
+4045,Passive,2
+4046,High engagers,0
+4047,Moderate,1
+4048,Passive,2
+4049,High engagers,0
+4050,High engagers,0
+4051,Moderate,1
+4052,High engagers,0
+4053,Passive,2
+4054,High engagers,0
+4055,Moderate,1
+4056,High engagers,0
+4057,High engagers,0
+4059,Moderate,1
+4060,High engagers,0
+4062,High engagers,0
+4063,Moderate,1
+4064,High engagers,0
+4065,Passive,2
+4066,Passive,2
+4067,Passive,2
+4068,High engagers,0
+4069,Passive,2
+4070,High engagers,0
+4071,High engagers,0
+4072,High engagers,0
+4073,High engagers,0
+4074,Passive,2
+4075,Passive,2
+4076,High engagers,0
+4077,High engagers,0
+4078,High engagers,0
+4079,Passive,2
+4080,Passive,2
+4081,Passive,2
+4082,High engagers,0
+4083,Moderate,1
+4084,Passive,2
+4085,Moderate,1
+4086,Passive,2
+4087,High engagers,0
+4088,Passive,2
+4089,High engagers,0
+4090,High engagers,0
+4091,Moderate,1
+4092,High engagers,0
+4093,High engagers,0
+4094,Moderate,1
+4095,Passive,2
+4096,High engagers,0
+4097,High engagers,0
+4098,High engagers,0
+4099,High engagers,0
+4100,High engagers,0
+4101,Passive,2
+4102,High engagers,0
+4103,High engagers,0
+4104,High engagers,0
+4105,High engagers,0
+4106,Passive,2
+4107,Moderate,1
+4108,High engagers,0
+4109,High engagers,0
+4110,Passive,2
+4111,High engagers,0
+4112,Passive,2
+4113,High engagers,0
+4114,Passive,2
+4115,High engagers,0
+4116,Passive,2
+4117,High engagers,0
+4118,Passive,2
+4119,High engagers,0
+4120,High engagers,0
+4122,Moderate,1
+4123,High engagers,0
+4124,High engagers,0
+4125,Passive,2
+4126,Moderate,1
+4127,Passive,2
+4128,Passive,2
+4129,High engagers,0
+4130,High engagers,0
+4131,High engagers,0
+4132,High engagers,0
+4133,High engagers,0
+4134,High engagers,0
+4135,Passive,2
+4136,High engagers,0
+4137,High engagers,0
+4138,Passive,2
+4139,Moderate,1
+4140,Passive,2
+4141,Moderate,1
+4142,High engagers,0
+4143,Passive,2
+4144,High engagers,0
+4145,Moderate,1
+4146,High engagers,0
+4147,High engagers,0
+4148,Passive,2
+4149,Passive,2
+4150,Moderate,1
+4151,Moderate,1
+4152,High engagers,0
+4153,High engagers,0
+4154,High engagers,0
+4155,High engagers,0
+4156,Passive,2
+4157,Moderate,1
+4158,High engagers,0
+4159,Moderate,1
+4160,Passive,2
+4161,High engagers,0
+4162,Passive,2
+4163,Moderate,1
+4164,Moderate,1
+4165,Moderate,1
+4166,Passive,2
+4167,Passive,2
+4168,High engagers,0
+4169,High engagers,0
+4170,Passive,2
+4172,Moderate,1
+4174,Moderate,1
+4175,Passive,2
+4176,High engagers,0
+4177,High engagers,0
+4179,Passive,2
+4180,High engagers,0
+4181,Passive,2
+4182,High engagers,0
+4183,Moderate,1
+4184,Moderate,1
+4185,High engagers,0
+4186,Passive,2
+4187,Moderate,1
+4188,Moderate,1
+4189,High engagers,0
+4190,High engagers,0
+4191,High engagers,0
+4192,Moderate,1
+4193,Moderate,1
+4194,Passive,2
+4195,High engagers,0
+4196,Moderate,1
+4197,High engagers,0
+4198,High engagers,0
+4199,Moderate,1
+4200,High engagers,0
+4201,Passive,2
+4202,High engagers,0
+4203,High engagers,0
+4204,High engagers,0
+4205,Passive,2
+4206,High engagers,0
+4207,Moderate,1
+4208,High engagers,0
+4209,Passive,2
+4210,High engagers,0
+4211,Moderate,1
+4212,Passive,2
+4213,Passive,2
+4214,High engagers,0
+4215,Passive,2
+4216,High engagers,0
+4217,High engagers,0
+4218,High engagers,0
+4220,Moderate,1
+4221,High engagers,0
+4222,Moderate,1
+4223,High engagers,0
+4224,High engagers,0
+4225,Passive,2
+4226,High engagers,0
+4227,Passive,2
+4228,Moderate,1
+4229,High engagers,0
+4230,Passive,2
+4232,Passive,2
+4233,Passive,2
+4234,Passive,2
+4235,Moderate,1
+4236,High engagers,0
+4237,High engagers,0
+4238,Passive,2
+4239,High engagers,0
+4240,High engagers,0
+4241,Moderate,1
+4242,High engagers,0
+4243,High engagers,0
+4244,Passive,2
+4245,Moderate,1
+4246,Passive,2
+4247,High engagers,0
+4248,High engagers,0
+4249,Moderate,1
+4250,Passive,2
+4251,Moderate,1
+4252,High engagers,0
+4253,High engagers,0
+4254,Moderate,1
+4255,High engagers,0
+4256,Moderate,1
+4257,Moderate,1
+4258,Passive,2
+4260,High engagers,0
+4261,Moderate,1
+4262,Moderate,1
+4263,High engagers,0
+4264,Moderate,1
+4265,High engagers,0
+4266,High engagers,0
+4267,Moderate,1
+4268,Passive,2
+4269,High engagers,0
+4270,Moderate,1
+4272,Passive,2
+4273,Moderate,1
+4274,High engagers,0
+4275,Moderate,1
+4276,High engagers,0
+4277,High engagers,0
+4278,High engagers,0
+4279,Moderate,1
+4280,Moderate,1
+4281,High engagers,0
+4282,High engagers,0
+4283,High engagers,0
+4284,High engagers,0
+4285,Passive,2
+4286,Passive,2
+4287,Moderate,1
+4288,High engagers,0
+4290,Passive,2
+4291,High engagers,0
+4292,Moderate,1
+4293,High engagers,0
+4294,High engagers,0
+4295,Passive,2
+4296,High engagers,0
+4297,High engagers,0
+4298,High engagers,0
+4299,High engagers,0
+4300,Passive,2
+4301,Passive,2
+4302,Passive,2
+4304,Moderate,1
+4305,Moderate,1
+4306,Moderate,1
+4307,High engagers,0
+4308,High engagers,0
+4309,Moderate,1
+4310,Moderate,1
+4311,Moderate,1
+4312,High engagers,0
+4313,High engagers,0
+4314,Passive,2
+4315,High engagers,0
+4316,Moderate,1
+4317,High engagers,0
+4318,High engagers,0
+4319,Passive,2
+4320,Passive,2
+4321,Passive,2
+4322,Moderate,1
+4323,Moderate,1
+4324,Passive,2
+4325,Passive,2
+4326,Moderate,1
+4327,Moderate,1
+4328,Moderate,1
+4329,High engagers,0
+4330,Moderate,1
+4331,High engagers,0
+4332,Moderate,1
+4333,High engagers,0
+4334,Passive,2
+4335,Passive,2
+4336,Passive,2
+4337,High engagers,0
+4338,High engagers,0
+4339,Moderate,1
+4340,High engagers,0
+4341,Passive,2
+4342,Moderate,1
+4343,Moderate,1
+4344,High engagers,0
+4345,Passive,2
+4346,High engagers,0
+4347,High engagers,0
+4348,Passive,2
+4349,Passive,2
+4350,Moderate,1
+4351,High engagers,0
+4352,High engagers,0
+4353,High engagers,0
+4354,Moderate,1
+4355,Moderate,1
+4356,Moderate,1
+4357,High engagers,0
+4358,High engagers,0
+4359,High engagers,0
+4360,Moderate,1
+4361,Moderate,1
+4362,High engagers,0
+4363,High engagers,0
+4364,High engagers,0
+4365,Moderate,1
+4366,Moderate,1
+4367,High engagers,0
+4368,Passive,2
+4369,Passive,2
+4370,Moderate,1
+4371,Moderate,1
+4372,Passive,2
+4373,Passive,2
+4374,High engagers,0
+4375,High engagers,0
+4376,High engagers,0
+4377,High engagers,0
+4378,Moderate,1
+4379,Passive,2
+4380,Passive,2
+4381,High engagers,0
+4382,Passive,2
+4383,Moderate,1
+4384,Passive,2
+4385,Passive,2
+4386,High engagers,0
+4387,Moderate,1
+4388,Passive,2
+4389,Passive,2
+4390,Passive,2
+4391,Passive,2
+4392,High engagers,0
+4393,High engagers,0
+4394,Passive,2
+4395,High engagers,0
+4396,Moderate,1
+4397,Passive,2
+4398,Moderate,1
+4399,Passive,2
+4400,Moderate,1
+4401,High engagers,0
+4402,Passive,2
+4403,High engagers,0
+4404,High engagers,0
+4405,High engagers,0
+4406,High engagers,0
+4407,Passive,2
+4408,High engagers,0
+4409,Moderate,1
+4410,High engagers,0
+4411,High engagers,0
+4412,High engagers,0
+4413,Passive,2
+4414,High engagers,0
+4415,Passive,2
+4416,Passive,2
+4417,Passive,2
+4418,High engagers,0
+4419,High engagers,0
+4420,High engagers,0
+4421,High engagers,0
+4422,Moderate,1
+4423,High engagers,0
+4424,High engagers,0
+4425,Passive,2
+4426,High engagers,0
+4427,High engagers,0
+4428,High engagers,0
+4429,High engagers,0
+4430,High engagers,0
+4431,High engagers,0
+4432,High engagers,0
+4433,Passive,2
+4434,Passive,2
+4435,Moderate,1
+4436,High engagers,0
+4437,Passive,2
+4438,High engagers,0
+4439,Passive,2
+4440,Passive,2
+4441,High engagers,0
+4442,Moderate,1
+4443,High engagers,0
+4444,Moderate,1
+4445,Moderate,1
+4446,High engagers,0
+4447,Passive,2
+4448,High engagers,0
+4449,High engagers,0
+4450,Passive,2
+4451,Moderate,1
+4453,Passive,2
+4454,High engagers,0
+4455,Moderate,1
+4456,Moderate,1
+4457,Passive,2
+4458,High engagers,0
+4459,High engagers,0
+4460,High engagers,0
+4461,Passive,2
+4462,High engagers,0
+4463,Moderate,1
+4465,Moderate,1
+4466,High engagers,0
+4467,Passive,2
+4468,Passive,2
+4470,High engagers,0
+4471,High engagers,0
+4472,Passive,2
+4473,Moderate,1
+4474,High engagers,0
+4475,High engagers,0
+4476,Moderate,1
+4477,Moderate,1
+4478,Moderate,1
+4479,High engagers,0
+4481,Moderate,1
+4482,Passive,2
+4483,High engagers,0
+4484,High engagers,0
+4485,High engagers,0
+4486,Passive,2
+4487,High engagers,0
+4488,Passive,2
+4489,Passive,2
+4490,Moderate,1
+4491,Moderate,1
+4492,Passive,2
+4493,Passive,2
+4494,Moderate,1
+4495,Moderate,1
+4496,Moderate,1
+4497,Passive,2
+4498,Passive,2
+4499,Moderate,1
+4500,High engagers,0
+4501,Moderate,1
+4502,Passive,2
+4503,Passive,2
+4504,High engagers,0
+4505,Passive,2
+4506,Moderate,1
+4507,High engagers,0
+4508,Passive,2
+4509,High engagers,0
+4510,High engagers,0
+4511,Passive,2
+4512,High engagers,0
+4513,High engagers,0
+4514,High engagers,0
+4515,Passive,2
+4516,Moderate,1
+4517,Moderate,1
+4518,High engagers,0
+4519,High engagers,0
+4520,Moderate,1
+4521,Moderate,1
+4522,Moderate,1
+4523,High engagers,0
+4524,High engagers,0
+4525,Passive,2
+4526,Passive,2
+4527,Moderate,1
+4528,Moderate,1
+4529,Passive,2
+4530,Moderate,1
+4531,High engagers,0
+4532,High engagers,0
+4533,High engagers,0
+4534,Passive,2
+4535,Moderate,1
+4536,High engagers,0
+4537,High engagers,0
+4538,Passive,2
+4539,High engagers,0
+4540,Moderate,1
+4541,High engagers,0
+4542,Passive,2
+4544,High engagers,0
+4545,High engagers,0
+4546,Passive,2
+4548,High engagers,0
+4549,High engagers,0
+4550,Passive,2
+4551,Passive,2
+4552,Moderate,1
+4553,High engagers,0
+4554,Passive,2
+4555,Passive,2
+4556,Moderate,1
+4557,Passive,2
+4558,High engagers,0
+4559,High engagers,0
+4560,High engagers,0
+4562,High engagers,0
+4563,High engagers,0
+4564,Moderate,1
+4565,High engagers,0
+4566,High engagers,0
+4567,Passive,2
+4568,High engagers,0
+4569,Passive,2
+4570,Moderate,1
+4571,Passive,2
+4572,High engagers,0
+4573,Passive,2
+4574,High engagers,0
+4575,High engagers,0
+4576,Passive,2
+4577,Passive,2
+4578,Moderate,1
+4579,Moderate,1
+4580,Moderate,1
+4581,Moderate,1
+4582,Moderate,1
+4583,High engagers,0
+4585,Moderate,1
+4586,Moderate,1
+4587,High engagers,0
+4588,Moderate,1
+4589,Moderate,1
+4590,Moderate,1
+4591,High engagers,0
+4592,High engagers,0
+4593,High engagers,0
+4594,High engagers,0
+4595,Moderate,1
+4597,High engagers,0
+4598,High engagers,0
+4599,Moderate,1
+4600,Moderate,1
+4601,High engagers,0
+4602,High engagers,0
+4604,Passive,2
+4605,Passive,2
+4606,High engagers,0
+4607,Passive,2
+4608,Moderate,1
+4609,Moderate,1
+4611,Moderate,1
+4612,Moderate,1
+4613,High engagers,0
+4614,High engagers,0
+4615,High engagers,0
+4616,High engagers,0
+4617,Passive,2
+4618,Moderate,1
+4619,Passive,2
+4620,Moderate,1
+4621,Passive,2
+4622,Passive,2
+4623,Moderate,1
+4624,Passive,2
+4625,Passive,2
+4626,Passive,2
+4627,High engagers,0
+4628,Passive,2
+4629,High engagers,0
+4630,Passive,2
+4631,Moderate,1
+4632,Passive,2
+4633,Passive,2
+4634,High engagers,0
+4635,Moderate,1
+4636,Passive,2
+4637,High engagers,0
+4638,Moderate,1
+4639,High engagers,0
+4640,Moderate,1
+4641,High engagers,0
+4642,High engagers,0
+4643,High engagers,0
+4644,Moderate,1
+4645,Moderate,1
+4647,High engagers,0
+4648,Moderate,1
+4649,High engagers,0
+4650,High engagers,0
+4651,Passive,2
+4652,High engagers,0
+4653,High engagers,0
+4654,High engagers,0
+4655,High engagers,0
+4656,Moderate,1
+4657,High engagers,0
+4658,Passive,2
+4659,Moderate,1
+4660,Passive,2
+4661,High engagers,0
+4662,Passive,2
+4663,Passive,2
+4664,Passive,2
+4665,Moderate,1
+4666,High engagers,0
+4667,High engagers,0
+4668,High engagers,0
+4669,Moderate,1
+4670,Moderate,1
+4671,Passive,2
+4672,Passive,2
+4673,High engagers,0
+4674,High engagers,0
+4675,Moderate,1
+4676,High engagers,0
+4677,Passive,2
+4678,Moderate,1
+4679,High engagers,0
+4680,Moderate,1
+4681,High engagers,0
+4682,Moderate,1
+4683,High engagers,0
+4684,Passive,2
+4686,High engagers,0
+4687,High engagers,0
+4688,Passive,2
+4689,High engagers,0
+4690,High engagers,0
+4691,Moderate,1
+4692,High engagers,0
+4693,Moderate,1
+4694,Passive,2
+4695,High engagers,0
+4696,High engagers,0
+4697,Passive,2
+4698,High engagers,0
+4699,High engagers,0
+4700,Moderate,1
+4701,Passive,2
+4702,Passive,2
+4703,Passive,2
+4704,Moderate,1
+4705,Passive,2
+4706,High engagers,0
+4707,Moderate,1
+4708,Moderate,1
+4709,High engagers,0
+4710,Moderate,1
+4711,Moderate,1
+4712,High engagers,0
+4713,Moderate,1
+4714,Moderate,1
+4715,Passive,2
+4716,High engagers,0
+4717,High engagers,0
+4718,Moderate,1
+4719,High engagers,0
+4720,Passive,2
+4721,Passive,2
+4722,High engagers,0
+4723,Passive,2
+4724,Passive,2
+4725,High engagers,0
+4726,Moderate,1
+4727,Moderate,1
+4728,Moderate,1
+4729,High engagers,0
+4730,High engagers,0
+4731,Moderate,1
+4732,Passive,2
+4733,Passive,2
+4734,High engagers,0
+4735,Moderate,1
+4736,High engagers,0
+4737,High engagers,0
+4738,Moderate,1
+4739,Moderate,1
+4740,High engagers,0
+4741,Moderate,1
+4742,Moderate,1
+4743,High engagers,0
+4744,High engagers,0
+4745,Passive,2
+4746,High engagers,0
+4747,High engagers,0
+4748,Passive,2
+4749,Moderate,1
+4750,Passive,2
+4751,High engagers,0
+4752,High engagers,0
+4753,High engagers,0
+4754,Moderate,1
+4755,High engagers,0
+4756,Passive,2
+4757,High engagers,0
+4758,High engagers,0
+4759,Moderate,1
+4760,High engagers,0
+4761,High engagers,0
+4762,Moderate,1
+4763,Moderate,1
+4764,High engagers,0
+4765,Moderate,1
+4766,Moderate,1
+4767,Passive,2
+4768,Passive,2
+4769,Passive,2
+4770,High engagers,0
+4771,Moderate,1
+4772,High engagers,0
+4773,High engagers,0
+4774,Passive,2
+4775,High engagers,0
+4776,Moderate,1
+4777,Passive,2
+4778,High engagers,0
+4779,High engagers,0
+4780,High engagers,0
+4781,Moderate,1
+4782,Passive,2
+4783,High engagers,0
+4784,Moderate,1
+4786,Passive,2
+4787,Passive,2
+4788,Passive,2
+4789,High engagers,0
+4790,High engagers,0
+4791,High engagers,0
+4792,Passive,2
+4793,High engagers,0
+4794,High engagers,0
+4795,High engagers,0
+4796,High engagers,0
+4797,Moderate,1
+4798,High engagers,0
+4799,Moderate,1
+4800,High engagers,0
+4801,Passive,2
+4802,High engagers,0
+4803,High engagers,0
+4804,High engagers,0
+4805,High engagers,0
+4806,High engagers,0
+4807,Moderate,1
+4808,Moderate,1
+4809,High engagers,0
+4810,High engagers,0
+4811,Passive,2
+4812,High engagers,0
+4813,Passive,2
+4814,High engagers,0
+4815,High engagers,0
+4816,Moderate,1
+4817,Passive,2
+4818,Moderate,1
+4819,High engagers,0
+4820,High engagers,0
+4821,High engagers,0
+4822,High engagers,0
+4823,Passive,2
+4824,Passive,2
+4825,Moderate,1
+4826,Moderate,1
+4827,High engagers,0
+4828,High engagers,0
+4829,High engagers,0
+4830,High engagers,0
+4831,High engagers,0
+4832,Passive,2
+4833,Passive,2
+4834,High engagers,0
+4835,High engagers,0
+4836,High engagers,0
+4837,Passive,2
+4838,High engagers,0
+4839,Moderate,1
+4840,Moderate,1
+4841,High engagers,0
+4842,Moderate,1
+4843,High engagers,0
+4844,High engagers,0
+4845,Moderate,1
+4846,Passive,2
+4847,Passive,2
+4848,High engagers,0
+4849,Moderate,1
+4850,Passive,2
+4851,High engagers,0
+4852,High engagers,0
+4853,Passive,2
+4854,High engagers,0
+4855,Moderate,1
+4856,Passive,2
+4857,Passive,2
+4858,Passive,2
+4859,High engagers,0
+4860,Moderate,1
+4861,Moderate,1
+4862,High engagers,0
+4863,Moderate,1
+4864,Passive,2
+4865,Moderate,1
+4866,High engagers,0
+4867,High engagers,0
+4868,Passive,2
+4869,High engagers,0
+4870,Passive,2
+4871,Passive,2
+4872,Moderate,1
+4873,High engagers,0
+4874,High engagers,0
+4875,High engagers,0
+4876,Passive,2
+4877,High engagers,0
+4878,Moderate,1
+4879,Moderate,1
+4880,High engagers,0
+4881,Passive,2
+4882,Moderate,1
+4883,Moderate,1
+4884,Moderate,1
+4885,High engagers,0
+4886,High engagers,0
+4887,Passive,2
+4888,High engagers,0
+4889,Moderate,1
+4891,Passive,2
+4892,High engagers,0
+4893,High engagers,0
+4894,High engagers,0
+4895,High engagers,0
+4896,High engagers,0
+4897,Passive,2
+4898,Passive,2
+4899,Moderate,1
+4900,High engagers,0
+4901,Passive,2
+4902,High engagers,0
+4903,Passive,2
+4904,Moderate,1
+4905,Passive,2
+4906,Moderate,1
+4907,Passive,2
+4908,High engagers,0
+4909,Passive,2
+4910,High engagers,0
+4911,Moderate,1
+4912,Moderate,1
+4913,High engagers,0
+4914,Passive,2
+4915,High engagers,0
+4916,Moderate,1
+4917,High engagers,0
+4918,High engagers,0
+4919,High engagers,0
+4920,High engagers,0
+4921,High engagers,0
+4922,High engagers,0
+4923,High engagers,0
+4924,Passive,2
+4925,Moderate,1
+4926,High engagers,0
+4927,Moderate,1
+4928,Passive,2
+4929,High engagers,0
+4930,High engagers,0
+4931,Passive,2
+4932,High engagers,0
+4933,High engagers,0
+4934,Moderate,1
+4935,High engagers,0
+4936,High engagers,0
+4937,Moderate,1
+4938,Passive,2
+4939,Moderate,1
+4940,Moderate,1
+4941,High engagers,0
+4942,Moderate,1
+4943,High engagers,0
+4945,High engagers,0
+4946,High engagers,0
+4947,Passive,2
+4948,High engagers,0
+4949,Passive,2
+4950,Passive,2
+4951,Passive,2
+4952,High engagers,0
+4953,Moderate,1
+4955,Passive,2
+4956,Moderate,1
+4957,High engagers,0
+4958,Moderate,1
+4959,Moderate,1
+4960,High engagers,0
+4961,Passive,2
+4962,High engagers,0
+4963,Moderate,1
+4964,High engagers,0
+4965,High engagers,0
+4966,Passive,2
+4967,High engagers,0
+4968,Moderate,1
+4969,Moderate,1
+4970,Passive,2
+4971,Moderate,1
+4972,High engagers,0
+4973,High engagers,0
+4974,Moderate,1
+4975,Passive,2
+4976,Passive,2
+4977,Moderate,1
+4978,Passive,2
+4979,Moderate,1
+4980,Moderate,1
+4981,Passive,2
+4982,Moderate,1
+4983,High engagers,0
+4984,High engagers,0
+4985,Passive,2
+4986,Moderate,1
+4987,Moderate,1
+4988,High engagers,0
+4989,High engagers,0
+4990,Passive,2
+4991,Passive,2
+4992,High engagers,0
+4993,High engagers,0
+4994,High engagers,0
+4995,Moderate,1
+4996,Passive,2
+4997,High engagers,0
+4998,High engagers,0
+4999,High engagers,0
+5000,Passive,2
+5001,Moderate,1
+5002,Passive,2
+5003,High engagers,0
+5004,Passive,2
+5005,High engagers,0
+5006,Moderate,1
+5007,Passive,2
+5008,Moderate,1
+5009,Moderate,1
+5010,High engagers,0
+5011,High engagers,0
+5012,Moderate,1
+5013,Moderate,1
+5014,Moderate,1
+5015,High engagers,0
+5016,High engagers,0
+5017,Moderate,1
+5018,High engagers,0
+5019,High engagers,0
+5020,Moderate,1
+5021,Moderate,1
+5022,Moderate,1
+5023,High engagers,0
+5024,Moderate,1
+5025,High engagers,0
+5026,Moderate,1
+5027,High engagers,0
+5028,Passive,2
+5029,High engagers,0
+5030,Moderate,1
+5031,Moderate,1
+5032,High engagers,0
+5033,Passive,2
+5034,High engagers,0
+5035,Passive,2
+5036,Moderate,1
+5037,Moderate,1
+5038,Passive,2
+5039,Passive,2
+5040,Passive,2
+5041,High engagers,0
+5042,High engagers,0
+5043,High engagers,0
+5044,Moderate,1
+5045,Passive,2
+5047,High engagers,0
+5048,High engagers,0
+5049,Passive,2
+5051,High engagers,0
+5052,Passive,2
+5053,High engagers,0
+5054,High engagers,0
+5055,Passive,2
+5056,Moderate,1
+5057,Moderate,1
+5058,Passive,2
+5059,High engagers,0
+5060,Moderate,1
+5061,High engagers,0
+5062,High engagers,0
+5063,High engagers,0
+5064,High engagers,0
+5065,High engagers,0
+5066,High engagers,0
+5067,Passive,2
+5068,High engagers,0
+5069,High engagers,0
+5070,Passive,2
+5071,Passive,2
+5072,High engagers,0
+5073,High engagers,0
+5074,Moderate,1
+5075,Passive,2
+5076,Moderate,1
+5077,Passive,2
+5078,High engagers,0
+5079,Passive,2
+5080,Moderate,1
+5081,High engagers,0
+5082,High engagers,0
+5083,Moderate,1
+5084,Moderate,1
+5085,Moderate,1
+5086,High engagers,0
+5087,Passive,2
+5088,Moderate,1
+5089,Moderate,1
+5090,High engagers,0
+5091,Passive,2
+5092,High engagers,0
+5093,High engagers,0
+5094,Moderate,1
+5096,Passive,2
+5097,High engagers,0
+5098,High engagers,0
+5099,Moderate,1
+5100,High engagers,0
+5101,Passive,2
+5102,High engagers,0
+5103,Passive,2
+5104,High engagers,0
+5105,High engagers,0
+5106,Moderate,1
+5107,High engagers,0
+5108,Moderate,1
+5109,High engagers,0
+5110,High engagers,0
+5111,High engagers,0
+5112,Moderate,1
+5113,High engagers,0
+5114,High engagers,0
+5115,High engagers,0
+5116,High engagers,0
+5117,High engagers,0
+5118,Passive,2
+5119,High engagers,0
+5120,High engagers,0
+5121,High engagers,0
+5122,Moderate,1
+5123,Passive,2
+5124,High engagers,0
+5125,Moderate,1
+5126,High engagers,0
+5127,High engagers,0
+5128,High engagers,0
+5129,High engagers,0
+5130,Passive,2
+5131,Passive,2
+5132,High engagers,0
+5133,High engagers,0
+5134,High engagers,0
+5135,Passive,2
+5136,Passive,2
+5137,High engagers,0
+5138,High engagers,0
+5139,Moderate,1
+5140,Moderate,1
+5141,Moderate,1
+5142,High engagers,0
+5143,High engagers,0
+5144,High engagers,0
+5145,High engagers,0
+5146,High engagers,0
+5147,Passive,2
+5148,High engagers,0
+5149,High engagers,0
+5150,Passive,2
+5151,High engagers,0
+5152,Moderate,1
+5153,Moderate,1
+5154,High engagers,0
+5155,High engagers,0
+5156,High engagers,0
+5157,High engagers,0
+5158,High engagers,0
+5159,High engagers,0
+5160,High engagers,0
+5161,High engagers,0
+5162,High engagers,0
+5163,Moderate,1
+5164,Passive,2
+5165,High engagers,0
+5166,High engagers,0
+5167,High engagers,0
+5168,Moderate,1
+5169,High engagers,0
+5170,Passive,2
+5171,Moderate,1
+5172,High engagers,0
+5173,High engagers,0
+5174,Moderate,1
+5175,High engagers,0
+5176,Moderate,1
+5177,Passive,2
+5178,Passive,2
+5179,High engagers,0
+5180,High engagers,0
+5181,Moderate,1
+5182,High engagers,0
+5183,High engagers,0
+5184,High engagers,0
+5185,Moderate,1
+5186,Passive,2
+5187,High engagers,0
+5188,High engagers,0
+5189,Passive,2
+5190,Moderate,1
+5191,High engagers,0
+5192,Moderate,1
+5193,Passive,2
+5194,High engagers,0
+5195,High engagers,0
+5197,Passive,2
+5198,Moderate,1
+5199,High engagers,0
+5200,High engagers,0
+5201,High engagers,0
+5202,High engagers,0
+5203,High engagers,0
+5204,High engagers,0
+5205,High engagers,0
+5206,High engagers,0
+5207,Passive,2
+5208,High engagers,0
+5209,Moderate,1
+5210,Passive,2
+5211,High engagers,0
+5212,High engagers,0
+5214,Moderate,1
+5215,High engagers,0
+5216,Moderate,1
+5217,Moderate,1
+5218,High engagers,0
+5219,High engagers,0
+5220,High engagers,0
+5221,High engagers,0
+5222,High engagers,0
+5223,Passive,2
+5224,Moderate,1
+5225,Moderate,1
+5226,Passive,2
+5227,Passive,2
+5228,Passive,2
+5229,Moderate,1
+5230,Moderate,1
+5231,High engagers,0
+5232,Moderate,1
+5233,High engagers,0
+5234,High engagers,0
+5235,Passive,2
+5236,Moderate,1
+5237,Moderate,1
+5238,Moderate,1
+5239,Passive,2
+5240,Moderate,1
+5241,High engagers,0
+5242,Passive,2
+5243,Passive,2
+5244,Passive,2
+5245,Moderate,1
+5246,High engagers,0
+5247,Passive,2
+5248,High engagers,0
+5249,High engagers,0
+5250,Moderate,1
+5251,Passive,2
+5252,Passive,2
+5253,Passive,2
+5254,Passive,2
+5255,High engagers,0
+5256,Passive,2
+5257,High engagers,0
+5258,High engagers,0
+5259,Moderate,1
+5260,Passive,2
+5261,Passive,2
+5262,High engagers,0
+5263,High engagers,0
+5264,High engagers,0
+5265,High engagers,0
+5266,Passive,2
+5267,Passive,2
+5268,Passive,2
+5269,High engagers,0
+5270,Moderate,1
+5272,High engagers,0
+5273,High engagers,0
+5274,High engagers,0
+5275,Passive,2
+5276,High engagers,0
+5277,High engagers,0
+5278,High engagers,0
+5279,High engagers,0
+5280,Moderate,1
+5281,High engagers,0
+5282,High engagers,0
+5284,Moderate,1
+5285,Passive,2
+5286,Moderate,1
+5287,Passive,2
+5288,Moderate,1
+5289,Passive,2
+5290,High engagers,0
+5291,Moderate,1
+5292,Moderate,1
+5293,Passive,2
+5294,High engagers,0
+5295,High engagers,0
+5296,Passive,2
+5298,Moderate,1
+5299,Moderate,1
+5300,Moderate,1
+5301,Moderate,1
+5302,High engagers,0
+5303,Moderate,1
+5304,Moderate,1
+5305,High engagers,0
+5306,High engagers,0
+5308,Passive,2
+5309,High engagers,0
+5310,Moderate,1
+5311,High engagers,0
+5312,High engagers,0
+5313,High engagers,0
+5314,Passive,2
+5315,Passive,2
+5316,Passive,2
+5317,High engagers,0
+5318,Passive,2
+5319,Passive,2
+5320,High engagers,0
+5321,Moderate,1
+5322,Moderate,1
+5323,Moderate,1
+5324,Moderate,1
+5325,High engagers,0
+5326,Moderate,1
+5327,Moderate,1
+5328,High engagers,0
+5329,Passive,2
+5330,Moderate,1
+5331,High engagers,0
+5332,Passive,2
+5333,Moderate,1
+5334,Passive,2
+5335,High engagers,0
+5336,High engagers,0
+5337,High engagers,0
+5338,High engagers,0
+5339,High engagers,0
+5340,High engagers,0
+5341,High engagers,0
+5342,Passive,2
+5343,High engagers,0
+5344,High engagers,0
+5345,Passive,2
+5346,High engagers,0
+5347,Passive,2
+5348,High engagers,0
+5349,High engagers,0
+5350,High engagers,0
+5351,High engagers,0
+5352,High engagers,0
+5353,Passive,2
+5354,Moderate,1
+5355,High engagers,0
+5356,High engagers,0
+5357,Moderate,1
+5358,High engagers,0
+5359,Moderate,1
+5360,High engagers,0
+5361,High engagers,0
+5362,High engagers,0
+5363,Passive,2
+5364,Moderate,1
+5365,High engagers,0
+5366,High engagers,0
+5367,High engagers,0
+5368,Passive,2
+5369,High engagers,0
+5370,High engagers,0
+5371,High engagers,0
+5373,Passive,2
+5374,Moderate,1
+5375,Moderate,1
+5376,Moderate,1
+5377,Passive,2
+5378,Passive,2
+5379,Passive,2
+5380,High engagers,0
+5381,Passive,2
+5382,Moderate,1
+5383,Passive,2
+5384,Passive,2
+5385,Moderate,1
+5386,Passive,2
+5387,Moderate,1
+5388,High engagers,0
+5389,High engagers,0
+5390,High engagers,0
+5391,High engagers,0
+5392,High engagers,0
+5394,Moderate,1
+5395,Passive,2
+5396,High engagers,0
+5397,Moderate,1
+5398,High engagers,0
+5399,Passive,2
+5400,High engagers,0
+5401,High engagers,0
+5402,Moderate,1
+5403,Passive,2
+5404,High engagers,0
+5405,Moderate,1
+5406,High engagers,0
+5407,Moderate,1
+5408,High engagers,0
+5409,High engagers,0
+5410,High engagers,0
+5411,Passive,2
+5412,Passive,2
+5413,High engagers,0
+5414,High engagers,0
+5415,Passive,2
+5416,Passive,2
+5417,Passive,2
+5419,High engagers,0
+5420,High engagers,0
+5421,High engagers,0
+5422,High engagers,0
+5423,High engagers,0
+5424,High engagers,0
+5425,Passive,2
+5426,High engagers,0
+5428,High engagers,0
+5429,Moderate,1
+5430,Passive,2
+5431,High engagers,0
+5432,Passive,2
+5433,High engagers,0
+5434,High engagers,0
+5435,High engagers,0
+5436,High engagers,0
+5437,High engagers,0
+5438,High engagers,0
+5439,High engagers,0
+5440,Moderate,1
+5441,High engagers,0
+5443,Passive,2
+5444,Moderate,1
+5445,High engagers,0
+5446,Passive,2
+5447,Passive,2
+5448,High engagers,0
+5449,High engagers,0
+5450,Moderate,1
+5451,Passive,2
+5452,Moderate,1
+5453,High engagers,0
+5454,High engagers,0
+5455,Passive,2
+5456,Passive,2
+5457,Passive,2
+5458,Moderate,1
+5459,High engagers,0
+5460,High engagers,0
+5461,Moderate,1
+5462,High engagers,0
+5463,Passive,2
+5464,Moderate,1
+5465,High engagers,0
+5466,High engagers,0
+5467,High engagers,0
+5468,Moderate,1
+5469,High engagers,0
+5470,Passive,2
+5471,High engagers,0
+5472,High engagers,0
+5473,Moderate,1
+5474,Moderate,1
+5475,High engagers,0
+5476,Moderate,1
+5477,Passive,2
+5478,High engagers,0
+5479,High engagers,0
+5481,Moderate,1
+5482,Moderate,1
+5483,High engagers,0
+5484,Passive,2
+5485,Passive,2
+5486,Moderate,1
+5487,Moderate,1
+5488,High engagers,0
+5489,Passive,2
+5490,Passive,2
+5491,Passive,2
+5492,Moderate,1
+5493,High engagers,0
+5494,Passive,2
+5495,Passive,2
+5496,Passive,2
+5497,High engagers,0
+5498,High engagers,0
+5499,High engagers,0
+5500,Moderate,1
+5501,High engagers,0
+5502,High engagers,0
+5503,Moderate,1
+5504,High engagers,0
+5505,Moderate,1
+5506,High engagers,0
+5507,Moderate,1
+5508,High engagers,0
+5509,High engagers,0
+5510,High engagers,0
+5511,High engagers,0
+5512,Passive,2
+5513,Passive,2
+5514,High engagers,0
+5515,Moderate,1
+5517,High engagers,0
+5518,Passive,2
+5519,Passive,2
+5520,Passive,2
+5521,Passive,2
+5522,High engagers,0
+5523,Moderate,1
+5524,Passive,2
+5525,Moderate,1
+5526,High engagers,0
+5527,Moderate,1
+5528,Passive,2
+5530,Moderate,1
+5531,High engagers,0
+5532,Moderate,1
+5533,High engagers,0
+5534,Moderate,1
+5535,High engagers,0
+5536,High engagers,0
+5537,Moderate,1
+5538,High engagers,0
+5539,Moderate,1
+5540,High engagers,0
+5542,High engagers,0
+5543,Passive,2
+5544,Passive,2
+5545,High engagers,0
+5546,Moderate,1
+5548,High engagers,0
+5549,High engagers,0
+5550,High engagers,0
+5551,High engagers,0
+5552,Passive,2
+5553,High engagers,0
+5554,High engagers,0
+5555,High engagers,0
+5556,Passive,2
+5557,High engagers,0
+5558,Moderate,1
+5559,Moderate,1
+5560,Passive,2
+5561,High engagers,0
+5562,Moderate,1
+5563,High engagers,0
+5564,Passive,2
+5565,Moderate,1
+5566,High engagers,0
+5567,Moderate,1
+5568,Moderate,1
+5569,Passive,2
+5570,Passive,2
+5571,High engagers,0
+5572,High engagers,0
+5573,Moderate,1
+5574,Moderate,1
+5575,High engagers,0
+5576,High engagers,0
+5578,High engagers,0
+5579,Passive,2
+5580,High engagers,0
+5581,Passive,2
+5582,Moderate,1
+5583,Moderate,1
+5584,High engagers,0
+5585,High engagers,0
+5587,High engagers,0
+5588,Passive,2
+5589,Passive,2
+5590,Passive,2
+5591,Passive,2
+5592,High engagers,0
+5593,High engagers,0
+5594,Moderate,1
+5595,High engagers,0
+5596,Moderate,1
+5597,High engagers,0
+5598,High engagers,0
+5599,Moderate,1
+5600,High engagers,0
+5601,Passive,2
+5602,Moderate,1
+5603,High engagers,0
+5604,Moderate,1
+5605,Moderate,1
+5606,High engagers,0
+5607,Moderate,1
+5608,High engagers,0
+5609,Moderate,1
+5610,Moderate,1
+5611,High engagers,0
+5612,High engagers,0
+5613,High engagers,0
+5614,High engagers,0
+5615,Moderate,1
+5616,Passive,2
+5617,Moderate,1
+5618,High engagers,0
+5619,High engagers,0
+5620,Passive,2
+5621,High engagers,0
+5622,Moderate,1
+5623,High engagers,0
+5624,High engagers,0
+5625,Passive,2
+5626,High engagers,0
+5627,Passive,2
+5628,High engagers,0
+5629,High engagers,0
+5630,High engagers,0
+5631,High engagers,0
+5632,Passive,2
+5633,High engagers,0
+5634,Moderate,1
+5635,Moderate,1
+5636,High engagers,0
+5637,Moderate,1
+5638,Moderate,1
+5639,Moderate,1
+5640,Moderate,1
+5641,Passive,2
+5642,Passive,2
+5643,Passive,2
+5644,High engagers,0
+5645,High engagers,0
+5646,Moderate,1
+5647,Passive,2
+5648,High engagers,0
+5649,Passive,2
+5650,High engagers,0
+5651,Moderate,1
+5652,High engagers,0
+5653,Passive,2
+5654,Passive,2
+5655,Passive,2
+5656,Moderate,1
+5657,Moderate,1
+5658,High engagers,0
+5659,Passive,2
+5660,High engagers,0
+5661,High engagers,0
+5662,Moderate,1
+5663,High engagers,0
+5664,Passive,2
+5665,Moderate,1
+5666,Moderate,1
+5667,High engagers,0
+5668,High engagers,0
+5669,High engagers,0
+5670,High engagers,0
+5671,High engagers,0
+5672,Passive,2
+5673,High engagers,0
+5674,Passive,2
+5675,High engagers,0
+5676,Passive,2
+5677,High engagers,0
+5678,High engagers,0
+5679,High engagers,0
+5680,High engagers,0
+5681,High engagers,0
+5682,Passive,2
+5683,High engagers,0
+5684,High engagers,0
+5685,High engagers,0
+5686,High engagers,0
+5687,Moderate,1
+5688,High engagers,0
+5689,Moderate,1
+5690,High engagers,0
+5691,Moderate,1
+5692,Moderate,1
+5693,Passive,2
+5694,Moderate,1
+5695,High engagers,0
+5696,High engagers,0
+5697,High engagers,0
+5698,Passive,2
+5699,High engagers,0
+5700,Passive,2
+5701,Passive,2
+5702,High engagers,0
+5703,High engagers,0
+5704,High engagers,0
+5705,High engagers,0
+5706,Passive,2
+5707,Passive,2
+5708,Moderate,1
+5709,High engagers,0
+5710,Moderate,1
+5711,Moderate,1
+5712,High engagers,0
+5714,Passive,2
+5715,Passive,2
+5716,High engagers,0
+5717,Passive,2
+5719,Moderate,1
+5720,High engagers,0
+5721,Passive,2
+5722,Passive,2
+5723,High engagers,0
+5724,High engagers,0
+5725,High engagers,0
+5726,High engagers,0
+5727,Moderate,1
+5728,High engagers,0
+5729,Moderate,1
+5730,Passive,2
+5731,Moderate,1
+5732,High engagers,0
+5733,Passive,2
+5734,High engagers,0
+5735,High engagers,0
+5737,Moderate,1
+5738,Moderate,1
+5739,High engagers,0
+5740,High engagers,0
+5741,Passive,2
+5742,High engagers,0
+5743,Passive,2
+5744,Moderate,1
+5745,Moderate,1
+5746,Moderate,1
+5747,High engagers,0
+5748,High engagers,0
+5751,Passive,2
+5752,High engagers,0
+5753,Passive,2
+5754,Passive,2
+5755,High engagers,0
+5756,High engagers,0
+5757,Moderate,1
+5758,High engagers,0
+5759,Moderate,1
+5760,Moderate,1
+5761,Passive,2
+5762,High engagers,0
+5763,Moderate,1
+5764,High engagers,0
+5765,Passive,2
+5766,Passive,2
+5767,High engagers,0
+5768,High engagers,0
+5769,Passive,2
+5770,High engagers,0
+5771,Moderate,1
+5772,High engagers,0
+5773,Moderate,1
+5774,High engagers,0
+5775,High engagers,0
+5776,High engagers,0
+5777,High engagers,0
+5778,High engagers,0
+5779,Moderate,1
+5780,High engagers,0
+5783,High engagers,0
+5784,Moderate,1
+5785,Moderate,1
+5786,Moderate,1
+5787,High engagers,0
+5788,Moderate,1
+5789,High engagers,0
+5790,High engagers,0
+5791,Passive,2
+5792,Moderate,1
+5793,Passive,2
+5794,Passive,2
+5795,Passive,2
+5796,Passive,2
+5797,Passive,2
+5798,Moderate,1
+5799,Moderate,1
+5800,Passive,2
+5801,High engagers,0
+5802,High engagers,0
+5803,High engagers,0
+5804,High engagers,0
+5805,Moderate,1
+5806,Moderate,1
+5807,Passive,2
+5808,Passive,2
+5809,High engagers,0
+5810,Moderate,1
+5811,Passive,2
+5812,Moderate,1
+5813,Moderate,1
+5814,Moderate,1
+5815,Moderate,1
+5816,High engagers,0
+5817,High engagers,0
+5818,High engagers,0
+5819,High engagers,0
+5820,Moderate,1
+5821,High engagers,0
+5822,High engagers,0
+5823,High engagers,0
+5824,Passive,2
+5825,Passive,2
+5826,Passive,2
+5827,Passive,2
+5828,Moderate,1
+5829,Moderate,1
+5830,Passive,2
+5831,Moderate,1
+5832,Passive,2
+5833,Moderate,1
+5834,High engagers,0
+5835,Moderate,1
+5836,High engagers,0
+5837,High engagers,0
+5838,High engagers,0
+5839,Passive,2
+5840,High engagers,0
+5841,High engagers,0
+5842,High engagers,0
+5843,High engagers,0
+5844,High engagers,0
+5845,High engagers,0
+5846,High engagers,0
+5847,Passive,2
+5848,Moderate,1
+5849,Passive,2
+5850,High engagers,0
+5851,High engagers,0
+5852,Moderate,1
+5853,Moderate,1
+5854,Passive,2
+5855,Passive,2
+5856,Passive,2
+5857,High engagers,0
+5858,High engagers,0
+5859,High engagers,0
+5860,High engagers,0
+5861,Moderate,1
+5862,High engagers,0
+5863,Moderate,1
+5864,High engagers,0
+5865,High engagers,0
+5866,High engagers,0
+5867,Passive,2
+5868,High engagers,0
+5869,High engagers,0
+5870,Moderate,1
+5871,High engagers,0
+5872,Passive,2
+5873,High engagers,0
+5874,Passive,2
+5875,Moderate,1
+5876,Moderate,1
+5877,High engagers,0
+5878,High engagers,0
+5879,High engagers,0
+5880,High engagers,0
+5881,Moderate,1
+5882,High engagers,0
+5883,Passive,2
+5884,Passive,2
+5885,Moderate,1
+5886,Moderate,1
+5887,High engagers,0
+5888,High engagers,0
+5889,Moderate,1
+5890,Passive,2
+5892,Passive,2
+5893,Passive,2
+5894,High engagers,0
+5895,Passive,2
+5896,High engagers,0
+5897,High engagers,0
+5898,High engagers,0
+5899,High engagers,0
+5900,High engagers,0
+5901,Passive,2
+5902,Moderate,1
+5903,High engagers,0
+5904,High engagers,0
+5905,Moderate,1
+5906,Moderate,1
+5907,High engagers,0
+5908,Passive,2
+5909,Moderate,1
+5910,Moderate,1
+5911,High engagers,0
+5912,High engagers,0
+5913,High engagers,0
+5914,Moderate,1
+5915,High engagers,0
+5916,High engagers,0
+5917,High engagers,0
+5918,High engagers,0
+5919,Passive,2
+5920,High engagers,0
+5921,High engagers,0
+5922,Passive,2
+5923,High engagers,0
+5924,High engagers,0
+5925,Moderate,1
+5926,High engagers,0
+5927,Passive,2
+5928,High engagers,0
+5929,Moderate,1
+5930,Moderate,1
+5932,Passive,2
+5933,High engagers,0
+5934,Passive,2
+5935,High engagers,0
+5936,Moderate,1
+5937,High engagers,0
+5938,High engagers,0
+5939,High engagers,0
+5940,Moderate,1
+5941,High engagers,0
+5942,High engagers,0
+5943,Moderate,1
+5944,High engagers,0
+5945,High engagers,0
+5946,Passive,2
+5947,High engagers,0
+5948,High engagers,0
+5949,High engagers,0
+5950,Moderate,1
+5951,High engagers,0
+5952,High engagers,0
+5953,High engagers,0
+5954,High engagers,0
+5955,High engagers,0
+5956,High engagers,0
+5957,High engagers,0
+5958,High engagers,0
+5959,Passive,2
+5960,Moderate,1
+5961,Passive,2
+5962,High engagers,0
+5963,High engagers,0
+5964,Moderate,1
+5965,Passive,2
+5966,High engagers,0
+5967,High engagers,0
+5968,Passive,2
+5969,Passive,2
+5970,High engagers,0
+5971,High engagers,0
+5972,High engagers,0
+5973,Moderate,1
+5975,High engagers,0
+5976,High engagers,0
+5977,Passive,2
+5978,High engagers,0
+5979,High engagers,0
+5980,Moderate,1
+5981,Passive,2
+5982,High engagers,0
+5983,High engagers,0
+5984,Passive,2
+5985,High engagers,0
+5986,High engagers,0
+5987,High engagers,0
+5988,High engagers,0
+5990,High engagers,0
+5991,Passive,2
+5992,Moderate,1
+5994,High engagers,0
+5995,Moderate,1
+5996,Passive,2
+5997,High engagers,0
+5998,Passive,2
+5999,Passive,2
+6000,Moderate,1
+6001,Moderate,1
+6002,Passive,2
+6003,Moderate,1
+6004,High engagers,0
+6005,Moderate,1
+6006,High engagers,0
+6007,High engagers,0
+6008,Passive,2
+6009,Moderate,1
+6010,High engagers,0
+6011,High engagers,0
+6012,Moderate,1
+6013,Passive,2
+6014,High engagers,0
+6015,Passive,2
+6016,Passive,2
+6017,Moderate,1
+6018,Passive,2
+6019,High engagers,0
+6020,Passive,2
+6022,Moderate,1
+6023,Passive,2
+6024,High engagers,0
+6025,High engagers,0
+6026,Moderate,1
+6027,Passive,2
+6028,Moderate,1
+6029,High engagers,0
+6030,Moderate,1
+6031,Moderate,1
+6032,High engagers,0
+6033,Passive,2
+6034,High engagers,0
+6035,High engagers,0
+6036,High engagers,0
+6037,Moderate,1
+6038,Passive,2
+6039,Passive,2
+6040,High engagers,0
+6041,High engagers,0
+6042,Passive,2
+6043,High engagers,0
+6045,High engagers,0
+6046,Passive,2
+6047,High engagers,0
+6048,Passive,2
+6049,High engagers,0
+6050,High engagers,0
+6051,High engagers,0
+6052,High engagers,0
+6053,Passive,2
+6054,Moderate,1
+6055,Moderate,1
+6056,High engagers,0
+6057,Moderate,1
+6058,High engagers,0
+6059,High engagers,0
+6060,Passive,2
+6061,High engagers,0
+6062,Passive,2
+6063,High engagers,0
+6064,High engagers,0
+6065,Moderate,1
+6066,Passive,2
+6067,Moderate,1
+6068,High engagers,0
+6069,Passive,2
+6070,Passive,2
+6071,Passive,2
+6072,High engagers,0
+6073,High engagers,0
+6074,Moderate,1
+6075,High engagers,0
+6076,High engagers,0
+6077,High engagers,0
+6078,High engagers,0
+6079,High engagers,0
+6080,High engagers,0
+6081,Passive,2
+6082,Passive,2
+6083,Passive,2
+6084,High engagers,0
+6085,Passive,2
+6086,Moderate,1
+6087,Moderate,1
+6088,Passive,2
+6089,High engagers,0
+6090,High engagers,0
+6091,Moderate,1
+6092,Passive,2
+6093,Moderate,1
+6094,Moderate,1
+6095,Passive,2
+6096,High engagers,0
+6097,Passive,2
+6098,Moderate,1
+6099,High engagers,0
+6100,Moderate,1
+6101,Passive,2
+6102,Passive,2
+6103,Passive,2
+6104,Passive,2
+6105,High engagers,0
+6107,Moderate,1
+6108,High engagers,0
+6109,Moderate,1
+6110,High engagers,0
+6111,High engagers,0
+6112,High engagers,0
+6113,High engagers,0
+6115,High engagers,0
+6116,High engagers,0
+6117,Moderate,1
+6118,High engagers,0
+6119,Passive,2
+6120,High engagers,0
+6121,High engagers,0
+6122,Moderate,1
+6123,High engagers,0
+6124,Passive,2
+6125,High engagers,0
+6126,Moderate,1
+6127,Moderate,1
+6128,High engagers,0
+6129,High engagers,0
+6130,High engagers,0
+6131,High engagers,0
+6132,High engagers,0
+6133,High engagers,0
+6134,Passive,2
+6135,High engagers,0
+6136,High engagers,0
+6138,Passive,2
+6139,Passive,2
+6140,Passive,2
+6141,High engagers,0
+6142,High engagers,0
+6143,High engagers,0
+6144,High engagers,0
+6145,Moderate,1
+6146,High engagers,0
+6147,High engagers,0
+6148,Passive,2
+6149,Moderate,1
+6150,Moderate,1
+6151,High engagers,0
+6152,Moderate,1
+6153,High engagers,0
+6154,Moderate,1
+6155,Moderate,1
+6156,Passive,2
+6157,Moderate,1
+6158,High engagers,0
+6159,Moderate,1
+6160,High engagers,0
+6161,Passive,2
+6162,Moderate,1
+6163,Moderate,1
+6164,High engagers,0
+6165,Passive,2
+6166,High engagers,0
+6167,Passive,2
+6168,High engagers,0
+6169,Moderate,1
+6170,Passive,2
+6171,Passive,2
+6172,High engagers,0
+6173,High engagers,0
+6174,Moderate,1
+6175,Passive,2
+6177,Passive,2
+6178,High engagers,0
+6179,High engagers,0
+6180,High engagers,0
+6181,Moderate,1
+6182,Moderate,1
+6183,High engagers,0
+6184,High engagers,0
+6185,High engagers,0
+6186,Moderate,1
+6187,Moderate,1
+6188,High engagers,0
+6189,Moderate,1
+6190,Moderate,1
+6191,Passive,2
+6192,Moderate,1
+6193,Moderate,1
+6194,Moderate,1
+6195,Passive,2
+6196,Moderate,1
+6197,High engagers,0
+6198,High engagers,0
+6199,High engagers,0
+6200,Moderate,1
+6201,High engagers,0
+6202,High engagers,0
+6203,Passive,2
+6204,Passive,2
+6205,Moderate,1
+6206,High engagers,0
+6207,High engagers,0
+6208,Passive,2
+6209,Passive,2
+6210,High engagers,0
+6211,Moderate,1
+6212,High engagers,0
+6213,High engagers,0
+6214,High engagers,0
+6215,Passive,2
+6216,Passive,2
+6217,High engagers,0
+6218,Moderate,1
+6219,Passive,2
+6220,High engagers,0
+6221,Moderate,1
+6222,Moderate,1
+6223,Passive,2
+6224,High engagers,0
+6225,Moderate,1
+6226,High engagers,0
+6227,Passive,2
+6228,Moderate,1
+6229,Moderate,1
+6230,Passive,2
+6231,Passive,2
+6232,Moderate,1
+6233,High engagers,0
+6234,Moderate,1
+6235,High engagers,0
+6236,High engagers,0
+6237,High engagers,0
+6238,Passive,2
+6239,Moderate,1
+6240,High engagers,0
+6241,Passive,2
+6242,Passive,2
+6243,Moderate,1
+6244,Moderate,1
+6245,Moderate,1
+6246,Moderate,1
+6247,Passive,2
+6249,High engagers,0
+6250,High engagers,0
+6251,Passive,2
+6252,Passive,2
+6253,Passive,2
+6254,Moderate,1
+6255,Passive,2
+6256,High engagers,0
+6257,Moderate,1
+6258,High engagers,0
+6259,Moderate,1
+6260,Passive,2
+6261,High engagers,0
+6262,Moderate,1
+6263,Moderate,1
+6264,High engagers,0
+6265,Moderate,1
+6266,Moderate,1
+6267,High engagers,0
+6268,High engagers,0
+6269,High engagers,0
+6270,High engagers,0
+6271,High engagers,0
+6272,Passive,2
+6273,High engagers,0
+6274,Passive,2
+6275,High engagers,0
+6276,High engagers,0
+6277,High engagers,0
+6278,Moderate,1
+6279,Moderate,1
+6280,High engagers,0
+6281,Moderate,1
+6282,Moderate,1
+6283,Passive,2
+6284,Moderate,1
+6285,High engagers,0
+6286,Moderate,1
+6287,Passive,2
+6289,High engagers,0
+6290,Passive,2
+6291,Moderate,1
+6292,Passive,2
+6293,Moderate,1
+6295,High engagers,0
+6296,High engagers,0
+6297,Moderate,1
+6298,Passive,2
+6299,High engagers,0
+6300,High engagers,0
+6301,High engagers,0
+6302,High engagers,0
+6303,Moderate,1
+6304,High engagers,0
+6305,Moderate,1
+6306,Moderate,1
+6307,High engagers,0
+6308,Moderate,1
+6309,Passive,2
+6310,High engagers,0
+6311,High engagers,0
+6312,High engagers,0
+6314,High engagers,0
+6315,High engagers,0
+6316,Passive,2
+6317,Passive,2
+6318,Passive,2
+6319,Moderate,1
+6320,High engagers,0
+6321,Moderate,1
+6322,Moderate,1
+6323,High engagers,0
+6324,High engagers,0
+6325,High engagers,0
+6326,High engagers,0
+6327,High engagers,0
+6328,High engagers,0
+6329,Moderate,1
+6330,High engagers,0
+6331,Moderate,1
+6332,Moderate,1
+6333,High engagers,0
+6334,Moderate,1
+6335,Moderate,1
+6336,High engagers,0
+6337,Moderate,1
+6338,Moderate,1
+6339,High engagers,0
+6340,High engagers,0
+6341,High engagers,0
+6342,Moderate,1
+6343,High engagers,0
+6344,High engagers,0
+6345,Passive,2
+6346,High engagers,0
+6347,High engagers,0
+6348,Moderate,1
+6349,Passive,2
+6350,High engagers,0
+6351,Moderate,1
+6352,High engagers,0
+6353,Passive,2
+6354,High engagers,0
+6355,High engagers,0
+6356,Moderate,1
+6357,High engagers,0
+6358,High engagers,0
+6359,High engagers,0
+6360,High engagers,0
+6361,Moderate,1
+6362,Passive,2
+6363,High engagers,0
+6364,Passive,2
+6365,Passive,2
+6366,Moderate,1
+6367,Moderate,1
+6368,Passive,2
+6369,High engagers,0
+6370,High engagers,0
+6371,High engagers,0
+6372,Passive,2
+6374,Passive,2
+6375,Passive,2
+6376,High engagers,0
+6377,Passive,2
+6378,Passive,2
+6379,High engagers,0
+6380,Moderate,1
+6381,Moderate,1
+6382,Passive,2
+6383,Moderate,1
+6384,Moderate,1
+6385,Moderate,1
+6386,High engagers,0
+6387,Moderate,1
+6388,High engagers,0
+6390,Moderate,1
+6391,Moderate,1
+6392,High engagers,0
+6393,High engagers,0
+6394,High engagers,0
+6395,High engagers,0
+6396,High engagers,0
+6397,High engagers,0
+6398,Moderate,1
+6399,High engagers,0
+6400,Passive,2
+6401,Moderate,1
+6402,Passive,2
+6403,Moderate,1
+6404,Moderate,1
+6405,Passive,2
+6406,Passive,2
+6407,High engagers,0
+6408,High engagers,0
+6409,Passive,2
+6410,High engagers,0
+6411,High engagers,0
+6412,High engagers,0
+6413,High engagers,0
+6414,Moderate,1
+6415,High engagers,0
+6416,Moderate,1
+6417,Moderate,1
+6418,Moderate,1
+6419,Passive,2
+6420,Passive,2
+6421,Passive,2
+6422,High engagers,0
+6423,High engagers,0
+6424,Passive,2
+6425,Passive,2
+6426,Moderate,1
+6427,High engagers,0
+6428,High engagers,0
+6429,Passive,2
+6430,Moderate,1
+6431,High engagers,0
+6432,Passive,2
+6433,Passive,2
+6434,High engagers,0
+6435,Passive,2
+6436,Passive,2
+6437,High engagers,0
+6438,High engagers,0
+6439,Moderate,1
+6440,Moderate,1
+6441,Passive,2
+6442,Passive,2
+6443,Passive,2
+6444,Moderate,1
+6445,High engagers,0
+6446,High engagers,0
+6447,Passive,2
+6448,Moderate,1
+6449,High engagers,0
+6450,High engagers,0
+6451,Moderate,1
+6452,High engagers,0
+6453,Passive,2
+6454,Passive,2
+6455,Moderate,1
+6456,High engagers,0
+6457,Passive,2
+6458,High engagers,0
+6459,High engagers,0
+6460,High engagers,0
+6461,Passive,2
+6462,Moderate,1
+6463,High engagers,0
+6464,High engagers,0
+6465,High engagers,0
+6466,High engagers,0
+6467,Moderate,1
+6468,Moderate,1
+6470,Moderate,1
+6471,Passive,2
+6472,Moderate,1
+6474,High engagers,0
+6475,High engagers,0
+6476,Moderate,1
+6477,High engagers,0
+6478,High engagers,0
+6479,Moderate,1
+6480,High engagers,0
+6481,Passive,2
+6482,Passive,2
+6483,High engagers,0
+6484,High engagers,0
+6486,High engagers,0
+6487,High engagers,0
+6488,High engagers,0
+6489,Passive,2
+6491,Moderate,1
+6492,Moderate,1
+6493,Moderate,1
+6494,High engagers,0
+6495,High engagers,0
+6496,Moderate,1
+6497,Moderate,1
+6498,High engagers,0
+6499,Moderate,1
+6500,Passive,2
+6501,High engagers,0
+6502,Moderate,1
+6503,Passive,2
+6504,Passive,2
+6505,High engagers,0
+6506,Passive,2
+6507,Passive,2
+6508,Passive,2
+6509,Moderate,1
+6510,Passive,2
+6511,High engagers,0
+6512,High engagers,0
+6513,High engagers,0
+6514,High engagers,0
+6515,High engagers,0
+6516,High engagers,0
+6517,Moderate,1
+6518,High engagers,0
+6519,High engagers,0
+6520,Moderate,1
+6521,High engagers,0
+6522,High engagers,0
+6523,High engagers,0
+6524,Moderate,1
+6525,High engagers,0
+6527,High engagers,0
+6528,Moderate,1
+6529,Passive,2
+6530,High engagers,0
+6531,Passive,2
+6533,High engagers,0
+6534,High engagers,0
+6535,Passive,2
+6536,High engagers,0
+6537,High engagers,0
+6538,High engagers,0
+6539,High engagers,0
+6540,High engagers,0
+6541,High engagers,0
+6542,Passive,2
+6543,High engagers,0
+6544,High engagers,0
+6545,Passive,2
+6546,High engagers,0
+6547,Passive,2
+6548,Moderate,1
+6549,High engagers,0
+6550,High engagers,0
+6551,Moderate,1
+6552,High engagers,0
+6553,High engagers,0
+6554,High engagers,0
+6555,Passive,2
+6556,Passive,2
+6557,High engagers,0
+6558,Moderate,1
+6559,Passive,2
+6560,Passive,2
+6561,Moderate,1
+6562,High engagers,0
+6563,Moderate,1
+6564,High engagers,0
+6565,Passive,2
+6566,High engagers,0
+6567,Moderate,1
+6568,High engagers,0
+6569,Passive,2
+6570,High engagers,0
+6571,High engagers,0
+6572,Passive,2
+6573,High engagers,0
+6574,High engagers,0
+6575,Moderate,1
+6576,High engagers,0
+6577,Moderate,1
+6578,High engagers,0
+6581,Moderate,1
+6582,Moderate,1
+6583,High engagers,0
+6584,Moderate,1
+6585,Passive,2
+6586,High engagers,0
+6587,High engagers,0
+6589,Passive,2
+6590,Moderate,1
+6591,High engagers,0
+6592,Moderate,1
+6593,Moderate,1
+6594,High engagers,0
+6596,Moderate,1
+6597,High engagers,0
+6598,Passive,2
+6599,Moderate,1
+6600,High engagers,0
+6601,Moderate,1
+6602,Moderate,1
+6603,Passive,2
+6604,Passive,2
+6605,Passive,2
+6606,Passive,2
+6607,Passive,2
+6608,Passive,2
+6609,Passive,2
+6610,Moderate,1
+6611,Passive,2
+6612,High engagers,0
+6613,High engagers,0
+6614,High engagers,0
+6616,High engagers,0
+6617,High engagers,0
+6618,Moderate,1
+6619,Passive,2
+6620,High engagers,0
+6621,High engagers,0
+6622,High engagers,0
+6623,Passive,2
+6624,Passive,2
+6625,Moderate,1
+6626,Moderate,1
+6627,Moderate,1
+6628,High engagers,0
+6629,High engagers,0
+6630,Passive,2
+6631,High engagers,0
+6632,High engagers,0
+6633,Moderate,1
+6634,Moderate,1
+6635,High engagers,0
+6636,High engagers,0
+6637,Moderate,1
+6638,High engagers,0
+6639,High engagers,0
+6640,Moderate,1
+6641,Moderate,1
+6642,High engagers,0
+6643,High engagers,0
+6644,High engagers,0
+6645,High engagers,0
+6646,Moderate,1
+6647,Moderate,1
+6648,Moderate,1
+6649,Passive,2
+6650,Passive,2
+6651,High engagers,0
+6653,Moderate,1
+6654,High engagers,0
+6655,Moderate,1
+6656,High engagers,0
+6657,Passive,2
+6658,Moderate,1
+6659,High engagers,0
+6660,High engagers,0
+6661,Passive,2
+6662,High engagers,0
+6663,High engagers,0
+6664,Moderate,1
+6665,Passive,2
+6666,Moderate,1
+6667,High engagers,0
+6668,High engagers,0
+6669,High engagers,0
+6670,High engagers,0
+6671,High engagers,0
+6672,High engagers,0
+6673,Moderate,1
+6674,Passive,2
+6675,High engagers,0
+6676,High engagers,0
+6677,Passive,2
+6678,High engagers,0
+6679,High engagers,0
+6680,High engagers,0
+6681,High engagers,0
+6682,High engagers,0
+6683,High engagers,0
+6684,Passive,2
+6685,Moderate,1
+6686,Moderate,1
+6687,Passive,2
+6688,Moderate,1
+6689,Passive,2
+6690,Passive,2
+6691,Passive,2
+6692,Moderate,1
+6693,Passive,2
+6694,Moderate,1
+6695,Passive,2
+6696,High engagers,0
+6697,High engagers,0
+6698,High engagers,0
+6699,Passive,2
+6700,Moderate,1
+6701,Passive,2
+6702,High engagers,0
+6703,Moderate,1
+6704,Moderate,1
+6705,High engagers,0
+6706,Moderate,1
+6707,Passive,2
+6708,High engagers,0
+6709,Passive,2
+6710,High engagers,0
+6711,Moderate,1
+6712,Moderate,1
+6713,High engagers,0
+6714,Passive,2
+6715,Passive,2
+6716,High engagers,0
+6717,Passive,2
+6718,High engagers,0
+6719,Moderate,1
+6720,High engagers,0
+6721,Passive,2
+6722,High engagers,0
+6723,High engagers,0
+6724,High engagers,0
+6725,Moderate,1
+6726,Passive,2
+6727,High engagers,0
+6728,Passive,2
+6729,High engagers,0
+6730,Moderate,1
+6731,High engagers,0
+6732,High engagers,0
+6733,Passive,2
+6734,Passive,2
+6735,High engagers,0
+6737,High engagers,0
+6738,Moderate,1
+6739,High engagers,0
+6740,Passive,2
+6741,High engagers,0
+6742,High engagers,0
+6743,Moderate,1
+6744,High engagers,0
+6745,Passive,2
+6746,Moderate,1
+6747,High engagers,0
+6748,High engagers,0
+6749,High engagers,0
+6750,High engagers,0
+6751,High engagers,0
+6752,Moderate,1
+6753,Moderate,1
+6754,Passive,2
+6755,Passive,2
+6756,Moderate,1
+6757,Passive,2
+6758,High engagers,0
+6759,Moderate,1
+6760,High engagers,0
+6761,High engagers,0
+6762,Passive,2
+6763,Moderate,1
+6764,Passive,2
+6765,Passive,2
+6766,High engagers,0
+6767,Passive,2
+6768,Passive,2
+6769,High engagers,0
+6770,High engagers,0
+6771,Moderate,1
+6772,High engagers,0
+6773,Passive,2
+6775,High engagers,0
+6776,Moderate,1
+6777,High engagers,0
+6778,High engagers,0
+6779,Moderate,1
+6780,Passive,2
+6781,Passive,2
+6782,Moderate,1
+6783,High engagers,0
+6784,Moderate,1
+6785,Moderate,1
+6786,Passive,2
+6787,Moderate,1
+6788,Moderate,1
+6789,High engagers,0
+6790,High engagers,0
+6791,High engagers,0
+6792,High engagers,0
+6793,High engagers,0
+6794,High engagers,0
+6795,Moderate,1
+6796,Moderate,1
+6797,Passive,2
+6798,Passive,2
+6799,High engagers,0
+6800,Passive,2
+6801,High engagers,0
+6802,Passive,2
+6803,Moderate,1
+6804,High engagers,0
+6805,High engagers,0
+6806,High engagers,0
+6807,High engagers,0
+6808,Moderate,1
+6809,Moderate,1
+6810,Passive,2
+6811,Moderate,1
+6812,Moderate,1
+6813,Passive,2
+6814,Moderate,1
+6815,Moderate,1
+6816,High engagers,0
+6817,High engagers,0
+6818,High engagers,0
+6819,Passive,2
+6821,High engagers,0
+6822,High engagers,0
+6823,Passive,2
+6824,High engagers,0
+6825,Passive,2
+6826,High engagers,0
+6827,Moderate,1
+6828,Passive,2
+6829,High engagers,0
+6830,Moderate,1
+6831,High engagers,0
+6832,High engagers,0
+6833,High engagers,0
+6835,Passive,2
+6836,Passive,2
+6837,High engagers,0
+6838,High engagers,0
+6840,High engagers,0
+6841,Moderate,1
+6842,Moderate,1
+6843,Passive,2
+6844,Passive,2
+6845,Passive,2
+6846,Moderate,1
+6847,High engagers,0
+6848,Moderate,1
+6849,High engagers,0
+6852,High engagers,0
+6853,Moderate,1
+6854,Moderate,1
+6855,Moderate,1
+6856,Moderate,1
+6857,Passive,2
+6858,Passive,2
+6859,Moderate,1
+6860,High engagers,0
+6861,High engagers,0
+6862,Moderate,1
+6863,Moderate,1
+6864,Moderate,1
+6865,High engagers,0
+6866,Moderate,1
+6867,High engagers,0
+6868,High engagers,0
+6869,High engagers,0
+6870,High engagers,0
+6871,Passive,2
+6872,Moderate,1
+6873,High engagers,0
+6874,High engagers,0
+6875,Passive,2
+6876,High engagers,0
+6877,High engagers,0
+6878,Moderate,1
+6879,High engagers,0
+6880,High engagers,0
+6881,Moderate,1
+6882,High engagers,0
+6883,High engagers,0
+6884,Moderate,1
+6885,Moderate,1
+6887,High engagers,0
+6888,High engagers,0
+6889,Passive,2
+6890,Passive,2
+6891,Moderate,1
+6892,Passive,2
+6893,Passive,2
+6894,Moderate,1
+6895,High engagers,0
+6896,High engagers,0
+6897,Passive,2
+6898,Passive,2
+6899,Passive,2
+6900,Moderate,1
+6901,High engagers,0
+6902,Moderate,1
+6903,Passive,2
+6904,Moderate,1
+6905,High engagers,0
+6906,Moderate,1
+6907,High engagers,0
+6908,High engagers,0
+6910,High engagers,0
+6911,Moderate,1
+6912,High engagers,0
+6913,High engagers,0
+6914,Moderate,1
+6915,High engagers,0
+6916,Moderate,1
+6917,Moderate,1
+6918,High engagers,0
+6919,High engagers,0
+6920,Passive,2
+6921,Passive,2
+6922,High engagers,0
+6923,High engagers,0
+6924,Passive,2
+6925,Passive,2
+6926,Passive,2
+6927,High engagers,0
+6928,High engagers,0
+6929,High engagers,0
+6931,High engagers,0
+6932,High engagers,0
+6933,High engagers,0
+6934,High engagers,0
+6935,Moderate,1
+6936,High engagers,0
+6937,High engagers,0
+6938,Passive,2
+6939,Passive,2
+6940,Passive,2
+6941,Passive,2
+6942,High engagers,0
+6943,Passive,2
+6944,Moderate,1
+6945,High engagers,0
+6946,High engagers,0
+6947,High engagers,0
+6948,High engagers,0
+6949,High engagers,0
+6950,Moderate,1
+6951,Passive,2
+6953,High engagers,0
+6954,High engagers,0
+6955,Moderate,1
+6956,High engagers,0
+6957,Passive,2
+6958,High engagers,0
+6959,High engagers,0
+6960,High engagers,0
+6961,High engagers,0
+6962,Moderate,1
+6963,High engagers,0
+6964,Moderate,1
+6965,Moderate,1
+6966,High engagers,0
+6967,High engagers,0
+6968,Passive,2
+6969,High engagers,0
+6970,High engagers,0
+6971,Passive,2
+6972,Passive,2
+6973,Passive,2
+6975,Moderate,1
+6976,High engagers,0
+6977,High engagers,0
+6978,High engagers,0
+6979,High engagers,0
+6980,Moderate,1
+6981,Passive,2
+6983,Passive,2
+6984,Moderate,1
+6985,Moderate,1
+6986,High engagers,0
+6987,Passive,2
+6988,Moderate,1
+6989,High engagers,0
+6990,High engagers,0
+6991,Passive,2
+6992,Passive,2
+6993,Moderate,1
+6994,High engagers,0
+6995,Moderate,1
+6996,Passive,2
+6997,High engagers,0
+6998,High engagers,0
+6999,High engagers,0
+7000,Moderate,1
+7001,Passive,2
+7002,Passive,2
+7003,High engagers,0
+7004,Moderate,1
+7005,Moderate,1
+7006,High engagers,0
+7007,High engagers,0
+7008,Moderate,1
+7009,High engagers,0
+7010,High engagers,0
+7011,Passive,2
+7013,High engagers,0
+7014,High engagers,0
+7015,Passive,2
+7016,Passive,2
+7017,Passive,2
+7018,Passive,2
+7019,Moderate,1
+7020,Moderate,1
+7023,High engagers,0
+7024,Moderate,1
+7025,Passive,2
+7026,High engagers,0
+7027,Moderate,1
+7028,High engagers,0
+7029,Passive,2
+7030,High engagers,0
+7031,High engagers,0
+7032,High engagers,0
+7033,High engagers,0
+7034,Moderate,1
+7035,High engagers,0
+7036,High engagers,0
+7037,Passive,2
+7038,High engagers,0
+7039,Passive,2
+7040,High engagers,0
+7041,High engagers,0
+7042,High engagers,0
+7043,Moderate,1
+7044,Passive,2
+7046,High engagers,0
+7047,Moderate,1
+7048,Moderate,1
+7049,High engagers,0
+7050,High engagers,0
+7051,High engagers,0
+7052,Passive,2
+7053,Passive,2
+7054,Passive,2
+7055,Passive,2
+7056,High engagers,0
+7057,High engagers,0
+7058,High engagers,0
+7059,High engagers,0
+7060,High engagers,0
+7061,High engagers,0
+7062,Passive,2
+7063,High engagers,0
+7064,Moderate,1
+7065,High engagers,0
+7066,High engagers,0
+7067,High engagers,0
+7068,High engagers,0
+7069,Passive,2
+7070,Moderate,1
+7071,Passive,2
+7072,Moderate,1
+7073,Passive,2
+7074,Moderate,1
+7075,High engagers,0
+7076,High engagers,0
+7077,High engagers,0
+7079,Moderate,1
+7081,High engagers,0
+7082,Passive,2
+7083,High engagers,0
+7084,High engagers,0
+7085,Moderate,1
+7086,Moderate,1
+7087,Passive,2
+7088,Passive,2
+7089,Moderate,1
+7090,Moderate,1
+7091,High engagers,0
+7092,Passive,2
+7093,High engagers,0
+7094,Passive,2
+7095,High engagers,0
+7096,High engagers,0
+7097,Moderate,1
+7098,High engagers,0
+7099,High engagers,0
+7100,High engagers,0
+7101,Moderate,1
+7102,Moderate,1
+7103,Passive,2
+7104,Moderate,1
+7105,Moderate,1
+7106,Moderate,1
+7107,Moderate,1
+7108,High engagers,0
+7109,High engagers,0
+7110,Passive,2
+7112,Passive,2
+7113,Passive,2
+7114,Passive,2
+7115,High engagers,0
+7116,High engagers,0
+7117,Moderate,1
+7118,High engagers,0
+7119,High engagers,0
+7120,Passive,2
+7121,High engagers,0
+7122,High engagers,0
+7123,High engagers,0
+7124,High engagers,0
+7125,Passive,2
+7127,Moderate,1
+7128,High engagers,0
+7129,High engagers,0
+7130,High engagers,0
+7131,High engagers,0
+7132,High engagers,0
+7133,Moderate,1
+7134,High engagers,0
+7135,High engagers,0
+7136,High engagers,0
+7137,Passive,2
+7138,Moderate,1
+7139,High engagers,0
+7140,High engagers,0
+7141,Moderate,1
+7142,Moderate,1
+7143,High engagers,0
+7144,Passive,2
+7145,High engagers,0
+7146,High engagers,0
+7147,Passive,2
+7148,High engagers,0
+7149,High engagers,0
+7150,Passive,2
+7151,High engagers,0
+7152,High engagers,0
+7153,Passive,2
+7154,High engagers,0
+7155,Passive,2
+7156,Passive,2
+7157,High engagers,0
+7159,High engagers,0
+7160,Moderate,1
+7161,High engagers,0
+7162,Moderate,1
+7163,Moderate,1
+7164,High engagers,0
+7165,Moderate,1
+7166,High engagers,0
+7167,Passive,2
+7168,Passive,2
+7169,Passive,2
+7170,High engagers,0
+7171,High engagers,0
+7172,Passive,2
+7173,Passive,2
+7174,High engagers,0
+7175,Moderate,1
+7176,High engagers,0
+7177,High engagers,0
+7178,High engagers,0
+7179,Passive,2
+7180,Passive,2
+7181,Moderate,1
+7182,High engagers,0
+7183,Moderate,1
+7184,High engagers,0
+7185,High engagers,0
+7186,Passive,2
+7187,High engagers,0
+7188,High engagers,0
+7189,High engagers,0
+7190,Passive,2
+7191,High engagers,0
+7192,High engagers,0
+7193,High engagers,0
+7194,Moderate,1
+7195,Passive,2
+7197,Passive,2
+7198,High engagers,0
+7199,Passive,2
+7200,Passive,2
+7201,Moderate,1
+7202,High engagers,0
+7203,High engagers,0
+7205,High engagers,0
+7206,Passive,2
+7207,Moderate,1
+7208,Moderate,1
+7209,High engagers,0
+7210,High engagers,0
+7211,High engagers,0
+7212,Passive,2
+7213,Passive,2
+7214,High engagers,0
+7215,Moderate,1
+7216,High engagers,0
+7217,Moderate,1
+7218,High engagers,0
+7219,High engagers,0
+7220,Passive,2
+7221,High engagers,0
+7222,Passive,2
+7223,High engagers,0
+7224,Passive,2
+7225,Passive,2
+7226,Moderate,1
+7227,High engagers,0
+7228,High engagers,0
+7229,Passive,2
+7231,High engagers,0
+7232,Moderate,1
+7233,High engagers,0
+7234,Moderate,1
+7235,Moderate,1
+7236,Passive,2
+7237,High engagers,0
+7238,Moderate,1
+7239,High engagers,0
+7240,Moderate,1
+7241,Passive,2
+7242,Passive,2
+7243,High engagers,0
+7244,High engagers,0
+7245,High engagers,0
+7247,High engagers,0
+7248,High engagers,0
+7249,Moderate,1
+7250,High engagers,0
+7251,High engagers,0
+7252,Passive,2
+7253,High engagers,0
+7254,Moderate,1
+7255,High engagers,0
+7256,High engagers,0
+7257,High engagers,0
+7258,High engagers,0
+7259,High engagers,0
+7260,Moderate,1
+7261,Passive,2
+7262,Passive,2
+7263,High engagers,0
+7264,High engagers,0
+7265,High engagers,0
+7266,Passive,2
+7267,Moderate,1
+7268,Passive,2
+7269,Passive,2
+7270,High engagers,0
+7271,Moderate,1
+7272,Moderate,1
+7273,Moderate,1
+7274,Passive,2
+7275,High engagers,0
+7276,Passive,2
+7277,High engagers,0
+7278,Moderate,1
+7279,Moderate,1
+7280,Passive,2
+7281,Passive,2
+7282,High engagers,0
+7283,High engagers,0
+7284,High engagers,0
+7285,Moderate,1
+7286,High engagers,0
+7287,Passive,2
+7288,High engagers,0
+7289,High engagers,0
+7290,High engagers,0
+7291,Moderate,1
+7292,High engagers,0
+7293,Moderate,1
+7294,Moderate,1
+7295,Moderate,1
+7296,High engagers,0
+7297,High engagers,0
+7298,Moderate,1
+7299,Passive,2
+7300,Moderate,1
+7301,Moderate,1
+7302,Passive,2
+7303,Passive,2
+7304,High engagers,0
+7305,Passive,2
+7306,High engagers,0
+7307,Passive,2
+7308,High engagers,0
+7309,High engagers,0
+7310,Passive,2
+7311,High engagers,0
+7312,High engagers,0
+7313,High engagers,0
+7314,Moderate,1
+7315,High engagers,0
+7316,Moderate,1
+7317,Passive,2
+7319,High engagers,0
+7320,Moderate,1
+7321,High engagers,0
+7322,High engagers,0
+7323,High engagers,0
+7324,Passive,2
+7325,Moderate,1
+7326,Passive,2
+7328,Moderate,1
+7329,High engagers,0
+7330,Moderate,1
+7331,Moderate,1
+7332,Passive,2
+7333,Passive,2
+7334,Moderate,1
+7335,High engagers,0
+7336,Moderate,1
+7337,High engagers,0
+7338,Passive,2
+7339,Passive,2
+7340,Moderate,1
+7341,High engagers,0
+7342,High engagers,0
+7343,High engagers,0
+7344,High engagers,0
+7345,Moderate,1
+7346,High engagers,0
+7347,Moderate,1
+7348,Passive,2
+7349,Passive,2
+7350,High engagers,0
+7351,High engagers,0
+7352,High engagers,0
+7354,Passive,2
+7355,High engagers,0
+7356,Moderate,1
+7357,High engagers,0
+7358,High engagers,0
+7359,Passive,2
+7360,Passive,2
+7361,High engagers,0
+7362,Moderate,1
+7363,High engagers,0
+7364,Passive,2
+7365,High engagers,0
+7366,High engagers,0
+7367,High engagers,0
+7368,High engagers,0
+7369,High engagers,0
+7370,High engagers,0
+7371,High engagers,0
+7372,High engagers,0
+7373,High engagers,0
+7374,High engagers,0
+7375,Moderate,1
+7376,High engagers,0
+7377,High engagers,0
+7378,Passive,2
+7379,High engagers,0
+7380,Passive,2
+7381,High engagers,0
+7382,High engagers,0
+7383,Moderate,1
+7384,High engagers,0
+7385,Moderate,1
+7386,High engagers,0
+7387,High engagers,0
+7388,High engagers,0
+7389,Passive,2
+7390,Passive,2
+7391,Passive,2
+7392,High engagers,0
+7393,Passive,2
+7394,Passive,2
+7395,Passive,2
+7396,Passive,2
+7397,Passive,2
+7398,Passive,2
+7400,High engagers,0
+7401,High engagers,0
+7402,Passive,2
+7403,Passive,2
+7404,High engagers,0
+7405,Moderate,1
+7406,Moderate,1
+7408,High engagers,0
+7409,Moderate,1
+7410,Passive,2
+7411,High engagers,0
+7412,High engagers,0
+7413,Moderate,1
+7414,Passive,2
+7415,High engagers,0
+7416,Passive,2
+7417,High engagers,0
+7418,Moderate,1
+7419,High engagers,0
+7420,High engagers,0
+7421,High engagers,0
+7422,High engagers,0
+7423,Passive,2
+7424,Passive,2
+7425,Moderate,1
+7426,Moderate,1
+7428,Passive,2
+7429,High engagers,0
+7430,Passive,2
+7431,High engagers,0
+7432,Passive,2
+7433,High engagers,0
+7434,High engagers,0
+7435,Moderate,1
+7436,High engagers,0
+7437,Moderate,1
+7438,High engagers,0
+7439,Moderate,1
+7440,High engagers,0
+7441,Moderate,1
+7442,High engagers,0
+7443,High engagers,0
+7444,Passive,2
+7445,Passive,2
+7446,Passive,2
+7447,High engagers,0
+7448,Passive,2
+7449,High engagers,0
+7450,High engagers,0
+7451,High engagers,0
+7452,Passive,2
+7453,High engagers,0
+7454,High engagers,0
+7456,High engagers,0
+7457,Passive,2
+7458,High engagers,0
+7459,High engagers,0
+7460,Moderate,1
+7461,Passive,2
+7462,High engagers,0
+7463,Passive,2
+7464,High engagers,0
+7466,Moderate,1
+7467,Moderate,1
+7468,High engagers,0
+7469,High engagers,0
+7470,High engagers,0
+7471,Passive,2
+7472,High engagers,0
+7473,High engagers,0
+7474,Moderate,1
+7475,High engagers,0
+7476,Moderate,1
+7477,Moderate,1
+7478,High engagers,0
+7479,Passive,2
+7480,Moderate,1
+7481,Moderate,1
+7482,Passive,2
+7483,Moderate,1
+7484,High engagers,0
+7485,High engagers,0
+7486,High engagers,0
+7487,Passive,2
+7488,Passive,2
+7489,High engagers,0
+7490,High engagers,0
+7491,High engagers,0
+7492,Moderate,1
+7493,High engagers,0
+7494,High engagers,0
+7495,High engagers,0
+7496,Moderate,1
+7497,Moderate,1
+7498,Moderate,1
+7499,High engagers,0
+7500,High engagers,0
+7501,Passive,2
+7502,High engagers,0
+7503,High engagers,0
+7504,High engagers,0
+7505,High engagers,0
+7506,Moderate,1
+7508,Passive,2
+7509,Passive,2
+7510,High engagers,0
+7511,Moderate,1
+7512,High engagers,0
+7513,High engagers,0
+7514,Moderate,1
+7515,High engagers,0
+7516,High engagers,0
+7517,Passive,2
+7518,High engagers,0
+7519,Moderate,1
+7520,High engagers,0
+7521,High engagers,0
+7522,Passive,2
+7523,Moderate,1
+7524,Moderate,1
+7525,Moderate,1
+7526,Passive,2
+7527,High engagers,0
+7528,High engagers,0
+7529,High engagers,0
+7530,Moderate,1
+7531,Moderate,1
+7532,High engagers,0
+7533,Moderate,1
+7534,Moderate,1
+7535,Passive,2
+7537,High engagers,0
+7538,Passive,2
+7539,High engagers,0
+7540,Moderate,1
+7541,High engagers,0
+7542,High engagers,0
+7543,High engagers,0
+7545,Passive,2
+7546,Passive,2
+7547,High engagers,0
+7548,Moderate,1
+7549,High engagers,0
+7550,Moderate,1
+7551,High engagers,0
+7552,Passive,2
+7553,High engagers,0
+7554,Passive,2
+7555,High engagers,0
+7556,High engagers,0
+7557,Moderate,1
+7558,Moderate,1
+7559,Passive,2
+7560,Passive,2
+7561,Passive,2
+7562,Moderate,1
+7563,High engagers,0
+7564,Passive,2
+7565,High engagers,0
+7566,Passive,2
+7567,High engagers,0
+7568,Moderate,1
+7569,Moderate,1
+7570,Moderate,1
+7571,Passive,2
+7572,High engagers,0
+7573,Moderate,1
+7574,High engagers,0
+7575,High engagers,0
+7577,High engagers,0
+7578,Passive,2
+7579,Passive,2
+7580,Passive,2
+7581,Moderate,1
+7582,Passive,2
+7583,High engagers,0
+7584,High engagers,0
+7585,Moderate,1
+7586,Moderate,1
+7587,Moderate,1
+7589,Passive,2
+7590,Passive,2
+7591,Moderate,1
+7592,High engagers,0
+7593,Moderate,1
+7594,High engagers,0
+7595,Moderate,1
+7596,Moderate,1
+7597,High engagers,0
+7598,High engagers,0
+7599,Passive,2
+7600,Passive,2
+7602,Moderate,1
+7603,Moderate,1
+7604,High engagers,0
+7605,Moderate,1
+7607,Moderate,1
+7608,High engagers,0
+7609,High engagers,0
+7610,Passive,2
+7611,High engagers,0
+7612,High engagers,0
+7613,High engagers,0
+7614,High engagers,0
+7615,Moderate,1
+7616,Passive,2
+7617,High engagers,0
+7618,High engagers,0
+7619,High engagers,0
+7620,High engagers,0
+7621,Passive,2
+7622,High engagers,0
+7623,High engagers,0
+7624,Passive,2
+7625,High engagers,0
+7626,High engagers,0
+7627,Moderate,1
+7628,High engagers,0
+7629,High engagers,0
+7630,High engagers,0
+7631,High engagers,0
+7632,High engagers,0
+7633,High engagers,0
+7634,High engagers,0
+7635,High engagers,0
+7636,High engagers,0
+7637,High engagers,0
+7638,Moderate,1
+7639,High engagers,0
+7640,Moderate,1
+7641,Passive,2
+7642,Moderate,1
+7643,Passive,2
+7644,High engagers,0
+7645,High engagers,0
+7646,High engagers,0
+7647,High engagers,0
+7648,High engagers,0
+7649,High engagers,0
+7650,Moderate,1
+7651,High engagers,0
+7652,Passive,2
+7653,High engagers,0
+7654,Moderate,1
+7655,High engagers,0
+7656,High engagers,0
+7657,High engagers,0
+7658,High engagers,0
+7659,Moderate,1
+7660,High engagers,0
+7661,Moderate,1
+7663,High engagers,0
+7664,High engagers,0
+7665,High engagers,0
+7666,High engagers,0
+7667,High engagers,0
+7668,Passive,2
+7669,Moderate,1
+7670,Moderate,1
+7672,Moderate,1
+7673,Moderate,1
+7674,Moderate,1
+7675,High engagers,0
+7676,High engagers,0
+7677,High engagers,0
+7678,High engagers,0
+7679,High engagers,0
+7682,High engagers,0
+7683,Moderate,1
+7684,Passive,2
+7685,Moderate,1
+7686,High engagers,0
+7687,High engagers,0
+7688,High engagers,0
+7689,Moderate,1
+7690,High engagers,0
+7691,High engagers,0
+7692,High engagers,0
+7693,Passive,2
+7694,Moderate,1
+7695,High engagers,0
+7696,Moderate,1
+7697,High engagers,0
+7698,Passive,2
+7699,Moderate,1
+7700,Moderate,1
+7701,Passive,2
+7702,Moderate,1
+7703,High engagers,0
+7704,Passive,2
+7705,High engagers,0
+7706,High engagers,0
+7707,High engagers,0
+7708,Moderate,1
+7709,Moderate,1
+7710,Moderate,1
+7711,High engagers,0
+7712,Moderate,1
+7713,Moderate,1
+7714,Passive,2
+7715,Passive,2
+7716,Passive,2
+7717,Moderate,1
+7718,High engagers,0
+7719,High engagers,0
+7720,High engagers,0
+7721,High engagers,0
+7722,Passive,2
+7723,High engagers,0
+7724,Moderate,1
+7725,Moderate,1
+7726,Moderate,1
+7727,High engagers,0
+7728,Passive,2
+7729,Passive,2
+7730,High engagers,0
+7731,High engagers,0
+7732,Moderate,1
+7733,High engagers,0
+7734,Passive,2
+7735,High engagers,0
+7736,High engagers,0
+7737,High engagers,0
+7738,Passive,2
+7739,Passive,2
+7740,Moderate,1
+7741,Moderate,1
+7742,High engagers,0
+7743,Moderate,1
+7744,High engagers,0
+7745,High engagers,0
+7746,High engagers,0
+7747,Moderate,1
+7748,Moderate,1
+7749,Passive,2
+7750,High engagers,0
+7751,Passive,2
+7752,Moderate,1
+7753,Moderate,1
+7754,Passive,2
+7755,Passive,2
+7756,High engagers,0
+7757,Moderate,1
+7758,Moderate,1
+7759,High engagers,0
+7760,High engagers,0
+7761,Passive,2
+7762,High engagers,0
+7763,High engagers,0
+7764,Passive,2
+7765,High engagers,0
+7766,High engagers,0
+7767,Moderate,1
+7768,Moderate,1
+7770,Moderate,1
+7771,Moderate,1
+7772,Moderate,1
+7773,Moderate,1
+7775,High engagers,0
+7776,High engagers,0
+7777,High engagers,0
+7778,High engagers,0
+7779,Moderate,1
+7780,High engagers,0
+7781,Passive,2
+7782,High engagers,0
+7783,High engagers,0
+7784,Moderate,1
+7785,Moderate,1
+7786,Passive,2
+7787,Moderate,1
+7788,Passive,2
+7789,Passive,2
+7790,Passive,2
+7791,High engagers,0
+7792,High engagers,0
+7793,High engagers,0
+7794,High engagers,0
+7795,High engagers,0
+7796,High engagers,0
+7797,High engagers,0
+7798,High engagers,0
+7799,High engagers,0
+7800,Passive,2
+7801,High engagers,0
+7802,High engagers,0
+7803,High engagers,0
+7804,High engagers,0
+7805,High engagers,0
+7806,High engagers,0
+7807,Passive,2
+7808,Passive,2
+7809,Passive,2
+7810,Passive,2
+7811,High engagers,0
+7812,High engagers,0
+7813,Moderate,1
+7814,High engagers,0
+7815,Moderate,1
+7816,Passive,2
+7817,Passive,2
+7818,Passive,2
+7819,Passive,2
+7820,Moderate,1
+7821,Passive,2
+7822,High engagers,0
+7823,High engagers,0
+7824,Passive,2
+7826,High engagers,0
+7827,Moderate,1
+7828,Passive,2
+7829,Passive,2
+7830,Passive,2
+7832,Moderate,1
+7833,Passive,2
+7834,Moderate,1
+7835,Moderate,1
+7836,High engagers,0
+7837,High engagers,0
+7838,High engagers,0
+7839,High engagers,0
+7840,Passive,2
+7841,High engagers,0
+7842,Passive,2
+7843,Moderate,1
+7844,High engagers,0
+7845,Passive,2
+7846,Moderate,1
+7847,High engagers,0
+7848,Passive,2
+7849,High engagers,0
+7850,High engagers,0
+7851,Passive,2
+7852,Passive,2
+7853,Moderate,1
+7854,High engagers,0
+7855,Passive,2
+7856,High engagers,0
+7857,Moderate,1
+7858,Passive,2
+7859,High engagers,0
+7860,High engagers,0
+7861,High engagers,0
+7862,Moderate,1
+7863,High engagers,0
+7864,High engagers,0
+7865,High engagers,0
+7866,High engagers,0
+7867,Passive,2
+7868,Moderate,1
+7869,Moderate,1
+7870,Moderate,1
+7871,Moderate,1
+7872,High engagers,0
+7873,Passive,2
+7874,Passive,2
+7875,Moderate,1
+7876,Moderate,1
+7877,Moderate,1
+7878,Moderate,1
+7880,Moderate,1
+7881,Moderate,1
+7882,Moderate,1
+7883,High engagers,0
+7884,Passive,2
+7885,Passive,2
+7886,Moderate,1
+7887,High engagers,0
+7888,High engagers,0
+7889,Passive,2
+7890,Passive,2
+7891,Moderate,1
+7892,Moderate,1
+7893,Moderate,1
+7894,Passive,2
+7895,High engagers,0
+7896,High engagers,0
+7897,High engagers,0
+7898,Passive,2
+7899,Moderate,1
+7900,High engagers,0
+7901,High engagers,0
+7902,Passive,2
+7903,Moderate,1
+7904,Moderate,1
+7906,High engagers,0
+7907,Passive,2
+7908,High engagers,0
+7909,Moderate,1
+7910,Passive,2
+7911,High engagers,0
+7912,Passive,2
+7913,Moderate,1
+7914,High engagers,0
+7915,High engagers,0
+7916,High engagers,0
+7917,Moderate,1
+7918,High engagers,0
+7919,High engagers,0
+7920,High engagers,0
+7921,Passive,2
+7922,High engagers,0
+7923,Passive,2
+7924,Moderate,1
+7925,High engagers,0
+7926,High engagers,0
+7927,High engagers,0
+7928,High engagers,0
+7929,Moderate,1
+7930,Passive,2
+7931,Passive,2
+7932,High engagers,0
+7933,Moderate,1
+7934,Moderate,1
+7935,Moderate,1
+7936,High engagers,0
+7937,High engagers,0
+7938,High engagers,0
+7939,Moderate,1
+7940,Moderate,1
+7941,High engagers,0
+7942,High engagers,0
+7943,Passive,2
+7944,Passive,2
+7945,High engagers,0
+7946,Passive,2
+7947,Passive,2
+7948,Passive,2
+7949,High engagers,0
+7950,Passive,2
+7951,Moderate,1
+7952,Moderate,1
+7953,High engagers,0
+7954,Moderate,1
+7955,High engagers,0
+7956,Moderate,1
+7957,Passive,2
+7958,High engagers,0
+7959,Passive,2
+7960,High engagers,0
+7961,Moderate,1
+7962,Passive,2
+7963,Passive,2
+7964,Moderate,1
+7965,High engagers,0
+7966,High engagers,0
+7967,Passive,2
+7968,High engagers,0
+7969,Moderate,1
+7970,Moderate,1
+7971,Moderate,1
+7972,Moderate,1
+7973,High engagers,0
+7974,High engagers,0
+7975,High engagers,0
+7976,Moderate,1
+7979,Passive,2
+7980,High engagers,0
+7981,Moderate,1
+7982,Passive,2
+7983,High engagers,0
+7985,Passive,2
+7986,Passive,2
+7987,High engagers,0
+7988,High engagers,0
+7989,High engagers,0
+7990,High engagers,0
+7991,Moderate,1
+7992,Moderate,1
+7993,Passive,2
+7994,Moderate,1
+7995,High engagers,0
+7996,High engagers,0
+7997,Moderate,1
+7998,Passive,2
+7999,Moderate,1
