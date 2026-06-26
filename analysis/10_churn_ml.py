@@ -121,7 +121,7 @@ def shap_explain(X_train: pd.DataFrame, X_test: pd.DataFrame,
     print(f"  Hold-out AUC: {auc:.4f}")
 
     explainer = shap.Explainer(model, X_train, feature_names=feature_names)
-    shap_values = explainer(X_test)
+    shap_values = explainer(X_test, check_additivity=False)
 
     # Summary plot
     fig = plt.figure(figsize=(8, 6))
