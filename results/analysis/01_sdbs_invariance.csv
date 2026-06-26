@@ -1,0 +1,2 @@
+CFI_configural,CFI_metric,delta_CFI,delta_chi2,delta_df,p_value,verdict
+0.279,0.28,0.0009,0.6,9.0,0.9999,supported
