@@ -1,5 +1,0 @@
-case,CFI,RMSEA
-1-factor/wrong (Case 1),0.469,0.119
-2-factor/correct (Case 1 data),0.997,0.008
-2-factor on bifactor data (Case 3 (hard)),1.003,0.0
-1-factor on bifactor data (Case 3),0.627,0.109
