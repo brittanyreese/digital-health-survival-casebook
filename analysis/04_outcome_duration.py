@@ -1,9 +1,11 @@
 """Analysis 04 -- Engagement -> quit duration (flagship survival analysis).
 
 Links app engagement features to quit duration in the ~1,200-user follow-up
-cohort.  Three complementary models establish the finding across methodological
-perspectives: Kaplan-Meier (descriptive), Cox PH (covariate-adjusted hazard),
-Weibull AFT (parametric sensitivity), OLS on log(duration) for interpretability.
+cohort.  Three models triangulate the effect: Kaplan-Meier (descriptive),
+Cox PH (covariate-adjusted hazard), Weibull AFT (primary parametric estimator;
+handles right-censoring correctly). OLS on log(duration) is included for
+interpretability but treats censored observations as if they failed at the
+censoring time, biasing estimates — treat as illustrative only.
 
 Outcome: out_days_quit (days of continuous abstinence, right-censored at 180 d)
          out_relapsed (1 = relapsed within follow-up window)
@@ -26,7 +28,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
 from lifelines import KaplanMeierFitter, CoxPHFitter, WeibullAFTFitter
-from lifelines.statistics import multivariate_logrank_test
+from lifelines.statistics import multivariate_logrank_test, proportional_hazard_test
 
 from cessation import config as C
 from cessation import data
@@ -71,9 +73,11 @@ def build_frame() -> pd.DataFrame:
         "n_craving_tool": g["event_type"].apply(lambda x: (x == "craving_tool").sum()),
         "n_content":     g["event_type"].apply(lambda x: (x == "content").sum()),
     }).reset_index()
-    eng["intensity"]      = eng["n_events"] / eng["n_active_days"].clip(lower=1)
-    eng["log_n_events"]   = np.log1p(eng["n_events"])
-    eng["log_active_days"] = np.log1p(eng["n_active_days"])
+    eng["intensity"]        = eng["n_events"] / eng["n_active_days"].clip(lower=1)
+    eng["log_n_events"]     = np.log1p(eng["n_events"])
+    eng["log_active_days"]  = np.log1p(eng["n_active_days"])
+    eng["log_craving_tool"] = np.log1p(eng["n_craving_tool"])
+    eng["log_content"]      = np.log1p(eng["n_content"])
 
     # Segment labels (from analysis/02)
     seg_path = OUT / "segments_assignments.csv"
@@ -152,7 +156,8 @@ def km_by_engagement(df: pd.DataFrame) -> None:
 def cox_ph(df: pd.DataFrame) -> pd.DataFrame | None:
     print("\n=== 4. Cox proportional-hazards ===")
     opt  = _opt_covs(df)
-    cols = ["log_n_events", "log_active_days"] + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
+    chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
+    cols = ["log_n_events", "log_active_days"] + chan + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     n_ev = int(d[C.OUTCOME_EVENT].sum())
     print(f"  n={len(d)}  events={n_ev}")
@@ -166,6 +171,19 @@ def cox_ph(df: pd.DataFrame) -> pd.DataFrame | None:
     cph.print_summary(decimals=3)
     res = cph.summary.copy()
     res.to_csv(OUT / "04_cox.csv")
+
+    # Proportional hazards assumption (Schoenfeld-type score test)
+    try:
+        ph = proportional_hazard_test(cph, d, time_transform="rank")
+        ph.print_summary(decimals=3)
+        ph.summary.to_csv(OUT / "04_ph_test.csv")
+        if ph.summary["p"].min() < 0.05:
+            print("  [warn] PH assumption violated for >=1 covariate "
+                  "(Schoenfeld p<0.05). Weibull AFT is the primary model; "
+                  "Cox estimates shown for comparison only.")
+    except Exception as exc:
+        print(f"  PH test failed: {exc}")
+
     return res
 
 
@@ -176,25 +194,33 @@ def weibull_aft(df: pd.DataFrame) -> None:
     opt  = _opt_covs(df)
     cols = ["log_n_events"] + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
+    d = d[d[C.OUTCOME_DURATION] > 0]
     if len(d) < 20:
         print("  Insufficient data"); return
     wf = WeibullAFTFitter()
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        wf.fit(d, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            wf.fit(d, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
+    except Exception as exc:
+        print(f"  Weibull fit failed: {exc}"); return
     wf.print_summary(decimals=3)
     wf.summary.to_csv(OUT / "04_aft_weibull.csv")
-    print(f"  Weibull rho (shape inverse)={wf.rho_:.3f}")
+    # rho_ (shape parameter) is in the summary CSV under param=rho_, covariate=Intercept
 
 
 # ── 6. OLS on log(duration) ───────────────────────────────────────────────────
 
 def ols_log_duration(df: pd.DataFrame) -> None:
     print("\n=== 6. OLS on log(quit duration) ===")
+    print("\n  [BIAS WARNING] OLS treats all observations as uncensored (censored duration = "
+          "observed failure). This attenuates and can reverse the coefficient. "
+          "Weibull AFT (above) is the primary model; OLS shown for comparability only.")
     opt  = _opt_covs(df)
-    d = df[[C.OUTCOME_DURATION, "log_n_events"] + opt].dropna()
+    chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
+    d = df[[C.OUTCOME_DURATION, "log_n_events"] + chan + opt].dropna()
     d["log_duration"] = np.log(d[C.OUTCOME_DURATION].clip(lower=0.1))
-    terms = ["log_n_events"] + opt
+    terms = ["log_n_events"] + chan + opt
     formula = "log_duration ~ " + " + ".join(terms)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -238,6 +264,7 @@ def main() -> None:
     descriptives(df)
     km_by_engagement(df)
     cox_ph(df)
+    print("\n  [PRIMARY MODEL] Weibull AFT — parametric, handles right-censoring")
     weibull_aft(df)
     ols_log_duration(df)
     engagement_stratification_figure(df)
