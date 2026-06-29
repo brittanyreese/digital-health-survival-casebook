@@ -143,22 +143,26 @@ def compare_stationary(ev_all: pd.DataFrame, seg: pd.DataFrame) -> None:
 def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame) -> None:
     """Correlate per-user channel time-share with quit duration (Spearman).
 
-    Connects the Markov / behavioral analytics layer to a clinical endpoint.
-    Most frequent paths (golden paths) are descriptive; this section asks
-    whether the proportion of time spent in each channel predicts how long
-    a user stays quit.
+    Channel proportions are computed over the enrollment-anchored 30-day
+    baseline window (day_offset < 30), consistent with the exposure window
+    used in scripts 04 and 10.  Using the full 180-day window would conflate
+    pre- and post-relapse channel use, introducing the same temporal
+    contamination that motivates the baseline window restriction in the
+    survival and churn models.
 
     Note: associations reflect the parameter structure injected by the
-    generator, not real causal mechanisms.  Real-data replication required
+    generator, not real causal mechanisms.  Volume is not controlled; these
+    are unadjusted bivariate correlations.  Real-data replication required
     before any product decision.
     """
-    print("\n=== 5a. Channel time-share vs quit duration ===")
+    print("\n=== 5a. Channel time-share vs quit duration (30-day baseline window) ===")
     try:
         followup = data.load_followup()
     except Exception as exc:
         print(f"  followup not available: {exc}"); return
 
-    ev_ch = ev.groupby(["pid", "event_type"]).size().unstack(fill_value=0)
+    ev_window = ev[ev["day_offset"] < 30]   # enrollment-anchored baseline, consistent with 04/10
+    ev_ch = ev_window.groupby(["pid", "event_type"]).size().unstack(fill_value=0)
     ev_ch = ev_ch.div(ev_ch.sum(axis=1), axis=0).reset_index()
 
     d = ev_ch.merge(followup[["pid", C.OUTCOME_DURATION, C.OUTCOME_EVENT]],

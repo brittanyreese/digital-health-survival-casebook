@@ -246,7 +246,11 @@ def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
 def aft_model(df: pd.DataFrame, label: str = "primary") -> None:
     print(f"\n=== Weibull AFT ({label}) ===")
     opt  = _opt_covs(df)
-    cols = ["log_n_events"] + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
+    # Include activated if present: AFT does not require proportional hazards,
+    # so a covariate that violates Cox PH can still be included in AFT — the
+    # model estimates its effect on the time-acceleration factor, not a hazard ratio.
+    act  = ["activated"] if "activated" in df.columns else []
+    cols = ["log_n_events"] + act + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     if len(d) < 20:
         print("  Insufficient data"); return

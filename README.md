@@ -81,17 +81,17 @@ study design.
 | Analysis | Synthetic result | Real-data implication |
 |---|---|---|
 | Weibull AFT — Script 04 | exp(β) = 1.48 (95% CI 1.08–2.02), p = 0.015, per log-unit 30-day engagement | Engagement quartile differences would translate to roughly 1.5x longer abstinence windows — a detectable effect at N ≈ 300 with 80% power |
-| Weibull AFT — Script 11 | exp(β) = 1.89 (95% CI 1.23–2.90), p = 0.004, quit-anchored 30-day window | Quit-anchored design removes post-hoc engagement bias; effect size 28% larger than enrollment-anchored window |
-| Weibull shape κ — Scripts 04, 11 | κ = 0.54 (recovers injected κ = 0.55) | Decreasing-hazard profile: relapse risk peaks immediately post-quit, supporting early-window intervention timing |
+| Weibull AFT — Script 11 | exp(β) = 2.08 (95% CI 1.26–3.42), p = 0.004; `activated` included (AFT requires no PH), exp(β) = 0.68, p = 0.46 (n.s.) | Quit-anchored design removes post-hoc engagement bias; including the PH-violating covariate in AFT (where it is valid) yields a null segment effect |
+| Weibull shape κ — Scripts 04, 11 | κ = 0.54 (script 04); κ = 0.59 (script 11); injected κ = 0.55 | Decreasing-hazard profile: relapse risk peaks immediately post-quit, supporting early-window intervention timing; both estimates recover the injected value |
 | Cox PH test — Script 04 | All Schoenfeld p > 0.34; PH holds | Cox and Weibull estimates consistent; no PH-driven model selection required |
 | Cox PH test — Script 11 | `activated` Schoenfeld p = 0.037; PH violated | Engagement-activation effect is time-varying; Weibull AFT is the correct primary estimator |
 | AFT window sensitivity — Script 11 | exp(β) = 2.05 (p = 0.007) at 14d; exp(β) = 2.00 (p = 0.001) at 60d | Consistent effect across window widths; 30-day window is a reasonable default |
-| CFA misspecification check — Script 01 | CFI < 0.93 on 1-factor data; CFI < 0.95 on bifactor data; CFI = 0.987 on correct 2-factor data | Pipeline discriminates trivial and subtle misspecification — the relevant validation on synthetic data |
+| CFA misspecification check — Script 01 | CFI = 0.469 on 1-factor case (trivial misfit detected); CFI = 0.997 on correct 2-factor case; CFI = 1.003 on bifactor case (degenerate — check fails; script flags `detects_hard=False`) | Pipeline detects trivial misfit but cannot distinguish bifactor from correlated-factor structure; the script's own warning correctly bounds this scope |
 | CFA fit — Script 01 | SDBS 2-factor: CFI = 0.987, RMSEA = 0.021 | Reflects parameter recovery fidelity; a real-data CFA on this instrument would face measurement noise, partial invariance, and potentially different factor structure across populations |
 | Churn ROC-AUC — Script 10 | 0.844 ± 0.006 (5-fold stratified CV) | Above published DHT benchmark range of 0.65–0.78; elevated because synthetic signal-to-noise is clean; real AUC would likely fall in that range |
 | Churn AUPRC — Script 10 | 0.334 ± 0.029 (no-skill baseline = 0.103) | 3.2x no-skill lift at 10.3% churn prevalence; AUPRC is the informative metric under class imbalance |
 | Subgroup AUC — Script 10 | Age: below-median 0.831, above-median 0.855; Education: below-median 0.837, above-median 0.858 | Modest performance gap by age and education on synthetic data; real fairness audit would require race/ethnicity, rurality, and insurance status |
-| Channel-outcome correlation — Script 09 | Content: r = 0.07 (p = 0.056); all others p > 0.39 | Channel mix does not predict quit duration beyond overall engagement volume on this cohort; individual channel effects require larger N and randomized exposure |
+| Channel-outcome correlation — Script 09 | All channels p > 0.28 in 30-day baseline window (content r = 0.04; all others r ≤ 0.01) | Channel mix in the first 30 days shows no association with quit duration (unadjusted bivariate; volume not controlled); individual channel effects require larger N and randomized exposure |
 
 All analyses are exploratory within a single synthetic dataset.  No correction
 for multiple comparisons is applied across scripts.  A pre-registered,
@@ -149,21 +149,31 @@ No real participant data are present.
 **Psychometric analyses.** Because the synthetic data are generated from the
 same CFA-compatible correlation structure that analysis/01 then confirms, the
 CFA fit indices (CFI, RMSEA, SRMR) and IRT parameters reflect parameter
-recovery fidelity, not real-world construct validity.  The most meaningful
-psychometric result is therefore the misspecification check in section 7 of
-script 01: fitting the 2-factor SDBS model on three distinct data-generating
-processes (1-factor wrong DGP, 2-factor correct DGP, bifactor partially
-wrong DGP) confirms the pipeline detects trivial misfit (CFI < 0.93 on the
-1-factor case) and reports the harder bifactor case honestly (CFI < 0.95).
-That discriminative power is what a real-data analysis would rely on.
+recovery fidelity, not real-world construct validity.  The misspecification
+check in section 7 of script 01 fits the 2-factor SDBS model on three
+data-generating processes: 1-factor case CFI = 0.469 (trivial misfit
+detected), correct 2-factor case CFI = 0.997 (good fit confirmed), bifactor
+case CFI = 1.003 (degenerate — the 2-factor model absorbs enough bifactor
+variance to appear to fit, and the check fails to detect the subtle
+misspecification).  The script correctly flags this via a
+`detects_hard=False` warning (analysis/01_psychometrics.py:417).  The honest
+scope: the pipeline discriminates trivial misspecification but cannot
+distinguish bifactor from correlated-factor structure on these parameter
+values.  A real-data application would need to fit the bifactor model
+explicitly and compare it to the 2-factor model via BIC or LRT.
 
 **Survival analyses.** Scripts 04 and 11 use Weibull AFT as the primary
 estimator because it handles right-censoring correctly and does not require
-the proportional hazards assumption.  Cox PH is reported for comparison;
-where the Schoenfeld test detects a PH violation (script 11: `activated`,
-p = 0.037), Cox estimates are treated as descriptive only.  OLS on
-log(duration) is shown for interpretability only — it treats censored
-observations as uncensored failures and is biased.
+the proportional hazards assumption.  Cox PH is reported for comparison with
+a Schoenfeld residual test; where a violation is detected (script 11:
+`activated`, p = 0.037 in Cox), Cox estimates are treated as descriptive
+only.  The `activated` covariate is included in script 11's AFT model
+because AFT does not require PH — the model estimates a time-acceleration
+effect independent of the hazard assumption, yielding exp(β) = 0.68,
+p = 0.46 (n.s.): the activation segment effect is non-significant once
+overall engagement volume is accounted for.  OLS on log(duration) is shown
+for interpretability only — it treats censored observations as uncensored
+failures and is biased.
 
 **Landmark design.** The landmark analysis in script 11 demonstrates the
 structural logic of quit-date anchoring: the exposure window closes before
