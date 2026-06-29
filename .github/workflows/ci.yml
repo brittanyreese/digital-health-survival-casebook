@@ -1,0 +1,67 @@
+name: Reproducibility CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Generate synthetic data
+        run: uv run cessation-generate
+
+      - name: Validate synthetic data
+        run: uv run cessation-validate
+
+      - name: Run analysis pipeline
+        run: |
+          uv run python analysis/01_psychometrics.py
+          uv run python analysis/02_segmentation.py
+          uv run python analysis/04_outcome_duration.py
+          uv run python analysis/06_sms_reengagement.py
+          uv run python analysis/09_golden_paths.py
+          uv run python analysis/10_churn_ml.py
+          uv run python analysis/11_quit_anchored.py
+
+      - name: Verify key result artifacts exist
+        run: |
+          test -f results/analysis/04_aft_weibull.csv
+          test -f results/analysis/10_cv_aucs.csv
+          test -f results/analysis/11_ph_test_primary.csv
+          test -f results/analysis/11_robustness_window.csv
+          test -f results/analysis/01_sdbs_cfa_fit.csv
+          echo "All key artifacts present"
+
+      - name: Smoke-check Weibull AFT primary result
+        run: |
+          uv run python - <<'EOF'
+          import pandas as pd, sys
+          aft = pd.read_csv("results/analysis/04_aft_weibull.csv")
+          row = aft[(aft["param"] == "lambda_") & (aft["covariate"] == "log_n_events")]
+          if row.empty:
+              print("FAIL: log_n_events not found in AFT results")
+              sys.exit(1)
+          p = float(row["p"].iloc[0])
+          coef = float(row["coef"].iloc[0])
+          print(f"AFT log_n_events: coef={coef:.3f}, p={p:.4f}")
+          if coef <= 0:
+              print("FAIL: engagement coefficient is negative (expected positive)")
+              sys.exit(1)
+          print("PASS: AFT primary result is positive and present")
+          EOF
