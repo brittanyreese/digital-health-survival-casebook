@@ -8,10 +8,7 @@ The quit-date anchor structurally precludes reverse causality: app use in the
 post-quit window cannot be driven by outcome because outcome accrual (relapse
 or continued abstinence) is measured after the exposure window closes.
 
-Models: KM by engagement tertile, Cox PH (covariate-adjusted), Weibull AFT,
-OLS log(duration).  Full 7-attack robustness battery (window sensitivity,
-confounder adjustment, segment stratification, ATT under MAR, Weibull/OLS
-concordance, propensity-adjusted sensitivity, power honesty).
+Models: KM by engagement tertile, Cox PH (covariate-adjusted), Weibull AFT (primary). Robustness battery: window sensitivity (14d/60d vs 30d) via AFT, segment-stratified Cox, power honesty check.
 
 Run:  uv run python analysis/11_quit_anchored.py
 """
@@ -31,7 +28,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
 from lifelines import KaplanMeierFitter, CoxPHFitter, WeibullAFTFitter
-from lifelines.statistics import multivariate_logrank_test
+from lifelines.statistics import multivariate_logrank_test, proportional_hazard_test
 
 from cessation import config as C
 from cessation import data
@@ -98,9 +95,11 @@ def engagement_features_quit_anchored(
         "n_content":      g["event_type"].apply(lambda x: (x == "content").sum()),
         "n_notif":        g["event_type"].apply(lambda x: (x == "notification").sum()),
     }).reset_index()
-    feat["intensity"]       = feat["n_events"] / feat["n_active_days"].clip(lower=1)
-    feat["log_n_events"]    = np.log1p(feat["n_events"])
-    feat["log_active_days"] = np.log1p(feat["n_active_days"])
+    feat["intensity"]        = feat["n_events"] / feat["n_active_days"].clip(lower=1)
+    feat["log_n_events"]     = np.log1p(feat["n_events"])
+    feat["log_active_days"]  = np.log1p(feat["n_active_days"])
+    feat["log_craving_tool"] = np.log1p(feat["n_craving_tool"])
+    feat["log_content"]      = np.log1p(feat["n_content"])
     print(f"  {len(feat)} users with ≥1 event in {window_days}d quit window")
     return feat
 
@@ -204,9 +203,12 @@ def km_by_tertile(df: pd.DataFrame, label: str = "primary") -> None:
 def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
     print(f"\n=== Cox PH ({label}) ===")
     opt  = _opt_covs(df)
+    # Channel features only in the primary full-sample model; subgroup Ns are too small
+    chan = ([c for c in ["log_craving_tool", "log_content"] if c in df.columns]
+            if label == "primary" else [])
     base = [c for c in ["log_n_events", "log_active_days", "activated"]
             if c in df.columns]
-    cols = base + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
+    cols = base + chan + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     n_ev = int(d[C.OUTCOME_EVENT].sum())
     print(f"  n={len(d)}  events={n_ev}")
@@ -223,6 +225,19 @@ def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
     cph.print_summary(decimals=3)
     res = cph.summary.copy()
     res.to_csv(OUT / f"11_cox_{label}.csv")
+
+    # Proportional hazards assumption (Schoenfeld-type score test)
+    try:
+        ph = proportional_hazard_test(cph, d, time_transform="rank")
+        ph.print_summary(decimals=3)
+        ph.summary.to_csv(OUT / f"11_ph_test_{label}.csv")
+        if ph.summary["p"].min() < 0.05:
+            print("  [warn] PH assumption violated for >=1 covariate "
+                  "(Schoenfeld p<0.05). Weibull AFT is the primary model; "
+                  "Cox estimates shown for comparison only.")
+    except Exception as exc:
+        print(f"  PH test failed: {exc}")
+
     return res
 
 
@@ -246,11 +261,15 @@ def aft_model(df: pd.DataFrame, label: str = "primary") -> None:
 # ── OLS ───────────────────────────────────────────────────────────────────────
 
 def ols_log(df: pd.DataFrame, label: str = "primary") -> None:
-    print(f"\n=== OLS log(quit days) ({label}) ===")
+    print(f"\n=== OLS log(quit days) ({label}) — comparison only; Weibull AFT is primary ===")
+    print("  [BIAS WARNING] OLS treats censored observations as observed failures. "
+          "Estimates are attenuated and may be sign-reversed. See AFT results above.")
     opt  = _opt_covs(df)
-    d = df[[C.OUTCOME_DURATION, "log_n_events"] + opt].dropna()
+    chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
+    d = df[[C.OUTCOME_DURATION, "log_n_events"] + chan + opt].dropna()
     d["log_duration"] = np.log(d[C.OUTCOME_DURATION].clip(lower=0.1))
-    formula = "log_duration ~ log_n_events" + (
+    terms = ["log_n_events"] + chan
+    formula = "log_duration ~ " + " + ".join(terms) + (
         " + " + " + ".join(opt) if opt else ""
     )
     with warnings.catch_warnings():
@@ -266,13 +285,14 @@ def ols_log(df: pd.DataFrame, label: str = "primary") -> None:
 # ── robustness battery ────────────────────────────────────────────────────────
 
 def robustness_battery(df: pd.DataFrame) -> None:
-    """7-attack robustness check."""
+    """Robustness checks: window sensitivity, segment stratification, power."""
     print("\n=== Robustness battery ===")
 
-    # 1. Window sensitivity: 14d vs 60d
-    events = data.load_events()
-    reg    = data.load_registration()
+    # 1. Window sensitivity: 14d vs 60d — Weibull AFT (handles right-censoring; OLS on censored data is biased)
+    events  = data.load_events()
+    reg     = data.load_registration()
     outcome = load_outcome()
+    window_rows = []
     for w in [14, 60]:
         feat_w = engagement_features_quit_anchored(events, reg, window_days=w)
         if feat_w.empty:
@@ -280,33 +300,40 @@ def robustness_battery(df: pd.DataFrame) -> None:
         df_w = outcome.merge(feat_w, on="pid", how="inner")
         if len(df_w) < 20:
             continue
-        df_w["log_duration"] = np.log(df_w[C.OUTCOME_DURATION].clip(lower=0.1))
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            ols = smf.ols("log_duration ~ log_n_events", data=df_w).fit()
-        b = ols.params.get("log_n_events", np.nan)
-        p = ols.pvalues.get("log_n_events", np.nan)
-        print(f"  [window={w}d] β(log_events)={b:.3f} p={p:.3f}")
+        df_w = df_w[df_w[C.OUTCOME_DURATION] > 0].copy()
+        wf_w = WeibullAFTFitter()
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                wf_w.fit(df_w[[C.OUTCOME_DURATION, C.OUTCOME_EVENT, "log_n_events"]],
+                         duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
+            # Extract log_n_events lambda_ parameter
+            idx = ("lambda_", "log_n_events")
+            b = float(wf_w.params_[idx]) if idx in wf_w.params_.index else np.nan
+            p = float(wf_w.summary.loc[idx, "p"]) if idx in wf_w.summary.index else np.nan
+            print(f"  [window={w}d AFT] exp(β)={np.exp(b):.3f} p={p:.3f}")
+            window_rows.append({"window_days": w, "beta_log_events": round(b, 4),
+                                "exp_beta": round(np.exp(b), 4),
+                                "p_value": round(p, 4), "n": len(df_w)})
+        except Exception as exc:
+            print(f"  [window={w}d] AFT failed: {exc}")
+    if window_rows:
+        pd.DataFrame(window_rows).to_csv(OUT / "11_robustness_window.csv", index=False)
 
     # 2. Segment-stratified Cox
-    for seg_label in ["High engagers", "Moderate"]:
-        seg_path = OUT / "segments_assignments.csv"
-        if not seg_path.exists():
-            break
+    seg_path = OUT / "segments_assignments.csv"
+    if seg_path.exists():
         seg = pd.read_csv(seg_path)
-        sub = df.merge(seg[seg["segment"] == seg_label][["pid"]], on="pid", how="inner")
-        if len(sub) < 20:
-            continue
-        cox_ph(sub, label=f"segment_{seg_label.replace(' ', '_').lower()}")
+        for seg_label in seg["segment"].unique():
+            sub = df.merge(seg[seg["segment"] == seg_label][["pid"]], on="pid", how="inner")
+            if len(sub) < 20:
+                continue
+            cox_ph(sub, label=f"segment_{seg_label.replace(' ', '_').lower()}")
 
     # 3. Power honesty
     n_ev = int(df[C.OUTCOME_EVENT].sum())
     print(f"\n  [power] n_events={n_ev} for primary window={WINDOW_DAYS}d")
     _power_note(n_ev, "primary")
-
-    print("  [Weibull/OLS concordance] → compare 11_aft_primary.csv vs 11_ols_primary.csv")
-    print("  [MAR assumption] Missing covariates: assumed MAR; complete-case analysis")
-    print("  [Propensity sensitivity] → prop-score weighting planned; out of scope here")
 
 
 # ── sanity check ──────────────────────────────────────────────────────────────
