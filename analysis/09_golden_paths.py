@@ -27,6 +27,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from scipy.stats import spearmanr
+
 from cessation import config as C
 from cessation import data
 
@@ -136,10 +138,57 @@ def compare_stationary(ev_all: pd.DataFrame, seg: pd.DataFrame) -> None:
     pd.DataFrame(rows).to_csv(OUT / "09_stationary_by_segment.csv", index=False)
 
 
-# ── 5. Top-k 3-step paths ─────────────────────────────────────────────────────
+# ── 5a. Channel time-share vs clinical outcome ───────────────────────────────
+
+def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame) -> None:
+    """Correlate per-user channel time-share with quit duration (Spearman).
+
+    Connects the Markov / behavioral analytics layer to a clinical endpoint.
+    Most frequent paths (golden paths) are descriptive; this section asks
+    whether the proportion of time spent in each channel predicts how long
+    a user stays quit.
+
+    Note: associations reflect the parameter structure injected by the
+    generator, not real causal mechanisms.  Real-data replication required
+    before any product decision.
+    """
+    print("\n=== 5a. Channel time-share vs quit duration ===")
+    try:
+        followup = data.load_followup()
+    except Exception as exc:
+        print(f"  followup not available: {exc}"); return
+
+    ev_ch = ev.groupby(["pid", "event_type"]).size().unstack(fill_value=0)
+    ev_ch = ev_ch.div(ev_ch.sum(axis=1), axis=0).reset_index()
+
+    d = ev_ch.merge(followup[["pid", C.OUTCOME_DURATION, C.OUTCOME_EVENT]],
+                    on="pid", how="inner")
+    if seg is not None:
+        d = d.merge(seg[["pid", "segment"]], on="pid", how="left")
+
+    # Spearman on relapsers only (completed outcome, not censored)
+    d_rel = d[d[C.OUTCOME_EVENT] == 1]
+    if len(d_rel) < 20:
+        print("  Too few completed outcomes for correlation"); return
+
+    rows = []
+    for ch in CHANNELS:
+        if ch not in d_rel.columns:
+            continue
+        r, p = spearmanr(d_rel[ch], d_rel[C.OUTCOME_DURATION])
+        rows.append({"channel": ch, "spearman_r": round(float(r), 3),
+                     "p": round(float(p), 4), "n": len(d_rel)})
+
+    df_out = pd.DataFrame(rows).sort_values("spearman_r", ascending=False)
+    print(df_out.to_string(index=False))
+    df_out.to_csv(OUT / "09_channel_outcome_corr.csv", index=False)
+    print("  saved 09_channel_outcome_corr.csv")
+
+
+# ── 5b. Top-k 3-step paths ────────────────────────────────────────────────────
 
 def top_paths(ev: pd.DataFrame, k: int = 5) -> None:
-    print(f"\n=== 5. Top-{k} 3-step paths ===")
+    print(f"\n=== 5b. Top-{k} 3-step paths ===")
     from collections import Counter
     path_counts: Counter = Counter()
     for _, group in ev.sort_values(["day_offset", "hour"]).groupby(["pid", "session_id"]):
@@ -168,10 +217,12 @@ def main() -> None:
     print("  saved 09_fig_markov_all.png")
 
     seg_path = OUT / "segments_assignments.csv"
+    seg = None
     if seg_path.exists():
         seg = pd.read_csv(seg_path)
         compare_stationary(ev, seg)
 
+    channel_outcome_corr(ev, seg)
     top_paths(ev)
     print(f"\nDone. Results in {OUT}")
 

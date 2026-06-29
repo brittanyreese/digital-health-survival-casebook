@@ -1,11 +1,18 @@
 """Analysis 04 -- Engagement -> quit duration (flagship survival analysis).
 
-Links app engagement features to quit duration in the ~1,200-user follow-up
-cohort.  Three models triangulate the effect: Kaplan-Meier (descriptive),
-Cox PH (covariate-adjusted hazard), Weibull AFT (primary parametric estimator;
-handles right-censoring correctly). OLS on log(duration) is included for
-interpretability but treats censored observations as if they failed at the
-censoring time, biasing estimates — treat as illustrative only.
+Links enrollment-baseline engagement features (days 0-29) to quit duration
+in the ~1,200-user follow-up cohort.  Restricting features to the first 30
+days avoids immortal time bias: using full-follow-up engagement confounds
+exposure with survival time because longer survivors accumulate more events
+by construction.  This baseline-window approach mirrors the landmark design
+in analysis/11, which anchors the exposure window to the declared quit date.
+
+Three models triangulate the association: Kaplan-Meier (descriptive),
+Cox PH (covariate-adjusted hazard, with Schoenfeld assumption test),
+Weibull AFT (primary parametric estimator; handles right-censoring without
+requiring the proportional hazards assumption).  OLS on log(duration) is
+included for interpretability only — it treats censored observations as
+uncensored failures, biasing estimates downward — treat as illustrative only.
 
 Outcome: out_days_quit (days of continuous abstinence, right-censored at 180 d)
          out_relapsed (1 = relapsed within follow-up window)
@@ -36,7 +43,8 @@ from cessation import data
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
 
-CENSOR_DAYS = C.FOLLOWUP_DAYS
+CENSOR_DAYS          = C.FOLLOWUP_DAYS
+EXPOSURE_WINDOW_DAYS = 30   # enrollment-anchored baseline (days 0–29)
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -65,13 +73,18 @@ def build_frame() -> pd.DataFrame:
     events   = data.load_events()
     reg      = data.load_registration()
 
-    # Engagement features (full study window)
-    g = events.groupby("pid")
+    # Engagement features from the enrollment-anchored baseline window only.
+    # Full-follow-up engagement would introduce immortal time bias: a user
+    # who quits for 150 days accumulates ~5x the events of a 30-day quitter
+    # simply by having more time at risk.  Restricting to days 0–EXPOSURE_WINDOW_DAYS
+    # ensures the predictor is measured before the outcome accrual period.
+    baseline = events[events["day_offset"] < EXPOSURE_WINDOW_DAYS]
+    g = baseline.groupby("pid")
     eng = pd.DataFrame({
-        "n_events":      g.size(),
-        "n_active_days": g["day_offset"].nunique(),
+        "n_events":       g.size(),
+        "n_active_days":  g["day_offset"].nunique(),
         "n_craving_tool": g["event_type"].apply(lambda x: (x == "craving_tool").sum()),
-        "n_content":     g["event_type"].apply(lambda x: (x == "content").sum()),
+        "n_content":      g["event_type"].apply(lambda x: (x == "content").sum()),
     }).reset_index()
     eng["intensity"]        = eng["n_events"] / eng["n_active_days"].clip(lower=1)
     eng["log_n_events"]     = np.log1p(eng["n_events"])

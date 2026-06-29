@@ -99,19 +99,34 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
 # ── cross-validation AUC ──────────────────────────────────────────────────────
 
 def cross_val_auc(X: pd.DataFrame, y: pd.Series) -> None:
-    print("\n=== 2. Cross-validation AUC (5-fold stratified) ===")
+    """ROC-AUC and AUPRC via 5-fold stratified CV.
+
+    AUPRC (average precision) is reported alongside ROC-AUC because it is
+    more informative under class imbalance: it weights precision at each
+    recall threshold, giving heavier penalty to false positives when the
+    positive class is a minority.  The no-skill AUPRC baseline equals the
+    churn prevalence, not 0.5.
+    """
+    print("\n=== 2. Cross-validation AUC + AUPRC (5-fold stratified) ===")
+    churn_rate = y.mean()
+    print(f"  Class imbalance: {churn_rate:.1%} churned  ({1 - churn_rate:.1%} retained)")
     model = HistGradientBoostingClassifier(
         max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
     )
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        aucs = cross_val_score(model, X, y, cv=cv, scoring="roc_auc")
-    print(f"  AUC: {aucs.mean():.4f} ± {aucs.std():.4f} (5-fold CV)")
-    # Majority-class baseline: constant prediction has no discriminability → AUC = 0.50
-    print(f"  Majority-class baseline AUC: 0.5000 (constant prediction)")
-    pd.DataFrame({"fold": range(1, 6), "auc": aucs,
-                  "baseline_auc": 0.5}).to_csv(OUT / "10_cv_aucs.csv", index=False)
+        aucs  = cross_val_score(model, X, y, cv=cv, scoring="roc_auc")
+        auprc = cross_val_score(model, X, y, cv=cv, scoring="average_precision")
+    print(f"  ROC-AUC: {aucs.mean():.4f} ± {aucs.std():.4f}  (baseline = 0.50)")
+    print(f"  AUPRC:   {auprc.mean():.4f} ± {auprc.std():.4f}  (no-skill baseline = {churn_rate:.3f})")
+    pd.DataFrame({
+        "fold":            range(1, 6),
+        "auc":             aucs,
+        "auprc":           auprc,
+        "baseline_auc":    0.5,
+        "baseline_auprc":  churn_rate,
+    }).to_csv(OUT / "10_cv_aucs.csv", index=False)
 
 
 # ── SHAP explanation ──────────────────────────────────────────────────────────
@@ -150,13 +165,17 @@ def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> Non
     importance.to_csv(OUT / "10_shap_importance.csv", index=False)
     print(importance.to_string(index=False))
 
-    # Waterfall for first test case
+    # Waterfall for the median-risk participant (ranked by sum of SHAP values).
+    # The median-risk individual shows a more representative feature decomposition
+    # than an extreme case, and avoids the arbitrary choice of index [0].
+    overall_risk = shap_values.values.sum(axis=1)
+    idx_median = int(np.argsort(overall_risk)[len(overall_risk) // 2])
     fig = plt.figure(figsize=(8, 5))
-    shap.waterfall_plot(shap_values[0], show=False)
+    shap.waterfall_plot(shap_values[idx_median], show=False)
     plt.tight_layout()
     plt.savefig(OUT / "10_fig_shap_waterfall.png", dpi=120)
     plt.close()
-    print("  saved 10_fig_shap_waterfall.png")
+    print(f"  saved 10_fig_shap_waterfall.png  (participant at median risk rank {idx_median})")
 
 
 # ── subgroup AUC (fairness check) ────────────────────────────────────────────

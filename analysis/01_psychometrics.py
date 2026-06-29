@@ -229,6 +229,15 @@ def cfa_sseq(s: pd.DataFrame) -> None:
 # ── 5. IRT (Graded Response Model) ────────────────────────────────────────────
 
 def irt_sdbs_pros(s: pd.DataFrame) -> None:
+    """Graded Response Model IRT for the SDBS Pros subscale.
+
+    Scope: Pros only.  Decisional balance theory (Prochaska et al., 1985)
+    assigns the Pros subscale primary discriminative value at the
+    Precontemplation-to-Contemplation transition — the stage boundary most
+    relevant for early DHT engagement.  The Cons subscale follows the same
+    GRM structure and SSEQ subscales would extend identically; demonstrating
+    the pipeline on one subscale avoids redundant output.
+    """
     print("\n=== 5. IRT GRM -- SDBS Pros ===")
     try:
         from girth import grm_mml
@@ -313,6 +322,11 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
             verdict = ("supported" if abs(cfie - cfif) < 0.01 and p > 0.05
                        else "NOT supported")
         print(f"  → metric invariance {verdict}")
+        print("  Scope: metric (loading) invariance only.  Scalar invariance "
+              "(equal item intercepts across groups) is the additional prerequisite "
+              "for comparing factor mean scores across TTM stages.  A full invariance "
+              "sequence (configural → metric → scalar → strict) would be required "
+              "before interpreting stage-conditional latent mean differences.")
         pd.DataFrame([{
             "CFI_configural": round(cfif, 3), "CFI_metric": round(cfie, 3),
             "delta_CFI": round(cfie - cfif, 4), "delta_chi2": round(dchi, 1),
