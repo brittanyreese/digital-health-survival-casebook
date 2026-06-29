@@ -180,9 +180,10 @@ def cox_ph(df: pd.DataFrame) -> pd.DataFrame | None:
     if len(d) < 20 or n_ev < 10:
         print("  Insufficient data"); return None
     _power_note(n_ev, "Cox")
-    # penalizer=0.1: L2 ridge for numerical stability; shrinks coefficients and
-    # produces penalized (not MLE) CIs. Verify sensitivity to 0.0 on real data.
-    cph = CoxPHFitter(penalizer=0.1)
+    # penalizer=0: MLE inference; appropriate for this sample size (~1200 subjects,
+    # hundreds of events). Script 11 uses penalizer=0.1 for post-landmark stability
+    # (n=74, 27 events) but that justification does not apply here.
+    cph = CoxPHFitter(penalizer=0)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         cph.fit(d, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
