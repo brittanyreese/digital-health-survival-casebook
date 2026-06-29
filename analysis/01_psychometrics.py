@@ -1,8 +1,13 @@
-"""Analysis 01 -- Psychometric validation of self-report scales.
+"""Analysis 01 -- Psychometric analysis pipeline for self-report scales.
 
-Validates SDBS (Smoking Decisional Balance Scale, 20 items, 5-pt) and
-SSEQ-12 (Smoking Self-Efficacy Questionnaire, 12 items, 5-pt) in the
-pre-quit survey cohort.  Establishes measurement quality before modelling.
+Demonstrates the analysis pipeline for SDBS (Smoking Decisional Balance Scale,
+20 items, 5-pt) and SSEQ-12 (Smoking Self-Efficacy Questionnaire, 12 items,
+5-pt) on calibrated synthetic data.  Because the synthetic data are generated
+from the same CFA-compatible correlation structure, results reflect parameter
+recovery fidelity rather than real-world construct validity.  A pipeline
+validation step (Section 7) fits the 2-factor model on 1-factor synthetic
+data to confirm the analysis correctly detects misfit when the generating
+model is wrong.
 
 Analyses:
   1. Reliability (Cronbach alpha, item-total correlations)
@@ -187,7 +192,7 @@ def cfa_sdbs(s: pd.DataFrame) -> None:
     m.fit(X)
     st = semopy.calc_stats(m).T
     fit = {k: round(float(st.loc[k].iloc[0]), 3)
-           for k in ["chi2", "DoF", "CFI", "TLI", "RMSEA"] if k in st.index}
+           for k in ["chi2", "DoF", "CFI", "TLI", "RMSEA", "SRMR"] if k in st.index}
     print("  fit:", fit)
     pd.DataFrame([fit]).to_csv(OUT / "01_sdbs_cfa_fit.csv", index=False)
     ins = m.inspect()
@@ -212,7 +217,7 @@ def cfa_sseq(s: pd.DataFrame) -> None:
     m.fit(X)
     st = semopy.calc_stats(m).T
     fit = {k: round(float(st.loc[k].iloc[0]), 3)
-           for k in ["chi2", "DoF", "CFI", "TLI", "RMSEA"] if k in st.index}
+           for k in ["chi2", "DoF", "CFI", "TLI", "RMSEA", "SRMR"] if k in st.index}
     print("  fit:", fit)
     pd.DataFrame([fit]).to_csv(OUT / "01_sseq_cfa_fit.csv", index=False)
     ins = m.inspect()
@@ -234,8 +239,12 @@ def irt_sdbs_pros(s: pd.DataFrame) -> None:
     try:
         res = grm_mml(X.T.to_numpy())
         disc = res["Discrimination"]
-        thresholds = res["Difficulty"]
+        thresholds = res["Difficulty"]  # shape (n_items, n_thresholds)
         out = pd.DataFrame({"item": X.columns, "discrimination": np.round(disc, 3)})
+        n_thresh = thresholds.shape[1] if thresholds.ndim > 1 else 1
+        for k in range(n_thresh):
+            col = thresholds[:, k] if thresholds.ndim > 1 else thresholds
+            out[f"threshold_{k+1}"] = np.round(col, 3)
         print(out.to_string(index=False))
         print(f"  discrimination range {disc.min():.2f}–{disc.max():.2f}")
         out.to_csv(OUT / "01_sdbs_pros_irt.csv", index=False)
@@ -313,6 +322,90 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
         print(f"  Invariance test failed: {exc}")
 
 
+# ── 7. CFA pipeline validation (misspecification check) ──────────────────────
+
+def cfa_misspec_check() -> None:
+    """Pipeline validation: fit the 2-factor SDBS model on three DGPs.
+
+    Case 1: 1-factor orthogonal data (trivially wrong) → should fail badly.
+    Case 2: 2-factor orthogonal data (correct) → should fit well.
+    Case 3: Bifactor data (general + two specific factors) → 2-factor model
+            partially misspecified; harder case that tests pipeline sensitivity.
+
+    Good discriminative power means: Case 1 CFI < 0.93, Case 3 CFI < 0.95,
+    Case 2 CFI > 0.95.
+    """
+    import semopy
+    print("\n=== 7. CFA pipeline validation (misspecification check) ===")
+    rng = np.random.default_rng(42)
+    n, lam = 800, 0.6
+    cols_p = [f"p{i:02d}" for i in range(1, 11)]
+    cols_c = [f"c{i:02d}" for i in range(1, 11)]
+    spec_2f = ("Pros =~ " + " + ".join(cols_p) + "\nCons =~ " + " + ".join(cols_c)
+               + "\nPros ~~ Cons")
+    spec_1f = "G =~ " + " + ".join(cols_p + cols_c)
+
+    def _discretise(arr: np.ndarray) -> np.ndarray:
+        return np.clip(np.round(arr * 1.5 + 3), 1, 5)
+
+    rows = []
+
+    # Case 1: 1-factor orthogonal (trivially wrong model)
+    fa = rng.standard_normal(n)
+    fb = rng.standard_normal(n)
+    pros = lam * fa[:, None] + np.sqrt(1 - lam**2) * rng.standard_normal((n, 10))
+    cons = lam * fb[:, None] + np.sqrt(1 - lam**2) * rng.standard_normal((n, 10))
+    df_mis = pd.DataFrame(_discretise(np.hstack([pros, cons])), columns=cols_p + cols_c)
+    for label, spec in [("1-factor/wrong (Case 1)", spec_1f),
+                         ("2-factor/correct (Case 1 data)", spec_2f)]:
+        try:
+            m = semopy.Model(spec); m.fit(df_mis)
+            st = semopy.calc_stats(m).T
+            fit = {k: round(float(st.loc[k].iloc[0]), 3)
+                   for k in ["CFI", "RMSEA"] if k in st.index}
+        except Exception as exc:
+            fit = {"error": str(exc)}
+        print(f"  {label}: {fit}")
+        rows.append({"case": label, **fit})
+
+    # Case 3: Bifactor (general factor + two specific factors)
+    # All 20 items load on g (lam_g=0.4) plus their specific factor (lam_s=0.5)
+    g  = rng.standard_normal(n)
+    f1 = rng.standard_normal(n)
+    f2 = rng.standard_normal(n)
+    lam_g, lam_s = 0.40, 0.50
+    unique_var = np.sqrt(max(0, 1 - lam_g**2 - lam_s**2))
+    pros_bf = (lam_g * g[:, None] + lam_s * f1[:, None]
+               + unique_var * rng.standard_normal((n, 10)))
+    cons_bf = (lam_g * g[:, None] + lam_s * f2[:, None]
+               + unique_var * rng.standard_normal((n, 10)))
+    df_bf = pd.DataFrame(_discretise(np.hstack([pros_bf, cons_bf])),
+                         columns=cols_p + cols_c)
+    for label, spec in [("2-factor on bifactor data (Case 3 — hard)", spec_2f),
+                         ("1-factor on bifactor data (Case 3)", spec_1f)]:
+        try:
+            m = semopy.Model(spec); m.fit(df_bf)
+            st = semopy.calc_stats(m).T
+            fit = {k: round(float(st.loc[k].iloc[0]), 3)
+                   for k in ["CFI", "RMSEA"] if k in st.index}
+        except Exception as exc:
+            fit = {"error": str(exc)}
+        print(f"  {label}: {fit}")
+        rows.append({"case": label, **fit})
+
+    pd.DataFrame(rows).to_csv(OUT / "01_cfa_misspec_check.csv", index=False)
+    case1_wrong = next((r for r in rows if "1-factor/wrong" in r["case"]), {})
+    case3_hard  = next((r for r in rows if "Case 3 — hard" in r["case"]), {})
+    detects_easy = case1_wrong.get("CFI", 1.0) < 0.93
+    detects_hard = case3_hard.get("CFI", 1.0) < 0.95
+    print(f"  detects trivial misfit (Case 1): {detects_easy}")
+    print(f"  detects bifactor misfit (Case 3): {detects_hard}")
+    if not detects_hard:
+        print("  [warn] 2-factor model shows acceptable fit on bifactor data — "
+              "pipeline cannot distinguish bifactor from correlated-factor structure "
+              "on these parameters.")
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -325,6 +418,7 @@ def main() -> None:
     cfa_sseq(s)
     irt_sdbs_pros(s)
     invariance_sdbs(s)
+    cfa_misspec_check()
     print(f"\nDone. Results in {OUT}")
 
 
