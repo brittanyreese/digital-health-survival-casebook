@@ -1,14 +1,20 @@
 """Analysis 11 -- Quit-date-anchored engagement -> outcome (flagship longitudinal).
 
-Landmark design: exposure window is the 30 days immediately following the
-user's declared quit date (days 0–30 post-quit).  Outcome is relapse timing
-from the follow-up table.
+Landmark design (Anderson & Gill, 1982; van Houwelingen, 2007): the analysis
+population is restricted to subjects who survive event-free through the
+exposure window.  Subjects relapsing before `WINDOW_DAYS` are excluded;
+survival time is measured from the end of the exposure window (origin shift).
 
-The quit-date anchor structurally precludes reverse causality: app use in the
-post-quit window cannot be driven by outcome because outcome accrual (relapse
-or continued abstinence) is measured after the exposure window closes.
+Without landmark exclusion, early relapsers accumulate fewer events by
+construction — a variant of immortal-time bias: a 5-day quitter can log at
+most 5 days of events in a 30-day window, inflating the association between
+engagement volume and duration.  Excluding subjects who have not survived to
+the window close, and re-zeroing time at day `WINDOW_DAYS`, removes this
+structural dependence.
 
-Models: KM by engagement tertile, Cox PH (covariate-adjusted), Weibull AFT (primary). Robustness battery: window sensitivity (14d/60d vs 30d) via AFT, segment-stratified Cox, power honesty check.
+Models: KM by engagement tertile, Cox PH (covariate-adjusted), Weibull AFT
+(primary).  Robustness battery: window sensitivity (14d/60d) via AFT with
+landmark applied at each window, segment-stratified Cox, power honesty check.
 
 Run:  uv run python analysis/11_quit_anchored.py
 """
@@ -126,6 +132,20 @@ def build_frame(window_days: int = WINDOW_DAYS) -> pd.DataFrame:
         return pd.DataFrame()
 
     df = outcome.merge(feat, on="pid", how="inner")
+
+    # Landmark exclusion: drop subjects with outcome before window closes.
+    # Without this, early relapsers have mechanically lower event counts
+    # (they simply had less time to accumulate them), which biases
+    # log_n_events toward predicting survival time by construction.
+    n_total = len(df)
+    df = df[df[C.OUTCOME_DURATION] >= window_days].copy()
+    n_excluded = n_total - len(df)
+    print(f"  Landmark exclusion (duration < {window_days}d): "
+          f"{n_excluded} excluded, {len(df)} remaining")
+
+    # Shift survival time origin to the landmark
+    df[C.OUTCOME_DURATION] = df[C.OUTCOME_DURATION] - window_days
+    df = df[df[C.OUTCOME_DURATION] > 0].copy()
 
     # Segment labels
     seg_path = OUT / "segments_assignments.csv"
@@ -302,6 +322,9 @@ def robustness_battery(df: pd.DataFrame) -> None:
         if feat_w.empty:
             continue
         df_w = outcome.merge(feat_w, on="pid", how="inner")
+        # Apply landmark at each window so comparison is fair
+        df_w = df_w[df_w[C.OUTCOME_DURATION] >= w].copy()
+        df_w[C.OUTCOME_DURATION] = df_w[C.OUTCOME_DURATION] - w
         if len(df_w) < 20:
             continue
         df_w = df_w[df_w[C.OUTCOME_DURATION] > 0].copy()

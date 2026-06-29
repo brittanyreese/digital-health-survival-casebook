@@ -52,12 +52,17 @@ generation layer for this demonstration and do not appear as separate scripts.
 Three choices in this pipeline address common methodological pitfalls
 in mHealth analytics:
 
-**Exposure window restriction (scripts 04, 10, 11).** Total engagement
-over the full follow-up period is a biased predictor of quit duration:
-longer survivors accumulate more events by construction (immortal time
-bias).  All survival and ML analyses restrict engagement features to a
-pre-outcome baseline window (days 0-29 from enrollment in scripts 04 and 10;
-days 0-29 post-quit-date in script 11's landmark design).
+**Exposure window restriction and landmark design (scripts 04, 10, 11).**
+Total engagement over the full follow-up period is a biased predictor of
+quit duration: longer survivors accumulate more events by construction
+(immortal time bias).  Scripts 04 and 10 restrict engagement features to a
+pre-outcome baseline window (days 0-29 from enrollment).  Script 11
+implements a proper landmark analysis (Anderson & Gill, 1982): subjects who
+relapse before the window closes are excluded entirely (their event counts
+are mechanically capped by how long they survived), and the survival time
+origin is shifted to the window close date (day 30 post-quit).  This removes
+the structural dependence between event count and survival time in the
+at-risk sample.
 
 **Proportional hazards testing (scripts 04, 11).** Cox PH is fitted and
 the Schoenfeld residual test is reported before choosing the primary estimator.
@@ -81,11 +86,11 @@ study design.
 | Analysis | Synthetic result | Real-data implication |
 |---|---|---|
 | Weibull AFT — Script 04 | exp(β) = 1.48 (95% CI 1.08–2.02), p = 0.015, per log-unit 30-day engagement | Engagement quartile differences would translate to roughly 1.5x longer abstinence windows — a detectable effect at N ≈ 300 with 80% power |
-| Weibull AFT — Script 11 | exp(β) = 2.08 (95% CI 1.26–3.42), p = 0.004; `activated` included (AFT requires no PH), exp(β) = 0.68, p = 0.46 (n.s.) | Quit-anchored design removes post-hoc engagement bias; including the PH-violating covariate in AFT (where it is valid) yields a null segment effect |
-| Weibull shape κ — Scripts 04, 11 | κ = 0.54 (script 04); κ = 0.59 (script 11); injected κ = 0.55 | Decreasing-hazard profile: relapse risk peaks immediately post-quit, supporting early-window intervention timing; both estimates recover the injected value |
-| Cox PH test — Script 04 | All Schoenfeld p > 0.34; PH holds | Cox and Weibull estimates consistent; no PH-driven model selection required |
-| Cox PH test — Script 11 | `activated` Schoenfeld p = 0.037; PH violated | Engagement-activation effect is time-varying; Weibull AFT is the correct primary estimator |
-| AFT window sensitivity — Script 11 | exp(β) = 2.05 (p = 0.007) at 14d; exp(β) = 2.00 (p = 0.001) at 60d | Consistent effect across window widths; 30-day window is a reasonable default |
+| Weibull AFT — Script 11 | exp(β) = 2.08 (95% CI 1.21–3.57), p = 0.008; activated exp(β) = 0.31 (p = 0.044); n=74 post-landmark (39 early relapsers excluded); 27 events (UNDERPOWERED) | Landmark exclusion removes the immortal-time variant; engagement effect survives; activated result unreliable at 27 events — treat as directional only |
+| Weibull shape κ — Scripts 04, 11 | κ = 0.54 (script 04, enrollment-anchored); κ = 0.94 (script 11, post-landmark); injected κ = 0.55 | Script 04 recovers the injected decreasing-hazard shape; script 11's near-flat hazard (κ ≈ 1) is correct for the post-landmark cohort — early relapse risk was conditioned away by landmark exclusion |
+| Cox PH test — Script 04 | All Schoenfeld p > 0.35; PH holds; Cox HR = 0.846 (p = 0.034), directionally consistent with AFT | Aligned covariate sets enable direct Cox/AFT comparison; both reach significance in same direction |
+| Cox PH test — Script 11 | `activated` Schoenfeld p = 0.037 (among 9 tests; ~0.45 false positives expected under global null; treat as exploratory) | Weibull AFT is primary regardless; p=0.037 on its own among 9 tests does not establish a PH violation |
+| AFT window sensitivity — Script 11 | exp(β) = 1.97 (p = 0.021, n=87) at 14d; exp(β) = 1.85 (p = 0.029, n=66) at 60d | Effect attenuates slightly at wider windows after landmark; monotonic strengthening seen pre-landmark was the bias signature |
 | CFA misspecification check — Script 01 | CFI = 0.469 on 1-factor case (trivial misfit detected); CFI = 0.997 on correct 2-factor case; CFI = 1.003 on bifactor case (degenerate — check fails; script flags `detects_hard=False`) | Pipeline detects trivial misfit but cannot distinguish bifactor from correlated-factor structure; the script's own warning correctly bounds this scope |
 | CFA fit — Script 01 | SDBS 2-factor: CFI = 0.987, RMSEA = 0.021 | Reflects parameter recovery fidelity; a real-data CFA on this instrument would face measurement noise, partial invariance, and potentially different factor structure across populations |
 | Churn ROC-AUC — Script 10 | 0.844 ± 0.006 (5-fold stratified CV) | Above published DHT benchmark range of 0.65–0.78; elevated because synthetic signal-to-noise is clean; real AUC would likely fall in that range |
@@ -164,23 +169,31 @@ explicitly and compare it to the 2-factor model via BIC or LRT.
 
 **Survival analyses.** Scripts 04 and 11 use Weibull AFT as the primary
 estimator because it handles right-censoring correctly and does not require
-the proportional hazards assumption.  Cox PH is reported for comparison with
-a Schoenfeld residual test; where a violation is detected (script 11:
-`activated`, p = 0.037 in Cox), Cox estimates are treated as descriptive
-only.  The `activated` covariate is included in script 11's AFT model
-because AFT does not require PH — the model estimates a time-acceleration
-effect independent of the hazard assumption, yielding exp(β) = 0.68,
-p = 0.46 (n.s.): the activation segment effect is non-significant once
-overall engagement volume is accounted for.  OLS on log(duration) is shown
-for interpretability only — it treats censored observations as uncensored
-failures and is biased.
+the proportional hazards assumption.  Cox PH uses the same parsimonious
+covariate set as AFT (log_n_events + demographic moderators only; collinear
+covariates excluded) so that Cox HR and AFT exp(β) can be directly compared
+— both reach significance in the same direction (script 04: HR=0.846
+p=0.034, exp(β)=1.48 p=0.015).  The Schoenfeld residual test is reported
+for all Cox models; no violation is found in script 04 (all p>0.35).  In
+script 11, one covariate (`activated`) has Schoenfeld p=0.037 among 9 tests
+(~0.45 false positives expected under global null); this is treated as
+exploratory, not as a confirmed PH violation.  AFT is the primary model
+regardless; the `activated` covariate is included in AFT since AFT has no
+PH requirement.  OLS on log(duration) is shown for interpretability only — it
+treats censored observations as uncensored failures and is biased.
 
-**Landmark design.** The landmark analysis in script 11 demonstrates the
-structural logic of quit-date anchoring: the exposure window closes before
-outcome accrual begins, which rules out reverse causality by design.  On
-jointly-generated synthetic data this exercises the code structure of that
-design, not a causal mechanism.  Causal interpretation requires prospective
-real data collected under the same protocol.
+**Landmark design.** Script 11 implements a proper landmark analysis
+(Anderson & Gill, 1982): subjects who relapse before the window closes
+(day 30 post-quit) are excluded (n=39 in this cohort), and survival time is
+measured from the window close date.  Without this step, subjects with early
+relapses have mechanically fewer events — their event count is bounded by how
+long they survived, creating a structural positive correlation between
+engagement and survival time even under the null.  The robustness battery at
+14d and 60d windows applies the same landmark at each width, and the effect
+attenuates slightly at wider windows (rather than monotonically strengthening,
+as it did pre-landmark — the monotonic pattern was the bias signature).  On
+synthetic data this exercises the code logic of the design; causal
+interpretation requires prospective real data.
 
 **ML pipeline.** Churn features are extracted from days 0-29; the churn
 label is defined over days 166-180; a runtime assertion enforces the

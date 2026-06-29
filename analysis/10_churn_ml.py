@@ -49,10 +49,12 @@ CHURN_WINDOW   = [C.FOLLOWUP_DAYS - 14, C.FOLLOWUP_DAYS]   # [166, 180]
 def build_features(events: pd.DataFrame, spine: pd.DataFrame,
                    reg: pd.DataFrame) -> pd.DataFrame:
     """First-30-day features + churn label."""
+    # Temporal separation guard: label window must not overlap feature window
+    assert CHURN_WINDOW[0] >= EARLY_WINDOW, (
+        f"Label window starts at day {CHURN_WINDOW[0]}, "
+        f"overlapping feature window [0, {EARLY_WINDOW}): temporal leakage"
+    )
     early = events[events["day_offset"] < EARLY_WINDOW].copy()
-    # day_offset is registration-anchored; confirms no post-window signal leaks into features
-    assert (early["day_offset"] < EARLY_WINDOW).all(), \
-        f"Temporal cutoff violation: found day_offset >= {EARLY_WINDOW}"
     late  = events[
         (events["day_offset"] >= CHURN_WINDOW[0]) &
         (events["day_offset"] <  CHURN_WINDOW[1])

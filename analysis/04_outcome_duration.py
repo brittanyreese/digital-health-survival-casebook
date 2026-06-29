@@ -169,8 +169,11 @@ def km_by_engagement(df: pd.DataFrame) -> None:
 def cox_ph(df: pd.DataFrame) -> pd.DataFrame | None:
     print("\n=== 4. Cox proportional-hazards ===")
     opt  = _opt_covs(df)
-    chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
-    cols = ["log_n_events", "log_active_days"] + chan + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
+    # Parsimonious specification aligned with Weibull AFT: log_n_events as primary
+    # engagement predictor.  log_active_days and channel covariates are excluded
+    # because they are collinear with log_n_events (events = active_days × intensity),
+    # which attenuates the engagement coefficient and prevents direct Cox/AFT comparison.
+    cols = ["log_n_events"] + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     n_ev = int(d[C.OUTCOME_EVENT].sum())
     print(f"  n={len(d)}  events={n_ev}")
