@@ -223,18 +223,21 @@ def km_by_tertile(df: pd.DataFrame, label: str = "primary") -> None:
 def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
     print(f"\n=== Cox PH ({label}) ===")
     opt  = _opt_covs(df)
-    # Channel features only in the primary full-sample model; subgroup Ns are too small
-    chan = ([c for c in ["log_craving_tool", "log_content"] if c in df.columns]
-            if label == "primary" else [])
-    base = [c for c in ["log_n_events", "log_active_days", "activated"]
-            if c in df.columns]
-    cols = base + chan + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
+    # Parsimonious spec aligned with Weibull AFT: log_n_events + activated.
+    # log_active_days excluded (collinear with log_n_events; same reasoning as
+    # script 04). Channel features excluded so Cox and AFT share the same
+    # covariate set, enabling direct HR vs exp(β) comparison.
+    base = [c for c in ["log_n_events", "activated"] if c in df.columns]
+    cols = base + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     n_ev = int(d[C.OUTCOME_EVENT].sum())
     print(f"  n={len(d)}  events={n_ev}")
     if len(d) < 20 or n_ev < 10:
         print("  Insufficient data"); return None
     _power_note(n_ev, f"Cox {label}")
+    # penalizer=0.1: L2 ridge for numerical stability at small post-landmark n.
+    # Shrinks coefficients toward zero; CIs are penalized, not MLE. Sensitivity
+    # to 0.05/0.0 should be checked before publication on real data.
     cph = CoxPHFitter(penalizer=0.1)
     try:
         with warnings.catch_warnings():

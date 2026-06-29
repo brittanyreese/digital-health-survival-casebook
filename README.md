@@ -65,11 +65,14 @@ the structural dependence between event count and survival time in the
 at-risk sample.
 
 **Proportional hazards testing (scripts 04, 11).** Cox PH is fitted and
-the Schoenfeld residual test is reported before choosing the primary estimator.
-Where no violation is detected, Cox results are shown alongside Weibull AFT
-for triangulation.  Where a violation occurs (script 11: `activated` covariate,
-p = 0.037), Cox estimates are treated as descriptive only and Weibull AFT
-is the primary result.
+the Schoenfeld residual test is reported alongside the primary estimator.
+In both scripts, no PH violation is detected (script 04: all p > 0.35;
+script 11: all 6 tests p > 0.24).  Weibull AFT is pre-specified as primary
+regardless, because it does not require the proportional hazards assumption.
+Cox uses the same parsimonious covariate set as AFT in both scripts
+(log_n_events + activated + demographic moderators; log_active_days and
+channel covariates excluded as collinear), enabling direct HR vs. exp(β)
+comparison.
 
 **Feature-outcome temporal separation (script 10).** Churn features come
 from days 0-29; the churn label is defined over days 166-180.  A runtime
@@ -87,16 +90,16 @@ study design.
 |---|---|---|
 | Weibull AFT — Script 04 | exp(β) = 1.48 (95% CI 1.08–2.02), p = 0.015, per log-unit 30-day engagement | Engagement quartile differences would translate to roughly 1.5x longer abstinence windows — a detectable effect at N ≈ 300 with 80% power |
 | Weibull AFT — Script 11 | exp(β) = 2.08 (95% CI 1.21–3.57), p = 0.008; activated exp(β) = 0.31 (p = 0.044); n=74 post-landmark (39 early relapsers excluded); 27 events (UNDERPOWERED) | Landmark exclusion removes the immortal-time variant; engagement effect survives; activated result unreliable at 27 events — treat as directional only |
-| Weibull shape κ — Scripts 04, 11 | κ = 0.54 (script 04, enrollment-anchored); κ = 0.94 (script 11, post-landmark); injected κ = 0.55 | Script 04 recovers the injected decreasing-hazard shape; script 11's near-flat hazard (κ ≈ 1) is correct for the post-landmark cohort — early relapse risk was conditioned away by landmark exclusion |
+| Weibull shape κ — Scripts 04, 11 | κ = 0.54 (script 04, enrollment-anchored); κ = 0.94 (script 11, post-landmark; 95% CI 0.66–1.33); injected κ = 0.55 | Script 04 recovers the injected decreasing-hazard shape; script 11's near-flat hazard (κ ≈ 1) is correct for the post-landmark cohort — early relapse risk was conditioned away by landmark exclusion; κ is estimated with high uncertainty at 27 events (SE = 0.18) |
 | Cox PH test — Script 04 | All Schoenfeld p > 0.35; PH holds; Cox HR = 0.846 (p = 0.034), directionally consistent with AFT | Aligned covariate sets enable direct Cox/AFT comparison; both reach significance in same direction |
-| Cox PH test — Script 11 | `activated` Schoenfeld p = 0.037 (among 9 tests; ~0.45 false positives expected under global null; treat as exploratory) | Weibull AFT is primary regardless; p=0.037 on its own among 9 tests does not establish a PH violation |
+| Cox PH test — Script 11 | All 6 Schoenfeld p > 0.24 (minimum: mod_cpd p = 0.243); no PH violation detected | Weibull AFT is pre-specified as primary regardless; Cox uses the same parsimonious covariate set as AFT (log_n_events + activated + demographic moderators) for direct comparison |
 | AFT window sensitivity — Script 11 | exp(β) = 1.97 (p = 0.021, n=87) at 14d; exp(β) = 1.85 (p = 0.029, n=66) at 60d | Effect attenuates slightly at wider windows after landmark; monotonic strengthening seen pre-landmark was the bias signature |
 | CFA misspecification check — Script 01 | CFI = 0.469 on 1-factor case (trivial misfit detected); CFI = 0.997 on correct 2-factor case; CFI = 1.003 on bifactor case (degenerate — check fails; script flags `detects_hard=False`) | Pipeline detects trivial misfit but cannot distinguish bifactor from correlated-factor structure; the script's own warning correctly bounds this scope |
 | CFA fit — Script 01 | SDBS 2-factor: CFI = 0.987, RMSEA = 0.021 | Reflects parameter recovery fidelity; a real-data CFA on this instrument would face measurement noise, partial invariance, and potentially different factor structure across populations |
 | Churn ROC-AUC — Script 10 | 0.844 ± 0.006 (5-fold stratified CV) | Above published DHT benchmark range of 0.65–0.78; elevated because synthetic signal-to-noise is clean; real AUC would likely fall in that range |
 | Churn AUPRC — Script 10 | 0.334 ± 0.029 (no-skill baseline = 0.103) | 3.2x no-skill lift at 10.3% churn prevalence; AUPRC is the informative metric under class imbalance |
 | Subgroup AUC — Script 10 | Age: below-median 0.831, above-median 0.855; Education: below-median 0.837, above-median 0.858 | Modest performance gap by age and education on synthetic data; real fairness audit would require race/ethnicity, rurality, and insurance status |
-| Channel-outcome correlation — Script 09 | All channels p > 0.28 in 30-day baseline window (content r = 0.04; all others r ≤ 0.01) | Channel mix in the first 30 days shows no association with quit duration (unadjusted bivariate; volume not controlled); individual channel effects require larger N and randomized exposure |
+| Channel-outcome correlation — Script 09 | All channels p > 0.28 in 30-day baseline window (content r = 0.04; all others r ≤ 0.01); restricted to observed relapsers (n = 694; censored abstainers excluded) | Channel mix in the first 30 days shows no association with quit duration (unadjusted bivariate; volume not controlled); individual channel effects require larger N and randomized exposure |
 
 All analyses are exploratory within a single synthetic dataset.  No correction
 for multiple comparisons is applied across scripts.  A pre-registered,
@@ -170,17 +173,16 @@ explicitly and compare it to the 2-factor model via BIC or LRT.
 **Survival analyses.** Scripts 04 and 11 use Weibull AFT as the primary
 estimator because it handles right-censoring correctly and does not require
 the proportional hazards assumption.  Cox PH uses the same parsimonious
-covariate set as AFT (log_n_events + demographic moderators only; collinear
-covariates excluded) so that Cox HR and AFT exp(β) can be directly compared
-— both reach significance in the same direction (script 04: HR=0.846
+covariate set as AFT in both scripts (log_n_events + activated + demographic
+moderators; log_active_days and channel covariates excluded as collinear
+with log_n_events) so that Cox HR and AFT exp(β) can be directly compared.
+Both reach significance in the same direction in script 04 (HR=0.846
 p=0.034, exp(β)=1.48 p=0.015).  The Schoenfeld residual test is reported
-for all Cox models; no violation is found in script 04 (all p>0.35).  In
-script 11, one covariate (`activated`) has Schoenfeld p=0.037 among 9 tests
-(~0.45 false positives expected under global null); this is treated as
-exploratory, not as a confirmed PH violation.  AFT is the primary model
-regardless; the `activated` covariate is included in AFT since AFT has no
-PH requirement.  OLS on log(duration) is shown for interpretability only — it
-treats censored observations as uncensored failures and is biased.
+for all Cox models; no violation is found in either script (script 04: all
+p > 0.35; script 11: all 6 tests p > 0.24, minimum mod_cpd p = 0.243).
+AFT is pre-specified as primary regardless of the Schoenfeld outcome.
+OLS on log(duration) is shown for interpretability only — it treats
+censored observations as uncensored failures and is biased.
 
 **Landmark design.** Script 11 implements a proper landmark analysis
 (Anderson & Gill, 1982): subjects who relapse before the window closes
