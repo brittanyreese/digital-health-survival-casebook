@@ -2,10 +2,17 @@
 
 Predicts 14-day churn (no app use in final 14 days of study) from
 early engagement features (first 30 days).  Demonstrates ML/XAI pipeline:
-nested cross-validation for unbiased performance, SHAP for model explanation.
+5-fold stratified CV for unbiased AUC estimate, then a final model trained
+on the full dataset for SHAP explanation (standard pattern: CV estimates
+performance, full-data model explains feature contributions).
 
 Churn definition: no events in days 165–180 (final 14 days of 180-day window).
 Features: first-30-day engagement counts + channel mix + TTM stage.
+Churn-label note: churn=1 means zero events in days 165-180. This conflates
+two populations: (a) disengaged users who lapsed, and (b) successful quitters
+who no longer needed the app. The AUC should be interpreted as predictive of
+late-window engagement absence, not exclusively dropout. A prospective
+deployment would need to condition on abstinence status to separate these groups.
 
 Run:  uv run python analysis/10_churn_ml.py
 """
@@ -25,8 +32,6 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
-from sklearn.metrics import roc_auc_score, classification_report
-from sklearn.preprocessing import LabelEncoder
 import shap
 
 from cessation import config as C
@@ -45,6 +50,9 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
                    reg: pd.DataFrame) -> pd.DataFrame:
     """First-30-day features + churn label."""
     early = events[events["day_offset"] < EARLY_WINDOW].copy()
+    # day_offset is registration-anchored; confirms no post-window signal leaks into features
+    assert (early["day_offset"] < EARLY_WINDOW).all(), \
+        f"Temporal cutoff violation: found day_offset >= {EARLY_WINDOW}"
     late  = events[
         (events["day_offset"] >= CHURN_WINDOW[0]) &
         (events["day_offset"] <  CHURN_WINDOW[1])
@@ -70,7 +78,6 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
     ).reindex(active, fill_value=0)
     feat["intensity_30d"]   = (feat["n_events_30d"] /
                                 feat["n_active_days_30d"].clip(lower=1))
-    feat["log_events_30d"]  = np.log1p(feat["n_events_30d"])
 
     # Churn label: 0 events in late window = churned
     late_active = g_l.size().reindex(active, fill_value=0)
@@ -89,43 +96,45 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
     return feat
 
 
-# ── nested CV ─────────────────────────────────────────────────────────────────
+# ── cross-validation AUC ──────────────────────────────────────────────────────
 
-def nested_cv(X: pd.DataFrame, y: pd.Series) -> None:
-    print("\n=== 2. Nested cross-validation (AUC) ===")
+def cross_val_auc(X: pd.DataFrame, y: pd.Series) -> None:
+    print("\n=== 2. Cross-validation AUC (5-fold stratified) ===")
     model = HistGradientBoostingClassifier(
         max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
     )
-    outer = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        aucs = cross_val_score(model, X, y, cv=outer, scoring="roc_auc")
-    print(f"  AUC: {aucs.mean():.4f} ± {aucs.std():.4f} (5-fold outer CV)")
-    pd.DataFrame({"fold": range(1, 6), "auc": aucs}).to_csv(OUT / "10_cv_aucs.csv",
-                                                               index=False)
+        aucs = cross_val_score(model, X, y, cv=cv, scoring="roc_auc")
+    print(f"  AUC: {aucs.mean():.4f} ± {aucs.std():.4f} (5-fold CV)")
+    # Majority-class baseline: constant prediction has no discriminability → AUC = 0.50
+    print(f"  Majority-class baseline AUC: 0.5000 (constant prediction)")
+    pd.DataFrame({"fold": range(1, 6), "auc": aucs,
+                  "baseline_auc": 0.5}).to_csv(OUT / "10_cv_aucs.csv", index=False)
 
 
 # ── SHAP explanation ──────────────────────────────────────────────────────────
 
-def shap_explain(X_train: pd.DataFrame, X_test: pd.DataFrame,
-                 y_train: pd.Series, y_test: pd.Series,
-                 feature_names: list[str]) -> None:
-    print("\n=== 3. SHAP feature importance ===")
+def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> None:
+    """Train final model on full data and explain with SHAP.
+
+    CV AUC (above) is the unbiased performance estimate.  This model uses
+    all available data so SHAP values reflect the full-sample feature signal.
+    """
+    print("\n=== 3. SHAP feature importance (final model, full data) ===")
     model = HistGradientBoostingClassifier(
         max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
     )
-    model.fit(X_train, y_train)
+    model.fit(X, y)
 
-    y_pred_prob = model.predict_proba(X_test)[:, 1]
-    auc = roc_auc_score(y_test, y_pred_prob)
-    print(f"  Hold-out AUC: {auc:.4f}")
-
-    explainer = shap.Explainer(model, X_train, feature_names=feature_names)
-    shap_values = explainer(X_test, check_additivity=False)
+    explainer = shap.Explainer(model, X, feature_names=feature_names)
+    # check_additivity=False: GBM + missing values; additivity holds within tolerance per SHAP docs
+    shap_values = explainer(X, check_additivity=False)
 
     # Summary plot
     fig = plt.figure(figsize=(8, 6))
-    shap.summary_plot(shap_values, X_test, feature_names=feature_names,
+    shap.summary_plot(shap_values, X, feature_names=feature_names,
                       show=False)
     plt.tight_layout()
     plt.savefig(OUT / "10_fig_shap_summary.png", dpi=120)
@@ -150,6 +159,76 @@ def shap_explain(X_train: pd.DataFrame, X_test: pd.DataFrame,
     print("  saved 10_fig_shap_waterfall.png")
 
 
+# ── subgroup AUC (fairness check) ────────────────────────────────────────────
+
+def subgroup_aucs(feat: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> None:
+    """AUC disaggregated by demographic proxy — minimum fairness check."""
+    from sklearn.metrics import roc_auc_score
+    from sklearn.model_selection import cross_val_predict
+
+    print("\n=== 4. Subgroup AUC (demographic fairness check) ===")
+    model = HistGradientBoostingClassifier(
+        max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
+    )
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        proba = cross_val_predict(model, X, y, cv=cv, method="predict_proba")[:, 1]
+
+    rows = []
+    for col in ["mod_age", "mod_edu"]:
+        if col not in feat.columns:
+            continue
+        med = feat[col].median()
+        for label, mask in [("below_median", feat[col] <= med),
+                             ("above_median", feat[col] > med)]:
+            mask_arr = mask.values
+            y_sub = y[mask_arr]
+            p_sub = proba[mask_arr]
+            if y_sub.nunique() < 2 or len(y_sub) < 20:
+                continue
+            auc = roc_auc_score(y_sub, p_sub)
+            rows.append({"covariate": col, "subgroup": label,
+                         "n": int(len(y_sub)), "auc": round(auc, 4)})
+    if rows:
+        df_sg = pd.DataFrame(rows)
+        df_sg.to_csv(OUT / "10_subgroup_aucs.csv", index=False)
+        print(df_sg.to_string(index=False))
+    print("  Note: subgroup differences reflect synthetic data structure and carry no "
+          "real equity information. A prospective fairness audit (including race/ethnicity, "
+          "rurality, insurance status) is required before deployment.")
+
+
+# ── calibration reliability diagram ──────────────────────────────────────────
+
+def calibration_plot(X: pd.DataFrame, y: pd.Series) -> None:
+    """Reliability diagram to confirm predicted probabilities are calibrated."""
+    from sklearn.calibration import calibration_curve
+    from sklearn.model_selection import cross_val_predict
+
+    print("\n=== 5. Calibration reliability diagram ===")
+    model = HistGradientBoostingClassifier(
+        max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
+    )
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        proba = cross_val_predict(model, X, y, cv=cv, method="predict_proba")[:, 1]
+
+    fraction_pos, mean_pred = calibration_curve(y, proba, n_bins=10)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    ax.plot(mean_pred, fraction_pos, "s-", label="churn model")
+    ax.plot([0, 1], [0, 1], "k--", label="perfect calibration")
+    ax.set_xlabel("Mean predicted probability")
+    ax.set_ylabel("Fraction of positives")
+    ax.set_title("Calibration reliability diagram (5-fold CV predictions)")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(OUT / "10_fig_calibration.png", dpi=120)
+    plt.close(fig)
+    print("  saved 10_fig_calibration.png")
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -167,14 +246,10 @@ def main() -> None:
     X = feat[feature_cols].fillna(feat[feature_cols].median())
     y = feat["churned"]
 
-    nested_cv(X, y)
-
-    # Single train/test split (80/20) for SHAP
-    from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.20, random_state=42, stratify=y
-    )
-    shap_explain(X_train, X_test, y_train, y_test, feature_names=feature_cols)
+    cross_val_auc(X, y)
+    shap_explain(X, y, feature_names=feature_cols)
+    subgroup_aucs(feat, X, y)
+    calibration_plot(X, y)
 
     print(f"\nDone. Results in {OUT}")
 
