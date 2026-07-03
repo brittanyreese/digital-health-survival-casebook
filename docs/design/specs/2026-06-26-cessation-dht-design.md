@@ -1,4 +1,4 @@
-# cessation-dht — synthetic cohort design
+# Digital health survival casebook: synthetic cohort design
 
 **Date:** 2026-06-26
 **Status:** approved
@@ -6,9 +6,11 @@
 ## Purpose
 
 Public portfolio repository demonstrating quant UXR / outcomes research methods
-on a synthetic smoking-cessation digital-health cohort.  All parameters are
-calibrated to published literature with inline citations.  No real participant
-data is used or implied.
+on a fully simulated world: the Acme quit-support program, a smoking-cessation
+app from Acme Health, a fictional vendor.  All organizations, programs, and
+people are fictitious, and any resemblance to real studies or products is
+coincidental.  All generation parameters are calibrated to published literature
+with inline citations.  No real participant data is used or implied.
 
 ## Data generation architecture
 
@@ -70,7 +72,7 @@ Schoenfeld (1981) formula: events = 4(z_α+z_β)²/(ln HR)²
 ## Repository structure
 
 ```
-cessation-dht/
+digital-health-survival-casebook/
 ├── pyproject.toml          # hatchling, uv, ruff, pyright; CLI entry points
 ├── src/cessation/
 │   ├── config.py           # paths + column-name constants
@@ -91,7 +93,9 @@ cessation-validate   # run distributional validation suite
 ## Privacy
 
 This is a synthetic dataset. All parameters are grounded in published literature.
-No real participant data exists in this repository.
+No real participant data exists in this repository. All organizations, programs,
+and people (including the Acme quit-support program and Acme Health) are
+fictitious; any resemblance to real studies or products is coincidental.
 
 ## Toolchain
 
