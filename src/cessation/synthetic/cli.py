@@ -243,11 +243,14 @@ def generate() -> None:
 
     # ── metadata ──────────────────────────────────────────────────────────────
     import importlib.metadata as _im
+    import platform as _plat
 
     def _pkg_versions() -> dict[str, str]:
         out: dict[str, str] = {
             "python": f"{sys.version_info.major}.{sys.version_info.minor}."
-                      f"{sys.version_info.micro}"
+                      f"{sys.version_info.micro}",
+            "platform": _plat.platform(),
+            "arch": _plat.machine(),
         }
         for pkg in ("numpy", "scipy", "pandas", "scikit-learn",
                     "lifelines", "semopy", "statsmodels"):

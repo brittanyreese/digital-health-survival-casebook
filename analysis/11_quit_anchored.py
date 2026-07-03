@@ -158,7 +158,10 @@ def build_frame(window_days: int = WINDOW_DAYS) -> pd.DataFrame:
         seg["activated"] = (seg["segment"] != "Passive").astype(int)
         df = df.merge(seg[["pid", "activated"]], on="pid", how="left")
     else:
-        df["activated"] = 0
+        raise FileNotFoundError(
+            f"{seg_path} not found; run analysis/02_segmentation.py before "
+            "script 11 (the activated covariate depends on it)."
+        )
 
     # Covariates
     cov_keys = ["readiness", "age", "education", "cigs_per_day"]
