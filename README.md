@@ -1,6 +1,6 @@
-# cessation-dht
+# Digital health survival casebook
 
-**Synthetic smoking-cessation digital-health cohort — methods demonstration**
+**Simulated smoking-cessation digital-health cohort — methods demonstration**
 
 **This is entirely synthetic data and an explicit demonstration of analytical
 methods.  No real participants are involved.  Results confirm the pipeline
