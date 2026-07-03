@@ -246,7 +246,7 @@ def generate() -> None:
             "SSEQ_stage": "DiClemente et al. (1985) Cogn Ther Res 9(2):181–200",
             "Weibull_relapse": (
                 "Etter & Stapleton (2006) Tob Control 15:280–285; "
-                "Shiffman et al. (2007) Am J Prev Med 32(3):217–226"
+                "Hughes, Keely & Naud (2004) Addiction 99(1):29–38"
             ),
             "SMS_optout": "Christofferson et al. (2016) Addictive Behaviors 62:47-53 PMC5144826",
             "demographics": "CDC NHANES 2019–2020 SMQ; CDC MMWR 2020",

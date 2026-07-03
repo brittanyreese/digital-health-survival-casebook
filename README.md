@@ -120,7 +120,9 @@ Data are generated from a Gaussian-copula CFA model calibrated to:
 - TTM stage distribution: Prochaska et al. (1985). *Addict Behav*, 10(4), 395–406.
 - Stage-conditional self-efficacy: DiClemente et al. (1985). *Cogn Ther Res*, 9(2), 181–200.
 - Relapse kinetics (Weibull shape κ = 0.55): Etter & Stapleton (2006).
-  *Tob Control*, 15, 280–285; Shiffman et al. (2007). *Am J Prev Med*, 32(3), 217–226.
+  *Tob Control*, 15, 280–285; Hughes JR, Keely J, Naud S (2004). Shape of
+  the relapse curve and long-term abstinence among untreated smokers.
+  *Addiction*, 99(1), 29–38.
 - SMS opt-out (48% by 6 months): Christofferson DE, Hertzberg JS, Beckham JC,
   Dennis PA, Hamlett-Berry K (2016). Engagement and abstinence among users of
   a smoking cessation text message program for veterans. *Addictive

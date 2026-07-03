@@ -46,7 +46,7 @@ Gaussian copula pipeline — five ordered phases:
 - SSEQ stage-conditional scores: DiClemente 1985 Table III (31-item version, rescaled)
 - Cross-scale r(SDBS, SSEQ): approximated ≈±.20 (DiClemente 1985 narrative only —
   "small but significant"; no table published)
-- Weibull shape: κ≈0.55 (Etter & Stapleton 2006; Shiffman et al. 2007)
+- Weibull shape: κ≈0.55 (Etter & Stapleton 2006; Hughes, Keely & Naud 2004)
 
 ## Curated analysis set (7 scripts)
 
