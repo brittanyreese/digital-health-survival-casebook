@@ -3,8 +3,10 @@ SMS re-engagement simulation.
 
 SMS opt-out model
 -----------------
-SmokefreeVET trial (Duffy SA et al. 2016, JMIR Mhealth Uhealth, PMC5144826):
-  48% of participants opted out of SMS messaging by 6 months.
+SmokefreeVET trial (Christofferson DE et al. 2016, Addictive Behaviors,
+  62:47-53, PMC5144826): 48% of participants opted out of SMS messaging by
+  6 months (confirmed in the paper's full text: 699/1,470 users opted out
+  before the program's 6-month conclusion).
   Modelled as Weibull time-to-opt-out with shape κ=0.8, calibrated to
   P(opt-out ≤ 180 days) = 0.48.  Negative binomial SMS volume (mean=3, k=2).
 

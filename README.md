@@ -121,8 +121,10 @@ Data are generated from a Gaussian-copula CFA model calibrated to:
 - Stage-conditional self-efficacy: DiClemente et al. (1985). *Cogn Ther Res*, 9(2), 181–200.
 - Relapse kinetics (Weibull shape κ = 0.55): Etter & Stapleton (2006).
   *Tob Control*, 15, 280–285; Shiffman et al. (2007). *Am J Prev Med*, 32(3), 217–226.
-- SMS opt-out (48% by 6 months): Duffy et al. (2016). *JMIR Mhealth Uhealth*,
-  PMC5144826.
+- SMS opt-out (48% by 6 months): Christofferson DE, Hertzberg JS, Beckham JC,
+  Dennis PA, Hamlett-Berry K (2016). Engagement and abstinence among users of
+  a smoking cessation text message program for veterans. *Addictive
+  Behaviors*, 62, 47–53. PMC5144826.
 - Demographics: CDC NHANES 2019–2020 (SMQ); CDC MMWR 2020.
 
 ## Reproduce
