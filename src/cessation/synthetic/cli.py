@@ -242,11 +242,27 @@ def generate() -> None:
     print(f"  reengagement: {len(reeng):,} rows")
 
     # ── metadata ──────────────────────────────────────────────────────────────
+    import importlib.metadata as _im
+
+    def _pkg_versions() -> dict[str, str]:
+        out: dict[str, str] = {
+            "python": f"{sys.version_info.major}.{sys.version_info.minor}."
+                      f"{sys.version_info.micro}"
+        }
+        for pkg in ("numpy", "scipy", "pandas", "scikit-learn",
+                    "lifelines", "semopy", "statsmodels"):
+            try:
+                out[pkg] = _im.version(pkg)
+            except _im.PackageNotFoundError:
+                out[pkg] = "unknown"
+        return out
+
     meta = {
         "seed":        SEED,
         "n_total":     N_TOTAL,
         "generated":   time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "elapsed_sec": round(time.time() - t0, 1),
+        "versions":    _pkg_versions(),
         "citations": {
             "SDBS": "Velicer et al. (1985) J Pers Soc Psychol 48(5):1279–1289",
             "SSEQ": "Etter et al. (2000) Addiction 95(6):901–913",

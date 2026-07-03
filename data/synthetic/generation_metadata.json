@@ -1,8 +1,18 @@
 {
   "seed": 42,
   "n_total": 8000,
-  "generated": "2026-07-03T16:52:15Z",
-  "elapsed_sec": 19.1,
+  "generated": "2026-07-03T18:35:43Z",
+  "elapsed_sec": 19.3,
+  "versions": {
+    "python": "3.12.11",
+    "numpy": "2.4.6",
+    "scipy": "1.18.0",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.5.2",
+    "lifelines": "0.30.3",
+    "semopy": "2.3.11",
+    "statsmodels": "0.14.6"
+  },
   "citations": {
     "SDBS": "Velicer et al. (1985) J Pers Soc Psychol 48(5):1279\u20131289",
     "SSEQ": "Etter et al. (2000) Addiction 95(6):901\u2013913",
