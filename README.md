@@ -218,3 +218,9 @@ range from 15–30% vs. 3–5% control (Whittaker et al., 2019, Cochrane).
 Churn prediction AUC in comparable digital health analytics studies
 typically falls in the 0.65–0.78 range.  These figures provide context for
 interpreting what real-data results from this pipeline would look like.
+
+## AI assistance
+
+Development used AI coding assistants for implementation and review
+scaffolding. Study design, method choices, analysis decisions, and all
+reported results were specified, verified, and are owned by the author.
