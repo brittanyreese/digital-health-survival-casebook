@@ -144,10 +144,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 
 # Generate all synthetic tables (~30 seconds)
-cessation-generate
+uv run cessation-generate
 
 # Validate distributional properties against calibration targets
-cessation-validate
+uv run cessation-validate
 
 # Run analyses in order (02 must precede 04, 06, 09, 10, 11)
 uv run python analysis/01_psychometrics.py

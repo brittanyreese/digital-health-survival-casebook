@@ -3,7 +3,8 @@ message: "If you use this software, please cite it as below."
 type: software
 title: "Digital health survival casebook"
 authors:
-  - family-names: "Reese"
+  - family-names: "Reese Markides"
     given-names: "Brittany"
+    name-suffix: "PhD"
 year: 2026
 license: MIT
