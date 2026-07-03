@@ -141,7 +141,7 @@ def dimensionality(s: pd.DataFrame) -> None:
         fa.fit(X)
         ev, _ = fa.get_eigenvalues()
 
-        rng = np.random.default_rng(0)
+        rng = np.random.default_rng(C.SEED)
         rand_ev = np.zeros((1000, X.shape[1]))
         for i in range(1000):
             fa2 = FactorAnalyzer(n_factors=X.shape[1], rotation=no_rotation)
@@ -188,6 +188,14 @@ def dimensionality(s: pd.DataFrame) -> None:
 # ── 4. CFA ────────────────────────────────────────────────────────────────────
 
 def cfa_sdbs(s: pd.DataFrame) -> None:
+    """CFA of the SDBS 2-factor (Pros + Cons) model.
+
+    Items are 5-category ordinal but fit with semopy's default ML (continuous),
+    while the generator draws them through a probit-threshold model. Treating
+    ordinal indicators as continuous mildly biases RMSEA and chi-square relative
+    to a polychoric/WLSMV fit, so the reported fit statistics are indicative,
+    not exact. semopy does not expose WLSMV cleanly in this toolchain.
+    """
     import semopy
     print("\n=== 4. CFA -- SDBS 2-factor (Pros + Cons) ===")
     pros, cons = _sdbs_items(s)
@@ -299,6 +307,13 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
     their loadings is a robust, well-established factor-replicability index. It
     does not test scalar (intercept) invariance and so cannot license comparing
     factor mean scores across stages.
+
+    Construction note: the generator injects the same per-item Pros loadings for
+    every stage group (only the factor mean shifts by stage), so metric
+    congruence holds by construction and phi is pinned near 1 up to sampling
+    noise. This check verifies that the pipeline recovers that injected
+    invariance; it does not discover invariance in the data and could not have
+    failed given the DGP.
     """
     import semopy
     print("\n=== 6. SDBS Pros factor congruence across TTM stage groups ===")
@@ -390,7 +405,7 @@ def cfa_misspec_check() -> None:
     """
     import semopy
     print("\n=== 7. CFA pipeline validation (misspecification check) ===")
-    rng = np.random.default_rng(42)
+    rng = np.random.default_rng(C.SEED)
     n, lam = 800, 0.6
     cols_p = [f"p{i:02d}" for i in range(1, 11)]
     cols_c = [f"c{i:02d}" for i in range(1, 11)]

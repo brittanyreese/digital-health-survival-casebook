@@ -36,7 +36,7 @@ _FRAC = {
     "app_active":    0.95,
     "survey":        0.060,   # pre-quit psychometric cohort (~480/8000)
     "followup":      0.150,   # 12-month follow-up cohort (~1200)
-    "registration":  0.225,   # completed registration (~1800)
+    "registration":  0.225,   # base draw; grows to ~3000 after survey+followup nesting
     "sms":           0.550,   # received ≥1 SMS (~4400)
     "quiz":          0.059,   # took ≥1 quiz (~470)
     "reengagement":  0.238,   # in reengagement campaign (~1900)
@@ -52,8 +52,16 @@ def generate_spine(
         rng = np.random.default_rng(seed)
     pids = np.arange(1, n + 1)
     flags = {k: rng.random(n) < v for k, v in _FRAC.items()}
-    # survey ⊂ registration ⊂ app_active
+    # Funnel nesting: survey, followup ⊂ registration ⊂ app_active.
+    # A user cannot supply pre-quit psychometrics (survey) or 12-month outcome
+    # data (followup) without having completed registration first; registration
+    # implies an active account. Without the followup nesting, ~76% of the
+    # follow-up cohort has no registration record, so the covariate-adjusted
+    # survival models silently drop them (n≈283 of 1204), leaving the flagship
+    # effect underpowered and seed-fragile. (sms / reengagement are intentionally
+    # NOT nested: campaigns target lapsed, non-active users by design.)
     flags["registration"] |= flags["survey"]
+    flags["registration"] |= flags["followup"]
     flags["app_active"] |= flags["registration"]
     df = pd.DataFrame({"pid": pids, **flags})
     return df

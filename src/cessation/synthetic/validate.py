@@ -3,14 +3,14 @@ Distributional validation suite for synthetic data.
 
 Checks
 ------
-1. Marginal distributions: KS test, generated vs. theoretical (from Normal
-   stage-conditional means)
-2. Factor structure: CFA on generated SDBS + SSEQ-12; CFI / RMSEA should
-   match literature fit statistics
-3. Stage-mean check: generated subscale means ±2 SD of published values
-4. Survival shape: estimated Weibull shape parameter within 0.05 of target
-5. SMS opt-out rate: check 40–55% opt-out within 180 days
-6. Engagement propensity correlation: theta_u × n_events Pearson r > 0.6
+1. Stage-mean check: generated subscale means ±2 SD of published values
+2. Survival shape: estimated Weibull shape parameter within 0.05 of target
+3. SMS opt-out rate: check 40–55% opt-out within 180 days
+4. Engagement propensity correlation: theta_u × n_events Pearson r > 0.6
+
+Marginal-distribution KS tests and a CFA/CFI/RMSEA factor-structure check
+were scoped but are not implemented; run_all() executes only the four checks
+listed above. Do not cite this suite as validating marginals or factor fit.
 """
 from __future__ import annotations
 

@@ -22,13 +22,16 @@ from typing import cast
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+import warnings
+
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.stats import spearmanr
+from lifelines import CoxPHFitter
+from lifelines.exceptions import ConvergenceError
 
 from cessation import config as C
 from cessation import data
@@ -76,7 +79,17 @@ def session_descriptives(ev: pd.DataFrame) -> None:
 # ── 3. Markov transition matrix ───────────────────────────────────────────────
 
 def markov_transitions(ev: pd.DataFrame, label: str = "all") -> np.ndarray:
-    """MLE Markov transition matrix from ordered event sequences."""
+    """MLE Markov transition matrix from ordered event sequences.
+
+    Circularity note: the generator applies a single global channel-transition
+    matrix (events.py ``_CHANNEL_TRANS``), independent of theta_u and therefore
+    of segment. Session channel dynamics do not vary by engagement segment by
+    construction, so this MLE matrix recovers that injected constant, and any
+    segment-to-segment difference in the transition matrix or in the stationary
+    distribution (section 4, ``compare_stationary``) is sampling noise rather
+    than an empirical finding. Reported for pipeline completeness, not as
+    evidence of segment-specific in-app navigation.
+    """
     n = len(CHANNELS)
     counts = np.zeros((n, n), dtype=int)
     for _, group in ev.sort_values(["day_offset", "hour"]).groupby(
@@ -162,8 +175,8 @@ def compare_stationary(ev_all: pd.DataFrame, seg: pd.DataFrame) -> None:
 
 # ── 5a. Channel time-share vs clinical outcome ───────────────────────────────
 
-def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame | None) -> None:
-    """Correlate per-user channel time-share with quit duration (Spearman).
+def channel_outcome_corr(ev: pd.DataFrame) -> None:
+    """Associate per-user channel time-share with quit duration via Cox PH.
 
     Channel proportions are computed over the enrollment-anchored 30-day
     baseline window (day_offset < 30), consistent with the exposure window
@@ -172,10 +185,20 @@ def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame | None) -> None:
     contamination that motivates the baseline window restriction in the
     survival and churn models.
 
+    Estimated via univariate Cox PH (hazard ratio per unit channel share) on
+    the full cohort (relapsed + censored). OUTCOME_EVENT (relapsed vs.
+    censored) is a common effect of channel use and true quit duration, so
+    restricting to completed cases only (event==1) conditions on that
+    collider and can manufacture a channel-duration association that the
+    data-generating process does not contain.
+
     Note: associations reflect the parameter structure injected by the
     generator, not real causal mechanisms.  Volume is not controlled; these
-    are unadjusted bivariate correlations.  Real-data replication required
-    before any product decision.
+    are unadjusted univariate hazard ratios.  Channel shares are compositional
+    (they sum to 1 per user), so the per-channel HRs are not mutually
+    independent: a positive shift on one channel mechanically implies negative
+    shifts elsewhere.  Real-data replication required before any product
+    decision.
     """
     print("\n=== 5a. Channel time-share vs quit duration (30-day baseline window) ===")
     try:
@@ -191,26 +214,28 @@ def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame | None) -> None:
 
     d = ev_ch.merge(followup[["pid", C.OUTCOME_DURATION, C.OUTCOME_EVENT]],
                     on="pid", how="inner")
-    if seg is not None:
-        d = d.merge(seg[["pid", "segment"]], on="pid", how="left")
-
-    # Spearman on relapsers only (completed outcome, not censored)
-    d_rel = d[d[C.OUTCOME_EVENT] == 1]
-    if len(d_rel) < 20:
-        print("  Too few completed outcomes for correlation")
+    if len(d) < 20 or d[C.OUTCOME_EVENT].sum() < 10:
+        print("  Insufficient data for Cox fit")
         return
 
     rows = []
     for ch in CHANNELS:
-        if ch not in d_rel.columns:
+        if ch not in d.columns:
             continue
-        result = spearmanr(d_rel[ch], d_rel[C.OUTCOME_DURATION])
-        r = float(cast(float, result[0]))
-        p = float(cast(float, result[1]))
-        rows.append({"channel": ch, "spearman_r": round(r, 3),
-                     "p": round(p, 4), "n": len(d_rel)})
+        dch = d[[ch, C.OUTCOME_DURATION, C.OUTCOME_EVENT]].dropna()
+        cph = CoxPHFitter(penalizer=0)
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                cph.fit(dch, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
+        except (ConvergenceError, np.linalg.LinAlgError, ValueError) as exc:
+            print(f"  {ch}: Cox fit failed ({exc})")
+            continue
+        s = cph.summary.loc[ch]
+        rows.append({"channel": ch, "hr": round(float(s["exp(coef)"]), 3),
+                     "p": round(float(s["p"]), 4), "n": len(dch)})
 
-    df_out = pd.DataFrame(rows).sort_values("spearman_r", ascending=False)
+    df_out = pd.DataFrame(rows).sort_values("hr", ascending=False)
     print(df_out.to_string(index=False))
     df_out.to_csv(OUT / "09_channel_outcome_corr.csv", index=False)
     print("  saved 09_channel_outcome_corr.csv")
@@ -255,7 +280,7 @@ def main() -> None:
         seg = pd.read_csv(seg_path)
         compare_stationary(ev, seg)
 
-    channel_outcome_corr(ev, seg)
+    channel_outcome_corr(ev)
     top_paths(ev)
     print(f"\nDone. Results in {OUT}")
 

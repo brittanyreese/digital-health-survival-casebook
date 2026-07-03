@@ -80,18 +80,6 @@ SSEQ_STAGE_PARAMS: dict[str, tuple[float, float]] = {
     s: (m * _SSEQ_SCALE, sd * _SSEQ_SCALE) for s, (m, sd) in _DICL_TOTAL.items()
 }
 
-# ── Cross-scale correlations ───────────────────────────────────────────────────
-# Not explicitly tabulated in any retrieved paper.
-# DiClemente 1985 (p.193): "decision-making variables demonstrated a small but
-# significant relationship with efficacy."  Direction: Pros↑ → efficacy↓;
-# Cons↑ → efficacy↑ (for active-change smokers, pre-saliency effect).
-# Approximated as r ≈ ±.20 (consistent with "small" per Cohen 1988 conventions).
-CROSS_SCALE_R: dict[tuple[str, str], float] = {
-    ("pros", "sseq_internal"):  -0.20,
-    ("pros", "sseq_external"):  -0.18,
-    ("cons", "sseq_internal"):  +0.20,
-    ("cons", "sseq_external"):  +0.15,
-}
 
 # ── MARS (Stoyanov et al. 2015) ────────────────────────────────────────────────
 # 17 items: 16 across 4 subscales + 1 single global app-quality rating, 5-pt
