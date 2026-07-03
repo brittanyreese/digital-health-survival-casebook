@@ -87,7 +87,6 @@ def generate_events(
 
     records = []
     device_choices = ["ios", "android"]
-    channel_idx = {c: i for i, c in enumerate(EVENT_CHANNELS)}
     channel_arr = np.array(EVENT_CHANNELS)
 
     for i, pid in enumerate(active_pids):

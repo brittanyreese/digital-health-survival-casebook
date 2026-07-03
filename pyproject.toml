@@ -36,6 +36,12 @@ line-length = 88
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
 
+# Scripts set matplotlib's backend (Agg) or extend sys.path for local package
+# imports before other imports; both must precede the imports they gate.
+[tool.ruff.lint.per-file-ignores]
+"analysis/*.py" = ["E402"]
+"src/cessation/synthetic/cli.py" = ["E402"]
+
 [tool.pyright]
 pythonVersion = "3.12"
 typeCheckingMode = "standard"

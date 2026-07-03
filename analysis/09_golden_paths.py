@@ -78,7 +78,9 @@ def markov_transitions(ev: pd.DataFrame, label: str = "all") -> np.ndarray:
     """MLE Markov transition matrix from ordered event sequences."""
     n = len(CHANNELS)
     counts = np.zeros((n, n), dtype=int)
-    for _, group in ev.sort_values(["day_offset", "hour"]).groupby(["pid", "session_id"]):
+    for _, group in ev.sort_values(["day_offset", "hour"]).groupby(
+        ["pid", "session_id"]
+    ):
         seq = [CHANNEL_IDX[c] for c in group["event_type"] if c in CHANNEL_IDX]
         for i, j in zip(seq[:-1], seq[1:]):
             counts[i, j] += 1
@@ -159,9 +161,11 @@ def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame) -> None:
     try:
         followup = data.load_followup()
     except Exception as exc:
-        print(f"  followup not available: {exc}"); return
+        print(f"  followup not available: {exc}")
+        return
 
-    ev_window = ev[ev["day_offset"] < 30]   # enrollment-anchored baseline, consistent with 04/10
+    # enrollment-anchored baseline, consistent with 04/10
+    ev_window = ev[ev["day_offset"] < 30]
     ev_ch = ev_window.groupby(["pid", "event_type"]).size().unstack(fill_value=0)
     ev_ch = ev_ch.div(ev_ch.sum(axis=1), axis=0).reset_index()
 
@@ -173,7 +177,8 @@ def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame) -> None:
     # Spearman on relapsers only (completed outcome, not censored)
     d_rel = d[d[C.OUTCOME_EVENT] == 1]
     if len(d_rel) < 20:
-        print("  Too few completed outcomes for correlation"); return
+        print("  Too few completed outcomes for correlation")
+        return
 
     rows = []
     for ch in CHANNELS:
@@ -195,7 +200,9 @@ def top_paths(ev: pd.DataFrame, k: int = 5) -> None:
     print(f"\n=== 5b. Top-{k} 3-step paths ===")
     from collections import Counter
     path_counts: Counter = Counter()
-    for _, group in ev.sort_values(["day_offset", "hour"]).groupby(["pid", "session_id"]):
+    for _, group in ev.sort_values(["day_offset", "hour"]).groupby(
+        ["pid", "session_id"]
+    ):
         seq = [c for c in group["event_type"] if c in CHANNEL_IDX]
         for i in range(len(seq) - 2):
             path_counts[(seq[i], seq[i+1], seq[i+2])] += 1

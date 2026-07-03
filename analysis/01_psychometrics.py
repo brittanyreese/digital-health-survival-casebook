@@ -161,7 +161,8 @@ def dimensionality(s: pd.DataFrame) -> None:
         if name == "SSEQ" and n_efa < 2:
             print("  WARNING: EFA supports only 1 factor for SSEQ. "
                   "The 2-factor CFA (Internal/External) imposes a structure not "
-                  "confirmed by EFA — subscale scores should be interpreted with caution.")
+                  "confirmed by EFA — subscale scores should be interpreted "
+                  "with caution.")
 
         fig, ax = plt.subplots(figsize=(6, 4))
         ax.plot(range(1, len(ev) + 1), ev, "o-", label="observed")
@@ -183,7 +184,8 @@ def cfa_sdbs(s: pd.DataFrame) -> None:
     print("\n=== 4. CFA -- SDBS 2-factor (Pros + Cons) ===")
     pros, cons = _sdbs_items(s)
     X = pd.concat([pros, cons], axis=1).dropna()
-    X.columns = [f"p{i:02d}" for i in range(1, 11)] + [f"c{i:02d}" for i in range(1, 11)]
+    X.columns = ([f"p{i:02d}" for i in range(1, 11)]
+                 + [f"c{i:02d}" for i in range(1, 11)])
     pros_names = [f"p{i:02d}" for i in range(1, 11)]
     cons_names = [f"c{i:02d}" for i in range(1, 11)]
     spec = (
@@ -245,7 +247,8 @@ def irt_sdbs_pros(s: pd.DataFrame) -> None:
     try:
         from girth import grm_mml
     except ImportError as e:
-        print(f"  girth not available: {e}"); return
+        print(f"  girth not available: {e}")
+        return
     pros, _ = _sdbs_items(s)
     X = pros.dropna().astype(int) - 1  # GRM expects 0-indexed categories (0–4)
     try:
@@ -277,12 +280,14 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
                if f"t2_sdbs_{i:02d}" in s.columns]
 
     if not t2_cols:
-        print("  No T2 data"); return
+        print("  No T2 data")
+        return
 
     both = s[t1_cols + t2_cols].apply(pd.to_numeric, errors="coerce").dropna()
     print(f"  n with T1+T2: {len(both)}")
     if len(both) < 30:
-        print("  Insufficient data"); return
+        print("  Insufficient data")
+        return
 
     it1 = [f"F1_{c}" for c in t1_cols]
     it2 = [f"F2_{c}" for c in t2_cols]
@@ -292,7 +297,9 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
         def side(fac: str, items: list[str], lbl: bool) -> str:
             labels = [f"l{i}" for i in range(len(items))]
             if lbl:
-                terms = [items[0]] + [f"{lb}*{it}" for lb, it in zip(labels[1:], items[1:])]
+                terms = [items[0]] + [
+                    f"{lb}*{it}" for lb, it in zip(labels[1:], items[1:])
+                ]
             else:
                 terms = items
             return f"{fac} =~ " + " + ".join(terms)
@@ -320,7 +327,8 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
             verdict = (f"INDETERMINATE (Δchi²={dchi:.1f} < 0 — "
                        "configural model non-convergence; check starting values)")
         elif cfif < 0.90:
-            verdict = f"INDETERMINATE (configural CFI={cfif:.3f} < 0.90; baseline misfit)"
+            verdict = (f"INDETERMINATE (configural CFI={cfif:.3f} < 0.90; "
+                       "baseline misfit)")
         else:
             verdict = ("supported" if abs(cfie - cfif) < 0.01 and p > 0.05
                        else "NOT supported")
@@ -376,7 +384,8 @@ def cfa_misspec_check() -> None:
     for label, spec in [("1-factor/wrong (Case 1)", spec_1f),
                          ("2-factor/correct (Case 1 data)", spec_2f)]:
         try:
-            m = semopy.Model(spec); m.fit(df_mis)
+            m = semopy.Model(spec)
+            m.fit(df_mis)
             st = semopy.calc_stats(m).T
             fit = {k: round(float(st.loc[k].iloc[0]), 3)
                    for k in ["CFI", "RMSEA"] if k in st.index}
@@ -401,7 +410,8 @@ def cfa_misspec_check() -> None:
     for label, spec in [("2-factor on bifactor data (Case 3 — hard)", spec_2f),
                          ("1-factor on bifactor data (Case 3)", spec_1f)]:
         try:
-            m = semopy.Model(spec); m.fit(df_bf)
+            m = semopy.Model(spec)
+            m.fit(df_bf)
             st = semopy.calc_stats(m).T
             fit = {k: round(float(st.loc[k].iloc[0]), 3)
                    for k in ["CFI", "RMSEA"] if k in st.index}

@@ -70,7 +70,6 @@ def check_stage_means(survey: pd.DataFrame) -> list[ValidationResult]:
         pros_ok = abs(gen_pros - pros_m) <= 2 * pros_sd
         cons_ok = abs(gen_cons - cons_m) <= 2 * cons_sd
 
-        status = "PASS" if (pros_ok and cons_ok) else "FAIL"
         detail = (
             f"Pros gen={gen_pros:.1f} pub={pros_m:.1f}±{2*pros_sd:.1f}; "
             f"Cons gen={gen_cons:.1f} pub={cons_m:.1f}±{2*cons_sd:.1f}"
@@ -98,7 +97,8 @@ def check_survival_shape(followup: pd.DataFrame) -> ValidationResult:
     ok = 0.45 <= shape <= 0.85
     return ValidationResult(
         "survival_shape", ok,
-        f"estimated shape={shape:.3f}, target 0.45–0.85 (frailty mixture; baseline κ=0.55)",
+        f"estimated shape={shape:.3f}, target 0.45–0.85 "
+        "(frailty mixture; baseline κ=0.55)",
         value=shape, threshold=0.55,
     )
 

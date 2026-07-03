@@ -216,7 +216,10 @@ def generate() -> None:
     print(f"  followup: {len(followup):,} rows")
     relapse_rate = followup["out_relapsed"].mean()
     median_days  = followup.loc[followup["out_relapsed"] == 1, "out_days_quit"].median()
-    print(f"  relapse rate={relapse_rate:.2%}  median days quit (relapsers)={median_days:.0f}")
+    print(
+        f"  relapse rate={relapse_rate:.2%}  "
+        f"median days quit (relapsers)={median_days:.0f}"
+    )
 
     _banner("Phase 7 — SMS")
     sms = generate_sms(spine, rng)
@@ -239,7 +242,10 @@ def generate() -> None:
             "SSEQ": "Etter et al. (2000) Addiction 95(6):901–913",
             "TTM_stage": "Prochaska et al. (1985) Addict Behav 10(4):395–406",
             "SSEQ_stage": "DiClemente et al. (1985) Cogn Ther Res 9(2):181–200",
-            "Weibull_relapse": "Etter & Stapleton (2006) Tob Control 15:280–285; Shiffman et al. (2007) Am J Prev Med 32(3):217–226",
+            "Weibull_relapse": (
+                "Etter & Stapleton (2006) Tob Control 15:280–285; "
+                "Shiffman et al. (2007) Am J Prev Med 32(3):217–226"
+            ),
             "SMS_optout": "Duffy et al. (2016) JMIR Mhealth Uhealth PMC5144826",
             "demographics": "CDC NHANES 2019–2020 SMQ; CDC MMWR 2020",
         },

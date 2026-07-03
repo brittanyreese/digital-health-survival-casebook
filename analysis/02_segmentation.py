@@ -67,7 +67,9 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
     # Retention outcome: churned = 0 events in last 14 days of study
     last_event_day = g["day_offset"].max().reset_index(name="last_day")
     feat = feat.merge(last_event_day[["pid", "last_day"]], on="pid", how="left")
-    feat["churned"]        = (feat["last_day"] < STUDY_DAYS - CHURN_THRESHOLD_DAYS).astype(int)
+    feat["churned"]        = (
+        feat["last_day"] < STUDY_DAYS - CHURN_THRESHOLD_DAYS
+    ).astype(int)
     feat["tenure_days"]    = feat["last_day"].clip(upper=STUDY_DAYS)
     return feat
 
@@ -175,7 +177,8 @@ def stage_by_segment(feat: pd.DataFrame) -> None:
         reg = data.load_registration()
         merged = feat.merge(reg[["pid", "mod_stage"]], on="pid", how="left")
         if merged["mod_stage"].notna().sum() < 10:
-            print("  Insufficient stage data"); return
+            print("  Insufficient stage data")
+            return
         tab = pd.crosstab(merged["mod_stage"], merged["segment"], normalize="index")
         print(tab.round(3).to_string())
         tab.round(3).to_csv(OUT / "02_stage_x_segment.csv")

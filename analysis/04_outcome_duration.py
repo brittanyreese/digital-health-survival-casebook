@@ -156,7 +156,9 @@ def km_by_engagement(df: pd.DataFrame) -> None:
             continue
         kmf.fit(sub[C.OUTCOME_DURATION], event_observed=sub[C.OUTCOME_EVENT], label=t)
         kmf.plot_survival_function(ax=ax, ci_show=True)
-    ax.set_title(f"Quit survival by engagement tertile (log-rank p={result.p_value:.4f})")
+    ax.set_title(
+        f"Quit survival by engagement tertile (log-rank p={result.p_value:.4f})"
+    )
     ax.set_xlabel("Days since quit attempt")
     ax.set_ylabel("P(still quit)")
     fig.tight_layout()
@@ -173,13 +175,15 @@ def cox_ph(df: pd.DataFrame) -> pd.DataFrame | None:
     # Parsimonious specification aligned with Weibull AFT: log_n_events as primary
     # engagement predictor.  log_active_days and channel covariates are excluded
     # because they are collinear with log_n_events (events = active_days × intensity),
-    # which attenuates the engagement coefficient and prevents direct Cox/AFT comparison.
+    # which attenuates the engagement coefficient and prevents direct Cox/AFT
+    # comparison.
     cols = ["log_n_events"] + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     n_ev = int(d[C.OUTCOME_EVENT].sum())
     print(f"  n={len(d)}  events={n_ev}")
     if len(d) < 20 or n_ev < 10:
-        print("  Insufficient data"); return None
+        print("  Insufficient data")
+        return None
     _power_note(n_ev, "Cox")
     # penalizer=0: MLE inference; appropriate for this sample size (~1200 subjects,
     # hundreds of events). Script 11 uses penalizer=0.1 for post-landmark stability
@@ -216,14 +220,16 @@ def weibull_aft(df: pd.DataFrame) -> None:
     d = df[cols].dropna()
     d = d[d[C.OUTCOME_DURATION] > 0]
     if len(d) < 20:
-        print("  Insufficient data"); return
+        print("  Insufficient data")
+        return
     wf = WeibullAFTFitter()
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             wf.fit(d, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
     except Exception as exc:
-        print(f"  Weibull fit failed: {exc}"); return
+        print(f"  Weibull fit failed: {exc}")
+        return
     wf.print_summary(decimals=3)
     wf.summary.to_csv(OUT / "04_aft_weibull.csv")
     # rho_ (shape parameter) is in the summary CSV under param=rho_, covariate=Intercept
@@ -233,9 +239,10 @@ def weibull_aft(df: pd.DataFrame) -> None:
 
 def ols_log_duration(df: pd.DataFrame) -> None:
     print("\n=== 6. OLS on log(quit duration) ===")
-    print("\n  [BIAS WARNING] OLS treats all observations as uncensored (censored duration = "
-          "observed failure). This attenuates and can reverse the coefficient. "
-          "Weibull AFT (above) is the primary model; OLS shown for comparability only.")
+    print("\n  [BIAS WARNING] OLS treats all observations as uncensored "
+          "(censored duration = observed failure). This attenuates and can "
+          "reverse the coefficient. Weibull AFT (above) is the primary model; "
+          "OLS shown for comparability only.")
     opt  = _opt_covs(df)
     chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
     d = df[[C.OUTCOME_DURATION, "log_n_events"] + chan + opt].dropna()
@@ -262,7 +269,8 @@ def engagement_stratification_figure(df: pd.DataFrame) -> None:
     print("\n=== 7. Engagement dose–response ===")
     seg_path = OUT / "segments_assignments.csv"
     if not seg_path.exists():
-        print("  Segment file not found; skipping"); return
+        print("  Segment file not found; skipping")
+        return
     seg = pd.read_csv(seg_path)[["pid", "segment"]]
     d = df.merge(seg, on="pid", how="inner")
 

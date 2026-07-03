@@ -163,7 +163,8 @@ def logistic_return(frame: pd.DataFrame) -> None:
         try:
             logit = smf.logit(formula, data=d.dropna(subset=terms)).fit(disp=False)
         except Exception as exc:
-            print(f"  Logistic fit failed: {exc}"); return
+            print(f"  Logistic fit failed: {exc}")
+            return
 
     print(logit.summary())
     pd.DataFrame({
@@ -181,7 +182,8 @@ def segment_subgroup(frame: pd.DataFrame) -> None:
     print("\n=== 5. Return rate by engagement segment ===")
     seg_path = OUT / "segments_assignments.csv"
     if not seg_path.exists():
-        print("  Segment file not found; skipping"); return
+        print("  Segment file not found; skipping")
+        return
     seg = pd.read_csv(seg_path)[["pid", "segment"]]
     d = frame.merge(seg, on="pid", how="inner")
     tab = d.groupby(["segment", "status"])["returned"].mean().unstack(fill_value=0)

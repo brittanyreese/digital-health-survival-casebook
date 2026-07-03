@@ -193,7 +193,8 @@ def km_by_tertile(df: pd.DataFrame, label: str = "primary") -> None:
     print(f"\n=== KM by engagement tertile ({label}) ===")
     grps = df.dropna(subset=["tertile"])
     if len(grps) < 20:
-        print("  Insufficient data"); return
+        print("  Insufficient data")
+        return
     result = multivariate_logrank_test(
         grps[C.OUTCOME_DURATION], grps["tertile"], grps[C.OUTCOME_EVENT]
     )
@@ -234,7 +235,8 @@ def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
     n_ev = int(d[C.OUTCOME_EVENT].sum())
     print(f"  n={len(d)}  events={n_ev}")
     if len(d) < 20 or n_ev < 10:
-        print("  Insufficient data"); return None
+        print("  Insufficient data")
+        return None
     _power_note(n_ev, f"Cox {label}")
     # penalizer=0.1: L2 ridge for numerical stability at small post-landmark n.
     # Shrinks coefficients toward zero; CIs are penalized, not MLE. Sensitivity
@@ -245,7 +247,8 @@ def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
             warnings.simplefilter("ignore")
             cph.fit(d, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
     except Exception as exc:
-        print(f"  Cox fit failed: {exc}"); return None
+        print(f"  Cox fit failed: {exc}")
+        return None
     cph.print_summary(decimals=3)
     res = cph.summary.copy()
     res.to_csv(OUT / f"11_cox_{label}.csv")
@@ -277,7 +280,8 @@ def aft_model(df: pd.DataFrame, label: str = "primary") -> None:
     cols = ["log_n_events"] + act + opt + [C.OUTCOME_DURATION, C.OUTCOME_EVENT]
     d = df[cols].dropna()
     if len(d) < 20:
-        print("  Insufficient data"); return
+        print("  Insufficient data")
+        return
     wf = WeibullAFTFitter()
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -289,7 +293,10 @@ def aft_model(df: pd.DataFrame, label: str = "primary") -> None:
 # ── OLS ───────────────────────────────────────────────────────────────────────
 
 def ols_log(df: pd.DataFrame, label: str = "primary") -> None:
-    print(f"\n=== OLS log(quit days) ({label}) — comparison only; Weibull AFT is primary ===")
+    print(
+        f"\n=== OLS log(quit days) ({label}) — comparison only; "
+        "Weibull AFT is primary ==="
+    )
     print("  [BIAS WARNING] OLS treats censored observations as observed failures. "
           "Estimates are attenuated and may be sign-reversed. See AFT results above.")
     opt  = _opt_covs(df)
@@ -316,7 +323,8 @@ def robustness_battery(df: pd.DataFrame) -> None:
     """Robustness checks: window sensitivity, segment stratification, power."""
     print("\n=== Robustness battery ===")
 
-    # 1. Window sensitivity: 14d vs 60d — Weibull AFT (handles right-censoring; OLS on censored data is biased)
+    # 1. Window sensitivity: 14d vs 60d — Weibull AFT (handles right-censoring;
+    #    OLS on censored data is biased)
     events  = data.load_events()
     reg     = data.load_registration()
     outcome = load_outcome()
@@ -341,7 +349,8 @@ def robustness_battery(df: pd.DataFrame) -> None:
             # Extract log_n_events lambda_ parameter
             idx = ("lambda_", "log_n_events")
             b = float(wf_w.params_[idx]) if idx in wf_w.params_.index else np.nan
-            p = float(wf_w.summary.loc[idx, "p"]) if idx in wf_w.summary.index else np.nan
+            p = (float(wf_w.summary.loc[idx, "p"])
+                 if idx in wf_w.summary.index else np.nan)
             print(f"  [window={w}d AFT] exp(β)={np.exp(b):.3f} p={p:.3f}")
             window_rows.append({"window_days": w, "beta_log_events": round(b, 4),
                                 "exp_beta": round(np.exp(b), 4),
@@ -356,7 +365,9 @@ def robustness_battery(df: pd.DataFrame) -> None:
     if seg_path.exists():
         seg = pd.read_csv(seg_path)
         for seg_label in seg["segment"].unique():
-            sub = df.merge(seg[seg["segment"] == seg_label][["pid"]], on="pid", how="inner")
+            sub = df.merge(
+                seg[seg["segment"] == seg_label][["pid"]], on="pid", how="inner"
+            )
             if len(sub) < 20:
                 continue
             cox_ph(sub, label=f"segment_{seg_label.replace(' ', '_').lower()}")

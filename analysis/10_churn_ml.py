@@ -69,7 +69,9 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
     feat.index.name = "pid"
 
     feat["n_events_30d"]    = g_e.size().reindex(active, fill_value=0)
-    feat["n_active_days_30d"] = g_e["day_offset"].nunique().reindex(active, fill_value=0)
+    feat["n_active_days_30d"] = (
+        g_e["day_offset"].nunique().reindex(active, fill_value=0)
+    )
     feat["n_craving_30d"]   = g_e["event_type"].apply(
         lambda x: (x == "craving_tool").sum()
     ).reindex(active, fill_value=0)
@@ -112,7 +114,10 @@ def cross_val_auc(X: pd.DataFrame, y: pd.Series) -> None:
     """
     print("\n=== 2. Cross-validation AUC + AUPRC (5-fold stratified) ===")
     churn_rate = y.mean()
-    print(f"  Class imbalance: {churn_rate:.1%} churned  ({1 - churn_rate:.1%} retained)")
+    print(
+        f"  Class imbalance: {churn_rate:.1%} churned  "
+        f"({1 - churn_rate:.1%} retained)"
+    )
     model = HistGradientBoostingClassifier(
         max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
     )
@@ -122,7 +127,10 @@ def cross_val_auc(X: pd.DataFrame, y: pd.Series) -> None:
         aucs  = cross_val_score(model, X, y, cv=cv, scoring="roc_auc")
         auprc = cross_val_score(model, X, y, cv=cv, scoring="average_precision")
     print(f"  ROC-AUC: {aucs.mean():.4f} ± {aucs.std():.4f}  (baseline = 0.50)")
-    print(f"  AUPRC:   {auprc.mean():.4f} ± {auprc.std():.4f}  (no-skill baseline = {churn_rate:.3f})")
+    print(
+        f"  AUPRC:   {auprc.mean():.4f} ± {auprc.std():.4f}  "
+        f"(no-skill baseline = {churn_rate:.3f})"
+    )
     pd.DataFrame({
         "fold":            range(1, 6),
         "auc":             aucs,
@@ -147,11 +155,12 @@ def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> Non
     model.fit(X, y)
 
     explainer = shap.Explainer(model, X, feature_names=feature_names)
-    # check_additivity=False: GBM + missing values; additivity holds within tolerance per SHAP docs
+    # check_additivity=False: GBM + missing values; additivity holds within
+    # tolerance per SHAP docs
     shap_values = explainer(X, check_additivity=False)
 
     # Summary plot
-    fig = plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(8, 6))
     shap.summary_plot(shap_values, X, feature_names=feature_names,
                       show=False)
     plt.tight_layout()
@@ -173,12 +182,15 @@ def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> Non
     # than an extreme case, and avoids the arbitrary choice of index [0].
     overall_risk = shap_values.values.sum(axis=1)
     idx_median = int(np.argsort(overall_risk)[len(overall_risk) // 2])
-    fig = plt.figure(figsize=(8, 5))
+    plt.figure(figsize=(8, 5))
     shap.waterfall_plot(shap_values[idx_median], show=False)
     plt.tight_layout()
     plt.savefig(OUT / "10_fig_shap_waterfall.png", dpi=120)
     plt.close()
-    print(f"  saved 10_fig_shap_waterfall.png  (participant at median risk rank {idx_median})")
+    print(
+        f"  saved 10_fig_shap_waterfall.png  "
+        f"(participant at median risk rank {idx_median})"
+    )
 
 
 # ── subgroup AUC (fairness check) ────────────────────────────────────────────
@@ -216,9 +228,10 @@ def subgroup_aucs(feat: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> None:
         df_sg = pd.DataFrame(rows)
         df_sg.to_csv(OUT / "10_subgroup_aucs.csv", index=False)
         print(df_sg.to_string(index=False))
-    print("  Note: subgroup differences reflect synthetic data structure and carry no "
-          "real equity information. A prospective fairness audit (including race/ethnicity, "
-          "rurality, insurance status) is required before deployment.")
+    print("  Note: subgroup differences reflect synthetic data structure and "
+          "carry no real equity information. A prospective fairness audit "
+          "(including race/ethnicity, rurality, insurance status) is required "
+          "before deployment.")
 
 
 # ── calibration reliability diagram ──────────────────────────────────────────
