@@ -11,3 +11,4 @@ build/
 *.DS_Store
 .memsearch/
 .claude/
+data/synthetic/events_clean.csv
