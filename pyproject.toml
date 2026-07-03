@@ -27,6 +27,12 @@ dependencies = [
 cessation-generate = "cessation.synthetic.cli:generate"
 cessation-validate = "cessation.synthetic.cli:validate"
 
+[dependency-groups]
+dev = [
+    "ruff>=0.15",
+    "pyright>=1.1",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/cessation"]
 
