@@ -11,6 +11,7 @@ import json
 import sys
 import time
 from pathlib import Path
+from typing import cast
 
 import numpy as np
 import pandas as pd
@@ -53,7 +54,7 @@ def _generate_survey(
     rng: np.random.Generator,
 ) -> pd.DataFrame:
     """Generate survey_pilot_clean.csv (SDBS + SSEQ-12 + MARS + moderators)."""
-    survey_pids = spine[spine["survey"]]["pid"].values
+    survey_pids = spine.loc[spine["survey"], "pid"].to_numpy()
     n = len(survey_pids)
 
     # Stage lookup for each pid
@@ -150,9 +151,10 @@ def _generate_survey(
     })
 
     # Merge reg moderators
-    reg_sub = reg[reg["pid"].isin(survey_pids)][
+    reg_sub = reg.loc[
+        reg["pid"].isin(survey_pids),
         ["pid", "mod_readiness", "mod_age", "mod_edu", "mod_gender",
-         "mod_cpd", "mod_yrs_smk"]
+         "mod_cpd", "mod_yrs_smk"],
     ]
     df = df.merge(reg_sub, on="pid", how="left")
 
@@ -194,10 +196,10 @@ def generate() -> None:
     sdbs_pros_cols = [f"t1_sdbs_{i:02d}" for i in range(1, 11)]
     sdbs_cons_cols = [f"t1_sdbs_{i:02d}" for i in range(11, 21)]
     sseq_cols      = [f"sseq_{i:02d}" for i in range(1, 13)]
-    sdbs_scores = survey[["pid"]].copy()
+    sdbs_scores = cast(pd.DataFrame, survey[["pid"]].copy())
     sdbs_scores["sdbs_pros"] = survey[sdbs_pros_cols].sum(axis=1)
     sdbs_scores["sdbs_cons"] = survey[sdbs_cons_cols].sum(axis=1)
-    sseq_scores = survey[["pid"]].copy()
+    sseq_scores = cast(pd.DataFrame, survey[["pid"]].copy())
     sseq_scores["sseq_composite"] = survey[sseq_cols].sum(axis=1)
 
     _banner("Phase 5 — Events")
@@ -277,7 +279,7 @@ def validate() -> None:
     events   = pd.read_csv(C.PROCESSED / "events_clean.csv")
 
     # Reconstruct theta_u from events as proxy
-    eng = events.groupby("pid").size().rename("n_events")
+    eng = cast(pd.Series, events.groupby("pid").size()).rename("n_events")
     theta_proxy = (np.log1p(eng) - np.log1p(eng).mean()) / np.log1p(eng).std()
     theta_proxy.name = "theta_u"
 

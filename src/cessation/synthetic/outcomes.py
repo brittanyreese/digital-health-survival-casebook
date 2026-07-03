@@ -48,12 +48,12 @@ def _weibull_baseline_times(
     rng: np.random.Generator,
 ) -> np.ndarray:
     """Sample from Weibull(κ, λ) baseline."""
-    return weibull_min.rvs(
+    return np.asarray(weibull_min.rvs(
         c=_WEIBULL_SHAPE,
         scale=_WEIBULL_SCALE,
         size=n,
         random_state=rng.integers(0, 2**31),
-    )
+    ))
 
 
 def generate_followup(
@@ -82,28 +82,28 @@ def generate_followup(
     if rng is None:
         rng = np.random.default_rng(99)
 
-    fu_pids = spine[spine["followup"]]["pid"].values
+    fu_pids = spine.loc[spine["followup"], "pid"].to_numpy()
     n = len(fu_pids)
 
     # Resolve covariates
     theta = pd.Series(
-        theta_u.reindex(fu_pids).fillna(0).values,
+        theta_u.reindex(fu_pids).fillna(0).to_numpy(),
         index=fu_pids,
     )
 
     sseq_std = np.zeros(n)
     if sseq_scores is not None and "sseq_composite" in sseq_scores.columns:
         s = sseq_scores.set_index("pid")["sseq_composite"].reindex(fu_pids).fillna(0)
-        sseq_std = (s.values - s.mean()) / (s.std() + 1e-8)
+        sseq_std = (s.to_numpy() - s.mean()) / (s.std() + 1e-8)
 
     pros_std = np.zeros(n)
     if sdbs_scores is not None and "sdbs_pros" in sdbs_scores.columns:
         p = sdbs_scores.set_index("pid")["sdbs_pros"].reindex(fu_pids).fillna(0)
-        pros_std = (p.values - p.mean()) / (p.std() + 1e-8)
+        pros_std = (p.to_numpy() - p.mean()) / (p.std() + 1e-8)
 
     # Linear predictor → individual scale multiplier
     lp = (
-        _BETA_THETA * theta.values
+        _BETA_THETA * theta.to_numpy()
         + _BETA_SSEQ  * sseq_std
         + _BETA_PROS  * pros_std
     )
@@ -126,7 +126,8 @@ def generate_followup(
 
     # Auxiliary follow-up items (generic 1–5 Likert satisfaction / QoL items)
     fu_aux = rng.integers(1, 6, size=(n, 5))
-    aux_df = pd.DataFrame(fu_aux, columns=[f"fu_{i:03d}" for i in range(1, 6)])
+    aux_cols = pd.Index([f"fu_{i:03d}" for i in range(1, 6)])
+    aux_df = pd.DataFrame(fu_aux, columns=aux_cols)
 
     df = pd.DataFrame({
         "pid":             fu_pids,

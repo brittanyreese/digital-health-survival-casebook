@@ -21,6 +21,7 @@ from __future__ import annotations
 import sys
 import warnings
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -48,7 +49,7 @@ CHURN_WINDOW   = [C.FOLLOWUP_DAYS - 14, C.FOLLOWUP_DAYS]   # [166, 180]
 # ── feature engineering ───────────────────────────────────────────────────────
 
 def build_features(events: pd.DataFrame, spine: pd.DataFrame,
-                   reg: pd.DataFrame) -> pd.DataFrame:
+                   reg: pd.DataFrame | None) -> pd.DataFrame:
     """First-30-day features + churn label."""
     # Temporal separation guard: label window must not overlap feature window
     assert CHURN_WINDOW[0] >= EARLY_WINDOW, (
@@ -61,7 +62,7 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
         (events["day_offset"] <  CHURN_WINDOW[1])
     ].copy()
 
-    active = spine[spine["app_active"]]["pid"].values
+    active = spine.loc[spine["app_active"], "pid"].to_numpy()
     g_e = early.groupby("pid")
     g_l = late.groupby("pid")
 
@@ -96,7 +97,7 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame,
                 feat[col] = reg_sub[col].reindex(active)
 
     feat = feat.reset_index()
-    feat = feat[feat["n_events_30d"] > 0]  # users with any early activity
+    feat = cast(pd.DataFrame, feat[feat["n_events_30d"] > 0])  # any early activity
     print(f"  feature frame: n={len(feat)}, churned={feat['churned'].mean():.1%}")
     return feat
 
@@ -207,7 +208,10 @@ def subgroup_aucs(feat: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> None:
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        proba = cross_val_predict(model, X, y, cv=cv, method="predict_proba")[:, 1]
+        proba_arr = np.asarray(
+            cross_val_predict(model, X, y, cv=cv, method="predict_proba")
+        )
+        proba = proba_arr[:, 1]
 
     rows = []
     for col in ["mod_age", "mod_edu"]:
@@ -217,11 +221,11 @@ def subgroup_aucs(feat: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> None:
         for label, mask in [("below_median", feat[col] <= med),
                              ("above_median", feat[col] > med)]:
             mask_arr = mask.values
-            y_sub = y[mask_arr]
+            y_sub = cast(pd.Series, y[mask_arr])
             p_sub = proba[mask_arr]
             if y_sub.nunique() < 2 or len(y_sub) < 20:
                 continue
-            auc = roc_auc_score(y_sub, p_sub)
+            auc = float(roc_auc_score(y_sub, p_sub))
             rows.append({"covariate": col, "subgroup": label,
                          "n": int(len(y_sub)), "auc": round(auc, 4)})
     if rows:
@@ -248,7 +252,10 @@ def calibration_plot(X: pd.DataFrame, y: pd.Series) -> None:
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        proba = cross_val_predict(model, X, y, cv=cv, method="predict_proba")[:, 1]
+        proba_arr = np.asarray(
+            cross_val_predict(model, X, y, cv=cv, method="predict_proba")
+        )
+        proba = proba_arr[:, 1]
 
     fraction_pos, mean_pred = calibration_curve(y, proba, n_bins=10)
     fig, ax = plt.subplots(figsize=(6, 5))
@@ -278,8 +285,8 @@ def main() -> None:
     feat = build_features(events, spine, reg)
 
     feature_cols = [c for c in feat.columns if c not in ("pid", "churned")]
-    X = feat[feature_cols].fillna(feat[feature_cols].median())
-    y = feat["churned"]
+    X = cast(pd.DataFrame, feat[feature_cols].fillna(feat[feature_cols].median()))
+    y = cast(pd.Series, feat["churned"])
 
     cross_val_auc(X, y)
     shap_explain(X, y, feature_names=feature_cols)

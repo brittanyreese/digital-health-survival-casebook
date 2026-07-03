@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -87,7 +88,7 @@ def markov_transitions(ev: pd.DataFrame, label: str = "all") -> np.ndarray:
     # Normalize rows
     row_sums = counts.sum(axis=1, keepdims=True).clip(min=1)
     trans = counts / row_sums
-    df_trans = pd.DataFrame(trans, index=CHANNELS, columns=CHANNELS)
+    df_trans = pd.DataFrame(trans, index=pd.Index(CHANNELS), columns=pd.Index(CHANNELS))
     df_trans.round(4).to_csv(OUT / f"09_markov_trans_{label}.csv")
     return trans
 
@@ -126,8 +127,8 @@ def compare_stationary(ev_all: pd.DataFrame, seg: pd.DataFrame) -> None:
     print("\n=== 4. Stationary distribution by segment ===")
     rows = []
     for segment in seg["segment"].unique():
-        pids = seg[seg["segment"] == segment]["pid"].values
-        ev_s = ev_all[ev_all["pid"].isin(pids)]
+        pids = seg.loc[seg["segment"] == segment, "pid"].to_numpy()
+        ev_s = cast(pd.DataFrame, ev_all[ev_all["pid"].isin(pids)])
         if len(ev_s) < 100:
             continue
         trans = markov_transitions(ev_s, label=segment.replace(" ", "_").lower())
@@ -142,7 +143,7 @@ def compare_stationary(ev_all: pd.DataFrame, seg: pd.DataFrame) -> None:
 
 # ── 5a. Channel time-share vs clinical outcome ───────────────────────────────
 
-def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame) -> None:
+def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame | None) -> None:
     """Correlate per-user channel time-share with quit duration (Spearman).
 
     Channel proportions are computed over the enrollment-anchored 30-day
@@ -184,9 +185,11 @@ def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame) -> None:
     for ch in CHANNELS:
         if ch not in d_rel.columns:
             continue
-        r, p = spearmanr(d_rel[ch], d_rel[C.OUTCOME_DURATION])
-        rows.append({"channel": ch, "spearman_r": round(float(r), 3),
-                     "p": round(float(p), 4), "n": len(d_rel)})
+        result = spearmanr(d_rel[ch], d_rel[C.OUTCOME_DURATION])
+        r = float(cast(float, result[0]))
+        p = float(cast(float, result[1]))
+        rows.append({"channel": ch, "spearman_r": round(r, 3),
+                     "p": round(p, 4), "n": len(d_rel)})
 
     df_out = pd.DataFrame(rows).sort_values("spearman_r", ascending=False)
     print(df_out.to_string(index=False))

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -65,7 +66,7 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
     feat["log_days"]     = np.log1p(feat["n_active_days"])
 
     # Retention outcome: churned = 0 events in last 14 days of study
-    last_event_day = g["day_offset"].max().reset_index(name="last_day")
+    last_event_day = cast(pd.Series, g["day_offset"].max()).reset_index(name="last_day")
     feat = feat.merge(last_event_day[["pid", "last_day"]], on="pid", how="left")
     feat["churned"]        = (
         feat["last_day"] < STUDY_DAYS - CHURN_THRESHOLD_DAYS
@@ -86,15 +87,15 @@ def cluster(feat: pd.DataFrame, k_range: range = range(2, 5)) -> pd.DataFrame:
 
     scores = {}
     for k in k_range:
-        km = KMeans(n_clusters=k, random_state=42, n_init=20)
+        km = KMeans(n_clusters=k, random_state=42, n_init=cast(str, 20))
         labs = km.fit_predict(X_sc)
         scores[k] = silhouette_score(X_sc, labs)
         print(f"  k={k}  silhouette={scores[k]:.4f}")
 
-    best_k = max(scores, key=scores.get)
+    best_k = max(scores, key=lambda kk: scores[kk])
     print(f"  → best k={best_k}")
 
-    km = KMeans(n_clusters=best_k, random_state=42, n_init=20)
+    km = KMeans(n_clusters=best_k, random_state=42, n_init=cast(str, 20))
     labels = km.fit_predict(X_sc)
     feat_out = feat.loc[X.index].copy()
     feat_out["cluster_raw"] = labels

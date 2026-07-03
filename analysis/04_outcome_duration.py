@@ -24,6 +24,7 @@ from __future__ import annotations
 import sys
 import warnings
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -96,7 +97,7 @@ def build_frame() -> pd.DataFrame:
     # Segment labels (from analysis/02)
     seg_path = OUT / "segments_assignments.csv"
     if seg_path.exists():
-        seg = pd.read_csv(seg_path)[["pid", "segment"]]
+        seg = cast(pd.DataFrame, pd.read_csv(seg_path)[["pid", "segment"]])
         seg["activated"] = (seg["segment"] != "Passive").astype(int)
         eng = eng.merge(seg[["pid", "activated"]], on="pid", how="left")
     else:
@@ -245,7 +246,8 @@ def ols_log_duration(df: pd.DataFrame) -> None:
           "OLS shown for comparability only.")
     opt  = _opt_covs(df)
     chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
-    d = df[[C.OUTCOME_DURATION, "log_n_events"] + chan + opt].dropna()
+    cols = [C.OUTCOME_DURATION, "log_n_events"] + chan + opt
+    d = cast(pd.DataFrame, df[cols].dropna())
     d["log_duration"] = np.log(d[C.OUTCOME_DURATION].clip(lower=0.1))
     terms = ["log_n_events"] + chan + opt
     formula = "log_duration ~ " + " + ".join(terms)
@@ -274,7 +276,9 @@ def engagement_stratification_figure(df: pd.DataFrame) -> None:
     seg = pd.read_csv(seg_path)[["pid", "segment"]]
     d = df.merge(seg, on="pid", how="inner")
 
-    mean_dur = d.groupby("segment")[C.OUTCOME_DURATION].mean().sort_values()
+    mean_dur = cast(
+        pd.Series, d.groupby("segment")[C.OUTCOME_DURATION].mean()
+    ).sort_values()
     fig, ax = plt.subplots(figsize=(6, 4))
     mean_dur.plot(kind="barh", ax=ax)
     ax.set_xlabel("Mean days quit")

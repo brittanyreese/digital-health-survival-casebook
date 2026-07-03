@@ -78,7 +78,7 @@ def generate_events(
              device_type, detail, day_since_quit
     theta_u : Series indexed by pid — latent engagement propensity
     """
-    active_pids = spine[spine["app_active"]]["pid"].values
+    active_pids = spine.loc[spine["app_active"], "pid"].values
     n_active = len(active_pids)
 
     # Latent propensity
@@ -154,12 +154,12 @@ def compute_engagement_features(
         ev = ev[ev["day_offset"] < window_days]
 
     if ev.empty:
-        return pd.DataFrame(columns=[
+        return pd.DataFrame(columns=pd.Index([
             "pid", "n_events", "n_active_days", "intensity",
             "log_n_events", "log_active_days",
             "n_craving_tool", "n_content", "n_peer_support",
             "n_notification", "n_quiz",
-        ])
+        ]))
 
     g = ev.groupby("pid")
     feat = pd.DataFrame({

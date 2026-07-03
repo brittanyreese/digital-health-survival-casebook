@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import warnings
 from dataclasses import dataclass
+from typing import cast
 
 import numpy as np
 import pandas as pd
@@ -83,13 +84,13 @@ def check_survival_shape(followup: pd.DataFrame) -> ValidationResult:
     """Weibull shape estimated from generated survival times should be ~0.55±0.10."""
     from scipy.stats import weibull_min
 
-    ev = followup[followup["out_relapsed"] == 1]["out_days_quit"].dropna()
+    ev = followup.loc[followup["out_relapsed"] == 1, "out_days_quit"].dropna()
     if len(ev) < 30:
         return _fail("survival_shape", f"insufficient events n={len(ev)}")
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        shape, _, _ = weibull_min.fit(ev.values, floc=0)
+        shape = float(cast(float, weibull_min.fit(ev.to_numpy(), floc=0)[0]))
 
     # Baseline Weibull shape is 0.55, but individual frailty (Cox-type scale
     # adjustment) shifts the marginal shape of the mixture upward.  Acceptable
@@ -112,7 +113,7 @@ def check_sms_optout(sms: pd.DataFrame) -> ValidationResult:
     """
     if "status" not in sms.columns or "pid" not in sms.columns:
         return _fail("sms_optout", "required columns missing")
-    opted = sms[sms["status"] == "opted_out"]["pid"].nunique()
+    opted = sms.loc[sms["status"] == "opted_out", "pid"].nunique()
     total = sms["pid"].nunique()
     if total == 0:
         return _fail("sms_optout", "no SMS rows")
@@ -132,11 +133,13 @@ def check_theta_engagement_correlation(
     events: pd.DataFrame,
 ) -> ValidationResult:
     """Pearson r(theta_u, log1p(n_events)) should be > 0.55."""
-    eng = events.groupby("pid").size().rename("n_events")
+    eng = cast(pd.Series, events.groupby("pid").size()).rename("n_events")
     merged = theta_u.to_frame("theta").join(eng).dropna()
     if len(merged) < 30:
         return _fail("theta_r", f"n={len(merged)} too small")
-    r, p = pearsonr(merged["theta"], np.log1p(merged["n_events"]))
+    result = pearsonr(merged["theta"], np.log1p(merged["n_events"]))
+    r = float(cast(float, result[0]))
+    p = float(cast(float, result[1]))
     ok = r > 0.55
     return ValidationResult(
         "theta_r", ok,

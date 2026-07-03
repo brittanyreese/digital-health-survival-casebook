@@ -23,6 +23,7 @@ from __future__ import annotations
 import sys
 import warnings
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -79,12 +80,13 @@ def engagement_features_quit_anchored(
         print("  [warn] reg_quit_date_offset not found; no quit-anchored features")
         return pd.DataFrame()
 
-    quit_map = (
-        reg[["pid", "reg_quit_date_offset"]]
+    reg_sub = cast(pd.DataFrame, reg[["pid", "reg_quit_date_offset"]])
+    quit_map = cast(pd.Series, (
+        reg_sub
         .dropna(subset=["reg_quit_date_offset"])
         .set_index("pid")["reg_quit_date_offset"]
         .astype(float)
-    )
+    ))
 
     ev = events.merge(quit_map.rename("quit_day"), on="pid", how="inner")
     ev["day_since_quit"] = ev["day_offset"] - ev["quit_day"]
@@ -115,8 +117,8 @@ def engagement_features_quit_anchored(
 
 def load_outcome() -> pd.DataFrame:
     fu = data.load_followup()
-    fu = fu[["pid", C.OUTCOME_DURATION, C.OUTCOME_EVENT]].copy()
-    fu = fu[fu[C.OUTCOME_DURATION].notna()].copy()
+    fu = cast(pd.DataFrame, fu[["pid", C.OUTCOME_DURATION, C.OUTCOME_EVENT]].copy())
+    fu = fu.loc[fu[C.OUTCOME_DURATION].notna()].copy()
     return fu
 
 
@@ -139,19 +141,19 @@ def build_frame(window_days: int = WINDOW_DAYS) -> pd.DataFrame:
     # (they simply had less time to accumulate them), which biases
     # log_n_events toward predicting survival time by construction.
     n_total = len(df)
-    df = df[df[C.OUTCOME_DURATION] >= window_days].copy()
+    df = cast(pd.DataFrame, df[df[C.OUTCOME_DURATION] >= window_days].copy())
     n_excluded = n_total - len(df)
     print(f"  Landmark exclusion (duration < {window_days}d): "
           f"{n_excluded} excluded, {len(df)} remaining")
 
     # Shift survival time origin to the landmark
     df[C.OUTCOME_DURATION] = df[C.OUTCOME_DURATION] - window_days
-    df = df[df[C.OUTCOME_DURATION] > 0].copy()
+    df = cast(pd.DataFrame, df[df[C.OUTCOME_DURATION] > 0].copy())
 
     # Segment labels
     seg_path = OUT / "segments_assignments.csv"
     if seg_path.exists():
-        seg = pd.read_csv(seg_path)[["pid", "segment"]]
+        seg = cast(pd.DataFrame, pd.read_csv(seg_path)[["pid", "segment"]])
         seg["activated"] = (seg["segment"] != "Passive").astype(int)
         df = df.merge(seg[["pid", "activated"]], on="pid", how="left")
     else:
@@ -161,7 +163,7 @@ def build_frame(window_days: int = WINDOW_DAYS) -> pd.DataFrame:
     cov_keys = ["readiness", "age", "education", "cigs_per_day"]
     cov_cols = ["pid"] + [C.MODERATORS[k] for k in cov_keys
                           if C.MODERATORS.get(k) and C.MODERATORS.get(k) in reg.columns]
-    df = df.merge(reg[cov_cols], on="pid", how="left")
+    df = df.merge(cast(pd.DataFrame, reg[cov_cols]), on="pid", how="left")
 
     # Engagement tertile
     try:
@@ -301,7 +303,8 @@ def ols_log(df: pd.DataFrame, label: str = "primary") -> None:
           "Estimates are attenuated and may be sign-reversed. See AFT results above.")
     opt  = _opt_covs(df)
     chan = [c for c in ["log_craving_tool", "log_content"] if c in df.columns]
-    d = df[[C.OUTCOME_DURATION, "log_n_events"] + chan + opt].dropna()
+    cols = [C.OUTCOME_DURATION, "log_n_events"] + chan + opt
+    d = cast(pd.DataFrame, df[cols].dropna())
     d["log_duration"] = np.log(d[C.OUTCOME_DURATION].clip(lower=0.1))
     terms = ["log_n_events"] + chan
     formula = "log_duration ~ " + " + ".join(terms) + (
@@ -365,9 +368,8 @@ def robustness_battery(df: pd.DataFrame) -> None:
     if seg_path.exists():
         seg = pd.read_csv(seg_path)
         for seg_label in seg["segment"].unique():
-            sub = df.merge(
-                seg[seg["segment"] == seg_label][["pid"]], on="pid", how="inner"
-            )
+            seg_pids = cast(pd.DataFrame, seg[seg["segment"] == seg_label][["pid"]])
+            sub = df.merge(seg_pids, on="pid", how="inner")
             if len(sub) < 20:
                 continue
             cox_ph(sub, label=f"segment_{seg_label.replace(' ', '_').lower()}")

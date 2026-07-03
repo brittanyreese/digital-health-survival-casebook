@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -45,17 +46,19 @@ OUT.mkdir(parents=True, exist_ok=True)
 def _alpha(X: pd.DataFrame) -> float:
     """Cronbach's alpha."""
     k = X.shape[1]
-    item_vars = X.var(ddof=1)
+    item_vars = cast(pd.Series, X.var(axis=0, ddof=1))
     total_var = X.sum(axis=1).var(ddof=1)
     return (k / (k - 1)) * (1 - item_vars.sum() / total_var)
 
 
 def _item_total(X: pd.DataFrame) -> pd.DataFrame:
     total = X.sum(axis=1)
+    mean_s = cast(pd.Series, X.mean(axis=0))
+    sd_s = cast(pd.Series, X.std(axis=0, ddof=1))
     return pd.DataFrame({
         "item": X.columns,
-        "mean": X.mean().round(3),
-        "sd":   X.std(ddof=1).round(3),
+        "mean": mean_s.round(3),
+        "sd":   sd_s.round(3),
         "r_item_total": [
             X[c].corr(total - X[c]) for c in X.columns
         ],
@@ -68,8 +71,8 @@ def _sdbs_items(s: pd.DataFrame, wave: str = "t1") -> tuple[pd.DataFrame, pd.Dat
     pros_cols = [c for c in pros if c in s.columns]
     cons_cols = [c for c in cons if c in s.columns]
     return (
-        s[pros_cols].apply(pd.to_numeric, errors="coerce"),
-        s[cons_cols].apply(pd.to_numeric, errors="coerce"),
+        cast(pd.DataFrame, s[pros_cols].apply(pd.to_numeric, errors="coerce")),
+        cast(pd.DataFrame, s[cons_cols].apply(pd.to_numeric, errors="coerce")),
     )
 
 
@@ -77,8 +80,8 @@ def _sseq_items(s: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     int_cols = [f"sseq_{i:02d}" for i in range(1, 7) if f"sseq_{i:02d}" in s.columns]
     ext_cols = [f"sseq_{i:02d}" for i in range(7, 13) if f"sseq_{i:02d}" in s.columns]
     return (
-        s[int_cols].apply(pd.to_numeric, errors="coerce"),
-        s[ext_cols].apply(pd.to_numeric, errors="coerce"),
+        cast(pd.DataFrame, s[int_cols].apply(pd.to_numeric, errors="coerce")),
+        cast(pd.DataFrame, s[ext_cols].apply(pd.to_numeric, errors="coerce")),
     )
 
 
@@ -129,14 +132,17 @@ def dimensionality(s: pd.DataFrame) -> None:
         _, kmo  = calculate_kmo(X)
         print(f"  Bartlett chi2={chi2:.0f} p={p:.2e} | KMO={kmo:.3f}")
 
-        fa = FactorAnalyzer(n_factors=X.shape[1], rotation=None)
+        # rotation=None is a valid factor_analyzer value (disables rotation);
+        # the library's type hint omits Optional.
+        no_rotation = cast(str, None)
+        fa = FactorAnalyzer(n_factors=X.shape[1], rotation=no_rotation)
         fa.fit(X)
         ev, _ = fa.get_eigenvalues()
 
         rng = np.random.default_rng(0)
         rand_ev = np.zeros((1000, X.shape[1]))
         for i in range(1000):
-            fa2 = FactorAnalyzer(n_factors=X.shape[1], rotation=None)
+            fa2 = FactorAnalyzer(n_factors=X.shape[1], rotation=no_rotation)
             fa2.fit(pd.DataFrame(rng.standard_normal(X.shape)))
             rand_ev[i], _ = fa2.get_eigenvalues()
         pa = rand_ev.mean(axis=0)
@@ -153,7 +159,7 @@ def dimensionality(s: pd.DataFrame) -> None:
         loads_obl = pd.DataFrame(
             fa_obl.loadings_,
             index=X.columns,
-            columns=[f"F{j+1}" for j in range(n_efa)],
+            columns=pd.Index([f"F{j+1}" for j in range(n_efa)]),
         )
         loads_obl.round(3).to_csv(OUT / f"01_efa_{name}_oblimin.csv")
         print(f"  EFA oblimin (n_factors={n_efa}):")
@@ -201,7 +207,9 @@ def cfa_sdbs(s: pd.DataFrame) -> None:
     print("  fit:", fit)
     pd.DataFrame([fit]).to_csv(OUT / "01_sdbs_cfa_fit.csv", index=False)
     ins = m.inspect()
-    loads = ins[ins["op"] == "~"][["lval", "rval", "Estimate"]]
+    assert isinstance(ins, pd.DataFrame), \
+        "semopy Model.inspect() returned non-DataFrame"
+    loads = ins.loc[ins["op"] == "~", ["lval", "rval", "Estimate"]]
     loads.round(3).to_csv(OUT / "01_sdbs_cfa_loadings.csv", index=False)
     print(loads.round(3).to_string(index=False))
 
@@ -226,7 +234,9 @@ def cfa_sseq(s: pd.DataFrame) -> None:
     print("  fit:", fit)
     pd.DataFrame([fit]).to_csv(OUT / "01_sseq_cfa_fit.csv", index=False)
     ins = m.inspect()
-    loads = ins[ins["op"] == "~"][["lval", "rval", "Estimate"]]
+    assert isinstance(ins, pd.DataFrame), \
+        "semopy Model.inspect() returned non-DataFrame"
+    loads = ins.loc[ins["op"] == "~", ["lval", "rval", "Estimate"]]
     loads.round(3).to_csv(OUT / "01_sseq_cfa_loadings.csv", index=False)
     print(loads.round(3).to_string(index=False))
 
@@ -320,7 +330,7 @@ def invariance_sdbs(s: pd.DataFrame) -> None:
         cf, dff, cfif = fit_model(spec(False))
         ce, dfe, cfie = fit_model(spec(True))
         dchi, ddf = ce - cf, dfe - dff
-        p = 1 - chi2dist.cdf(dchi, ddf) if ddf > 0 else 1.0
+        p = float(1 - chi2dist.cdf(dchi, ddf)) if ddf > 0 else 1.0
         print(f"  configural CFI={cfif:.3f} | metric CFI={cfie:.3f}")
         print(f"  Δchi2={dchi:.1f} (df={ddf:.0f}) p={p:.3f} | ΔCFI={cfie-cfif:+.3f}")
         if dchi < 0:
@@ -380,7 +390,9 @@ def cfa_misspec_check() -> None:
     fb = rng.standard_normal(n)
     pros = lam * fa[:, None] + np.sqrt(1 - lam**2) * rng.standard_normal((n, 10))
     cons = lam * fb[:, None] + np.sqrt(1 - lam**2) * rng.standard_normal((n, 10))
-    df_mis = pd.DataFrame(_discretise(np.hstack([pros, cons])), columns=cols_p + cols_c)
+    df_mis = pd.DataFrame(
+        _discretise(np.hstack([pros, cons])), columns=pd.Index(cols_p + cols_c)
+    )
     for label, spec in [("1-factor/wrong (Case 1)", spec_1f),
                          ("2-factor/correct (Case 1 data)", spec_2f)]:
         try:
@@ -406,7 +418,7 @@ def cfa_misspec_check() -> None:
     cons_bf = (lam_g * g[:, None] + lam_s * f2[:, None]
                + unique_var * rng.standard_normal((n, 10)))
     df_bf = pd.DataFrame(_discretise(np.hstack([pros_bf, cons_bf])),
-                         columns=cols_p + cols_c)
+                         columns=pd.Index(cols_p + cols_c))
     for label, spec in [("2-factor on bifactor data (Case 3 — hard)", spec_2f),
                          ("1-factor on bifactor data (Case 3)", spec_1f)]:
         try:

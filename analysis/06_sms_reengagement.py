@@ -23,6 +23,7 @@ from __future__ import annotations
 import sys
 import warnings
 from pathlib import Path
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -52,7 +53,7 @@ def sms_descriptives(sms: pd.DataFrame) -> None:
     print("\n=== 1. SMS descriptives ===")
     n_users   = sms["pid"].nunique()
     n_total   = len(sms)
-    opt_users = sms[sms["status"] == "opted_out"]["pid"].nunique()
+    opt_users = sms.loc[sms["status"] == "opted_out", "pid"].nunique()
     opt_rate  = opt_users / n_users
     print(f"  {n_total:,} SMS to {n_users:,} users")
     print(f"  Opt-out rate: {opt_users:,}/{n_users:,} = {opt_rate:.2%}")
@@ -68,7 +69,7 @@ def sms_descriptives(sms: pd.DataFrame) -> None:
 def event_study(sms: pd.DataFrame, events: pd.DataFrame) -> pd.DataFrame:
     print(f"\n=== 2. Event study: return within {RETURN_WINDOW}d post-SMS ===")
     # First SMS per user with delivery status
-    first = (sms.sort_values("sms_seq")
+    first = cast(pd.DataFrame, sms.sort_values("sms_seq")
                .groupby("pid")
                .first()
                .reset_index()[["pid", "day_offset", "status"]])
@@ -77,10 +78,11 @@ def event_study(sms: pd.DataFrame, events: pd.DataFrame) -> pd.DataFrame:
     # App events after first SMS
     ev_after = events.merge(first[["pid", "sms_day"]], on="pid")
     ev_after["days_after_sms"] = ev_after["day_offset"] - ev_after["sms_day"]
-    returned_window = ev_after[
+    returned_window = ev_after.loc[
         (ev_after["days_after_sms"] > 0) &
-        (ev_after["days_after_sms"] <= RETURN_WINDOW)
-    ]["pid"].unique()
+        (ev_after["days_after_sms"] <= RETURN_WINDOW),
+        "pid"
+    ].unique()
 
     first["returned"] = first["pid"].isin(returned_window).astype(int)
     first["days_to_return"] = np.nan

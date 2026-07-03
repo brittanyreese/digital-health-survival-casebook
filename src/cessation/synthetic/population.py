@@ -64,7 +64,7 @@ def generate_registration(
     rng: np.random.Generator,
 ) -> pd.DataFrame:
     """Registration data for users with registration=True."""
-    sub = spine[spine["registration"]].copy()
+    sub = spine.loc[spine["registration"]].copy()
     n = len(sub)
 
     # Demographics (CDC NHANES 2019–2020)

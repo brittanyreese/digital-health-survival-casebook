@@ -17,6 +17,8 @@ Whittaker et al. 2016, Cochrane review on mobile phone-based interventions).
 """
 from __future__ import annotations
 
+from typing import cast
+
 import numpy as np
 import pandas as pd
 from scipy.stats import weibull_min
@@ -33,12 +35,12 @@ _THETA_BETA    = 0.15   # engagement propensity boosts return probability
 
 def _sample_opt_out_day(n: int, rng: np.random.Generator) -> np.ndarray:
     """Sample day of opt-out; values > FOLLOWUP_DAYS mean never opted out."""
-    return weibull_min.rvs(
+    return np.asarray(weibull_min.rvs(
         c=_OPT_OUT_SHAPE,
         scale=_OPT_OUT_SCALE,
         size=n,
         random_state=rng.integers(0, 2**31),
-    )
+    ))
 
 
 def generate_sms(
@@ -51,7 +53,7 @@ def generate_sms(
     Each user receives up to 3 SMS on days [30, 60, 90] unless opted out.
     Delivery status: delivered | opted_out.
     """
-    sms_pids = spine[spine["sms"]]["pid"].values
+    sms_pids = spine.loc[spine["sms"], "pid"].to_numpy()
     n = len(sms_pids)
 
     opt_out_day = _sample_opt_out_day(n, rng)
@@ -85,13 +87,12 @@ def generate_reengagement(
     Users are eligible if reengagement=True in spine.
     Re-engagement event = app return within 14 days of first delivered SMS.
     """
-    reng_pids = spine[spine["reengagement"]]["pid"].values
+    reng_pids = spine.loc[spine["reengagement"], "pid"].to_numpy()
 
     # First delivered SMS per user
     delivered = sms[sms["status"] == "delivered"].copy()
-    first_sms = (
-        delivered.groupby("pid")["day_offset"].min().rename("first_sms_day")
-    )
+    first_sms_raw = cast(pd.Series, delivered.groupby("pid")["day_offset"].min())
+    first_sms = first_sms_raw.rename("first_sms_day")
 
     records = []
     for pid in reng_pids:
@@ -109,12 +110,12 @@ def generate_reengagement(
             continue
 
         first_day = int(first_sms[pid])
-        seq_num   = int(sms[
-            (sms["pid"] == pid) & (sms["day_offset"] == first_day)
-        ]["sms_seq"].values[0])
+        seq_num   = int(sms.loc[
+            (sms["pid"] == pid) & (sms["day_offset"] == first_day), "sms_seq"
+        ].to_numpy()[0])
 
         # Probability of return within 14 days
-        theta = float(theta_u.get(pid, 0.0))
+        theta = float(theta_u.get(pid, 0.0) or 0.0)
         p_ret = np.clip(_P_RETURN_14D + _THETA_BETA * theta, 0.01, 0.80)
         reengaged = int(rng.random() < p_ret)
 
