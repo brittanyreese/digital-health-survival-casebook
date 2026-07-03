@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Digital health survival casebook"
+authors:
+  - family-names: "Reese"
+    given-names: "Brittany R."
+year: 2026
+license: MIT
