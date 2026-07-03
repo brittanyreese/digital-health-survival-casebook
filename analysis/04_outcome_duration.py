@@ -45,6 +45,7 @@ from lifelines.statistics import multivariate_logrank_test, proportional_hazard_
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -167,6 +168,7 @@ def km_by_engagement(df: pd.DataFrame) -> None:
     ax.set_xlabel("Days since quit attempt")
     ax.set_ylabel("P(still quit)")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "04_fig_km_engagement.png", dpi=120)
     plt.close(fig)
     print("  saved 04_fig_km_engagement.png")
@@ -288,6 +290,7 @@ def engagement_stratification_figure(df: pd.DataFrame) -> None:
     ax.set_xlabel("Mean days quit")
     ax.set_title("Quit duration by engagement segment")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "04_fig_duration_by_segment.png", dpi=120)
     plt.close(fig)
     print("  saved 04_fig_duration_by_segment.png")

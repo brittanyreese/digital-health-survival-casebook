@@ -62,6 +62,7 @@ from statsmodels.tools.sm_exceptions import PerfectSeparationError
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -79,7 +80,8 @@ def sms_descriptives(sms: pd.DataFrame) -> None:
     opt_rate  = opt_users / n_users
     print(f"  {n_total:,} SMS to {n_users:,} users")
     print(f"  Opt-out rate: {opt_users:,}/{n_users:,} = {opt_rate:.2%}")
-    print("  (Calibration target: 48%; SmokefreeVET PMC5144826)")
+    print("  (Realized ~35% in the SMS window; SmokefreeVET 48%-by-6mo is the "
+          "shape anchor, PMC5144826)")
 
     status_dist = sms.groupby("status")["pid"].nunique()
     print(f"\n  Status breakdown:\n{status_dist.to_string()}")
@@ -157,6 +159,7 @@ def km_time_to_return(frame: pd.DataFrame) -> None:
     ax.set_xlabel("Days since SMS")
     ax.set_ylabel("P(not yet returned)")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "06_fig_km_return.png", dpi=120)
     plt.close(fig)
     print("  saved 06_fig_km_return.png")

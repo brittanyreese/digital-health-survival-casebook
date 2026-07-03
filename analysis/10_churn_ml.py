@@ -39,6 +39,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -173,6 +174,7 @@ def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> Non
     shap.summary_plot(shap_values, X, feature_names=feature_names,
                       show=False)
     plt.tight_layout()
+    add_synthetic_footer(plt.gcf())
     plt.savefig(OUT / "10_fig_shap_summary.png", dpi=120)
     plt.close()
     print("  saved 10_fig_shap_summary.png")
@@ -194,6 +196,7 @@ def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> Non
     plt.figure(figsize=(8, 5))
     shap.waterfall_plot(shap_values[idx_median], show=False)
     plt.tight_layout()
+    add_synthetic_footer(plt.gcf())
     plt.savefig(OUT / "10_fig_shap_waterfall.png", dpi=120)
     plt.close()
     print(
@@ -270,6 +273,7 @@ def calibration_plot(X: pd.DataFrame, y: pd.Series) -> None:
     ax.set_title("Calibration reliability diagram (5-fold CV predictions)")
     ax.legend()
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "10_fig_calibration.png", dpi=120)
     plt.close(fig)
     print("  saved 10_fig_calibration.png")

@@ -38,6 +38,7 @@ import pandas as pd
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -180,6 +181,7 @@ def dimensionality(s: pd.DataFrame) -> None:
         ax.set(xlabel="factor", ylabel="eigenvalue",
                title=f"{name} scree + parallel analysis")
         fig.tight_layout()
+        add_synthetic_footer(fig)
         fig.savefig(OUT / f"01_fig_{name}_scree.png", dpi=120)
         plt.close(fig)
         print(f"  saved 01_fig_{name}_scree.png")

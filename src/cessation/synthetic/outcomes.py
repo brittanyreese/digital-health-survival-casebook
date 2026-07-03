@@ -8,8 +8,11 @@ hazard), calibrated to published relapse curves:
   - κ = 0.55, λ = 180 days (scale)
   Source: Hughes JR, Keely J, Naud S (2004). Shape of the relapse curve and
           long-term abstinence among untreated smokers. Addiction, 99(1), 29–38.
-          (Shape parameter estimated from pooled abstinence curves showing ~50%
-           relapse by 8 weeks and ~80% by 6 months, hazard clearly decreasing.)
+          (Decreasing-hazard shape taken from pooled abstinence curves; Hughes
+           reports ~80% relapse by 6 months. This model uses a gentler level:
+           κ=0.55, λ=180 give ~63% relapse by 180 days, median relapse time
+           ~93 days, ~35% abstinent at 6 months. The shape is calibrated, the
+           6-month level is a simplification, not a match to Hughes.)
   Source: Shiffman S, Brockwell SE, Pillitteri JL, Gitchell JG (2007).
           Use of smoking-cessation treatments in the United States.
           Am J Prev Med, 32(3), 217–226. (Population-level relapse kinetics.)
@@ -35,7 +38,7 @@ from cessation.config import FOLLOWUP_DAYS, OUTCOME_6MO, OUTCOME_DURATION, OUTCO
 
 # Weibull parameters (see docstring citations)
 _WEIBULL_SHAPE  = 0.55   # κ: decreasing hazard (most relapse in first weeks)
-_WEIBULL_SCALE  = 180.0  # λ days (median ≈ 14 days for average user)
+_WEIBULL_SCALE  = 180.0  # λ days (median relapse time ≈ 93 days for average user)
 
 # Covariate effects on log(scale): larger scale → longer survival
 _BETA_THETA = 0.30   # latent engagement propensity

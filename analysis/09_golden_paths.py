@@ -35,6 +35,7 @@ from lifelines.exceptions import ConvergenceError
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -127,6 +128,7 @@ def plot_transitions(trans: np.ndarray, title: str, fname: str) -> None:
     plt.colorbar(im, ax=ax, label="Transition probability")
     ax.set_title(title)
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / fname, dpi=120)
     plt.close(fig)
 

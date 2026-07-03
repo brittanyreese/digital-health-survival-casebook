@@ -39,6 +39,7 @@ from sklearn.preprocessing import StandardScaler
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -180,6 +181,7 @@ def retention_km(feat: pd.DataFrame) -> None:
     ax.set_xlabel("Days in study")
     ax.set_ylabel("Proportion still active")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "02_fig_retention_km.png", dpi=120)
     plt.close(fig)
     print("  saved 02_fig_retention_km.png")

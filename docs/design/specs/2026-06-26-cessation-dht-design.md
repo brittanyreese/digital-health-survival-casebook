@@ -11,7 +11,7 @@ Public portfolio repository demonstrating quant UXR / outcomes research methods 
 
 Gaussian copula pipeline in five ordered phases:
 
-1. **Population** (`population.py`): spine (8,000 users), registration (1,800), profile (8,000). Demographic calibration: CDC NHANES 2017–March 2020 pre-pandemic, CDC MMWR 2020.
+1. **Population** (`population.py`): spine (8,000 users), registration (~3,000 after survey+followup funnel nesting), profile (8,000). Demographic calibration: CDC NHANES 2017–March 2020 pre-pandemic, CDC MMWR 2020.
 2. **Survey** (`cli.py:_generate_survey`): SDBS (20 items), SSEQ-12 (12 items), MARS (17 items: 16 subscale + 1 global rating; reliability analyzed in script 01) for 480-user pre-quit cohort. CFA model with published factor loadings; stage-conditional means from Velicer 1985 / DiClemente 1985.
 3. **Events** (`events.py`): 1.2M events via Poisson session arrivals (λ_u = exp(α + β·θ_u)) + first-order Markov channel transitions. 5 channels: craving_tool, content, peer_support, notification, quiz.
 4. **Outcomes** (`outcomes.py`): Weibull(κ=0.55, λ=180d) baseline survival; Cox-type frailty: HR ~ exp(β_θ·θ_u + β_SSEQ·sseq_std + β_pros·pros_std). Right-censored at 180 days. 1,200-user follow-up cohort.

@@ -40,6 +40,7 @@ from lifelines.statistics import multivariate_logrank_test, proportional_hazard_
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -217,6 +218,7 @@ def km_by_tertile(df: pd.DataFrame, label: str = "primary") -> None:
     ax.set_xlabel("Days since quit attempt")
     ax.set_ylabel("P(still quit)")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / f"11_fig_km_{label}.png", dpi=120)
     plt.close(fig)
     print(f"  saved 11_fig_km_{label}.png")
