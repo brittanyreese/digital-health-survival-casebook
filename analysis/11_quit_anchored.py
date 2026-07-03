@@ -1,6 +1,6 @@
 """Analysis 11 -- Quit-date-anchored engagement -> outcome (flagship longitudinal).
 
-Landmark design (Anderson & Gill, 1982; van Houwelingen, 2007): the analysis
+Landmark design (Andersen & Gill, 1982; van Houwelingen, 2007): the analysis
 population is restricted to subjects who survive event-free through the
 exposure window.  Subjects relapsing before `WINDOW_DAYS` are excluded;
 survival time is measured from the end of the exposure window (origin shift).

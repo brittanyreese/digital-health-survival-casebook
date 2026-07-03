@@ -13,7 +13,8 @@ Re-engagement window
 Outcome measure: app return within 14 days of SMS delivery.
 Baseline return probability (non-opt-out users): ~18% within 7 days, ~25%
 within 14 days.  Estimated from mHealth engagement literature (e.g.,
-Whittaker et al. 2016, Cochrane review on mobile phone-based interventions).
+Whittaker et al. 2019, Cochrane review, "Mobile phone text messaging and
+app-based interventions for smoking cessation").
 """
 from __future__ import annotations
 

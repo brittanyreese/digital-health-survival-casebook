@@ -13,7 +13,7 @@ Stage : Prochaska JO, DiClemente CC, Velicer WF, Ginpil S, Norcross JC (1985).
         Predicting change in smoking status for self-changers. Addict Behav,
         10(4), 395–406. (Stage distribution: contemplation ~40% of cessation
         sample; preparation ~20%; precontemplation ~30%.)
-DiCl  : DiClemente CC, Prochaska JO, Gilbertini M (1985). Self-efficacy and
+DiCl  : DiClemente CC, Prochaska JO, Gibertini M (1985). Self-efficacy and
         the stages of self-change of smoking. Cogn Ther Res, 9(2), 181–200.
         (Stage-conditional self-efficacy norms, Table III; cross-scale r
         described as "small but significant".)

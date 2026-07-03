@@ -9,21 +9,22 @@ constitute evidence about real users.**
 
 Cohort: N = 8,000 app users (synthetic); ~480-user psychometric subsample;
 ~1,200-user follow-up cohort for survival analysis.  Random seed: 42.
-All generation parameters are cited to peer-reviewed sources.
+All generation parameters are cited to peer-reviewed literature and public
+federal data sources (NHANES, MMWR).
 
 ## Context and motivation
 
 Engagement with mHealth cessation apps predicts abstinence outcomes, but most
 published analyses stop at descriptive usage metrics (session counts, days
 active) rather than connecting engagement trajectories to clinical endpoints
-through statistically appropriate models.  Perski et al. (2017, *Health
-Psychology Review*) documented that engagement is multidimensional and poorly
+through statistically appropriate models.  Perski et al. (2017, *Translational
+Behavioral Medicine*) documented that engagement is multidimensional and poorly
 operationalized across digital health interventions.  Baumel et al. (2019,
 *JMIR*) found that most digital mental health studies report aggregate usage
 averages without trajectory-based outcome analyses.  The Cochrane review by
-Whittaker et al. (2019) on mobile phone-based cessation interventions
-identified that adherence metrics were rarely analyzed with survival-appropriate
-estimators.
+Whittaker et al. (2019, "Mobile phone text messaging and app-based
+interventions for smoking cessation") identified that adherence metrics were
+rarely analyzed with survival-appropriate estimators.
 
 This repository demonstrates the full pipeline that would close that gap on
 real data: psychometric validation of the underlying constructs, engagement
@@ -57,8 +58,9 @@ Total engagement over the full follow-up period is a biased predictor of
 quit duration: longer survivors accumulate more events by construction
 (immortal time bias).  Scripts 04 and 10 restrict engagement features to a
 pre-outcome baseline window (days 0-29 from enrollment).  Script 11
-implements a proper landmark analysis (Anderson & Gill, 1982): subjects who
-relapse before the window closes are excluded entirely (their event counts
+implements a proper landmark analysis (Andersen & Gill, 1982; van
+Houwelingen, 2007): subjects who relapse before the window closes are
+excluded entirely (their event counts
 are mechanically capped by how long they survived), and the survival time
 origin is shifted to the window close date (day 30 post-quit).  This removes
 the structural dependence between event count and survival time in the
@@ -188,10 +190,10 @@ outcome.  OLS on log(duration) is shown for interpretability only — it treats
 censored observations as uncensored failures and is biased.
 
 **Landmark design.** Script 11 implements a proper landmark analysis
-(Anderson & Gill, 1982): subjects who relapse before the window closes
-(day 30 post-quit) are excluded (n=39 in this cohort), and survival time is
-measured from the window close date.  Without this step, subjects with early
-relapses have mechanically fewer events — their event count is bounded by how
+(Andersen & Gill, 1982; van Houwelingen, 2007): subjects who relapse before
+the window closes (day 30 post-quit) are excluded (n=39 in this cohort), and
+survival time is measured from the window close date.  Without this step,
+subjects with early relapses have mechanically fewer events — their event count is bounded by how
 long they survived, creating a structural positive correlation between
 engagement and survival time even under the null.  The robustness battery at
 14d and 60d windows applies the same landmark at each width.  The window
