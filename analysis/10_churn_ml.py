@@ -6,9 +6,10 @@ early engagement features (first 30 days).  Demonstrates ML/XAI pipeline:
 on the full dataset for SHAP explanation (standard pattern: CV estimates
 performance, full-data model explains feature contributions).
 
-Churn definition: no events in days 165–180 (final 14 days of 180-day window).
+Churn definition: no events in days 166–179 (the final 14 days of the 180-day
+window, offsets [166, 180)).
 Features: first-30-day engagement counts + channel mix + TTM stage.
-Churn-label note: churn=1 means zero events in days 165-180. This conflates
+Churn-label note: churn=1 means zero events in days 166–179. This conflates
 two populations: (a) disengaged users who lapsed, and (b) successful quitters
 who no longer needed the app. The AUC should be interpreted as predictive of
 late-window engagement absence, not exclusively dropout. A prospective
@@ -42,8 +43,19 @@ from cessation import data
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
 
-EARLY_WINDOW   = 30    # days for feature extraction
-CHURN_WINDOW   = [C.FOLLOWUP_DAYS - 14, C.FOLLOWUP_DAYS]   # [166, 180]
+EARLY_WINDOW   = C.BASELINE_WINDOW_DAYS   # days for feature extraction (shared w/ 09)
+CHURN_WINDOW   = [C.FOLLOWUP_DAYS - 14, C.FOLLOWUP_DAYS]   # [166, 180)
+
+
+def _make_model() -> HistGradientBoostingClassifier:
+    """Churn classifier hyperparameters, one definition for every use site.
+
+    A single factory prevents the CV, SHAP, subgroup-AUC, and calibration models
+    from silently diverging if a hyperparameter is changed in only some places.
+    """
+    return HistGradientBoostingClassifier(
+        max_iter=200, learning_rate=0.05, max_depth=4, random_state=C.SEED
+    )
 
 
 # ── feature engineering ───────────────────────────────────────────────────────
@@ -119,10 +131,8 @@ def cross_val_auc(X: pd.DataFrame, y: pd.Series) -> None:
         f"  Class imbalance: {churn_rate:.1%} churned  "
         f"({1 - churn_rate:.1%} retained)"
     )
-    model = HistGradientBoostingClassifier(
-        max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
-    )
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    model = _make_model()
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=C.SEED)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         aucs  = cross_val_score(model, X, y, cv=cv, scoring="roc_auc")
@@ -150,9 +160,7 @@ def shap_explain(X: pd.DataFrame, y: pd.Series, feature_names: list[str]) -> Non
     all available data so SHAP values reflect the full-sample feature signal.
     """
     print("\n=== 3. SHAP feature importance (final model, full data) ===")
-    model = HistGradientBoostingClassifier(
-        max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
-    )
+    model = _make_model()
     model.fit(X, y)
 
     explainer = shap.Explainer(model, X, feature_names=feature_names)
@@ -202,10 +210,8 @@ def subgroup_aucs(feat: pd.DataFrame, X: pd.DataFrame, y: pd.Series) -> None:
     from sklearn.model_selection import cross_val_predict
 
     print("\n=== 4. Subgroup AUC (demographic fairness check) ===")
-    model = HistGradientBoostingClassifier(
-        max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
-    )
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    model = _make_model()
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=C.SEED)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         proba_arr = np.asarray(
@@ -246,10 +252,8 @@ def calibration_plot(X: pd.DataFrame, y: pd.Series) -> None:
     from sklearn.model_selection import cross_val_predict
 
     print("\n=== 5. Calibration reliability diagram ===")
-    model = HistGradientBoostingClassifier(
-        max_iter=200, learning_rate=0.05, max_depth=4, random_state=42
-    )
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    model = _make_model()
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=C.SEED)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         proba_arr = np.asarray(
@@ -285,7 +289,10 @@ def main() -> None:
     feat = build_features(events, spine, reg)
 
     feature_cols = [c for c in feat.columns if c not in ("pid", "churned")]
-    X = cast(pd.DataFrame, feat[feature_cols].fillna(feat[feature_cols].median()))
+    # No global imputation: HistGradientBoosting handles NaN natively, so filling
+    # here would leak a full-dataset median across the CV fold boundary. Feature
+    # engineering already fills structural absences with 0 (reindex fill_value=0).
+    X = cast(pd.DataFrame, feat[feature_cols])
     y = cast(pd.Series, feat["churned"])
 
     cross_val_auc(X, y)

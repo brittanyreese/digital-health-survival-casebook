@@ -79,20 +79,10 @@ jobs:
           test -f results/analysis/01_sdbs_cfa_fit.csv
           echo "All key artifacts present"
 
-      - name: Smoke-check Weibull AFT primary result
-        run: |
-          uv run python - <<'EOF'
-          import pandas as pd, sys
-          aft = pd.read_csv("results/analysis/04_aft_weibull.csv")
-          row = aft[(aft["param"] == "lambda_") & (aft["covariate"] == "log_n_events")]
-          if row.empty:
-              print("FAIL: log_n_events not found in AFT results")
-              sys.exit(1)
-          p = float(row["p"].iloc[0])
-          coef = float(row["coef"].iloc[0])
-          print(f"AFT log_n_events: coef={coef:.3f}, p={p:.4f}")
-          if coef <= 0:
-              print("FAIL: engagement coefficient is negative (expected positive)")
-              sys.exit(1)
-          print("PASS: AFT primary result is positive and present")
-          EOF
+      - name: Verify parameter recovery on freshly generated output
+        # Runs the recovery tests against the results just produced by the
+        # pipeline above (not the committed CSVs), so a change that breaks
+        # recovery fails CI even if the committed artifacts are untouched.
+        # Checks injected magnitudes (Weibull shape kappa, AFT effect band,
+        # CFA fit), not only sign and significance.
+        run: uv run pytest tests/test_parameter_recovery.py -q

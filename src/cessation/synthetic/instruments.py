@@ -94,8 +94,12 @@ CROSS_SCALE_R: dict[tuple[str, str], float] = {
 }
 
 # ── MARS (Stoyanov et al. 2015) ────────────────────────────────────────────────
-# 23 items, 4 subscales, 5-pt (1=inadequate–5=excellent).
-# Mean ratings from Stoyanov SR et al. (2015) JMIR Mhealth Uhealth, 3(1):e27.
+# 17 items: 16 across 4 subscales + 1 single global app-quality rating, 5-pt
+# (1=inadequate–5=excellent). Mean ratings from Stoyanov SR et al. (2015) JMIR
+# Mhealth Uhealth, 3(1):e27. Subscale reliability is analyzed in analysis/01.
+# Subscales are generated as independent blocks (no injected cross-subscale
+# correlation), so the analysis recovers per-subscale reliability, not a
+# correlated 4-factor structure.
 MARS_SUBSCALE_PARAMS: dict[str, tuple[float, float]] = {
     "engagement":     (3.10, 0.70),
     "functionality":  (4.10, 0.60),
