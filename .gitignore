@@ -10,3 +10,6 @@ build/
 .mypy_cache/
 *.DS_Store
 data/synthetic/events_clean.csv
+
+# Vendored third-party repos used only for local evaluation harness
+evaluate/
