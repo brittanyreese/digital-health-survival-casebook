@@ -85,9 +85,16 @@ def markov_transitions(ev: pd.DataFrame, label: str = "all") -> np.ndarray:
         seq = [CHANNEL_IDX[c] for c in group["event_type"] if c in CHANNEL_IDX]
         for i, j in zip(seq[:-1], seq[1:]):
             counts[i, j] += 1
-    # Normalize rows
-    row_sums = counts.sum(axis=1, keepdims=True).clip(min=1)
-    trans = counts / row_sums
+    # Normalize rows. A channel that never appears as a "from" state has no
+    # outgoing transitions; make it an absorbing self-loop so the matrix stays
+    # row-stochastic instead of leaving an all-zero (non-stochastic) row.
+    row_sums = counts.sum(axis=1, keepdims=True)
+    trans = np.divide(counts, row_sums, out=np.zeros(counts.shape, dtype=float),
+                      where=row_sums > 0)
+    zero_idx = np.where(row_sums.ravel() == 0)[0]
+    trans[zero_idx, zero_idx] = 1.0
+    assert np.allclose(trans.sum(axis=1), 1.0), \
+        "transition matrix rows do not sum to 1"
     df_trans = pd.DataFrame(trans, index=pd.Index(CHANNELS), columns=pd.Index(CHANNELS))
     df_trans.round(4).to_csv(OUT / f"09_markov_trans_{label}.csv")
     return trans
@@ -114,12 +121,24 @@ def plot_transitions(trans: np.ndarray, title: str, fname: str) -> None:
 # ── 4. Stationary distribution ────────────────────────────────────────────────
 
 def stationary_dist(trans: np.ndarray) -> np.ndarray:
-    """Compute stationary distribution via eigenvector method."""
+    """Stationary distribution via the left eigenvector for eigenvalue 1.
+
+    Assumes an ergodic chain. Guards surface the cases where that fails instead
+    of silently returning the least-bad eigenvector: a reducible or periodic
+    empirical matrix has no unique stationary vector, so the selected eigenvalue
+    is checked to be ~1 and real, and the result is checked to be an actual fixed
+    point (pi = pi @ P).
+    """
     vals, vecs = np.linalg.eig(trans.T)
-    # Eigenvector for eigenvalue closest to 1
-    idx = np.argmin(np.abs(vals - 1.0))
+    idx = int(np.argmin(np.abs(vals - 1.0)))
+    if not np.isclose(vals[idx].real, 1.0, atol=1e-6) or abs(vals[idx].imag) > 1e-8:
+        print(f"  [warn] no clean eigenvalue-1 (got {vals[idx]:.4f}); chain may be "
+              "reducible or periodic; stationary distribution is unreliable")
     stat = np.real(vecs[:, idx])
     stat = np.abs(stat) / np.abs(stat).sum()
+    if not np.allclose(stat @ trans, stat, atol=1e-6):
+        print("  [warn] stationary vector is not a fixed point (pi @ P != pi); "
+              "interpret with caution")
     return stat
 
 
@@ -165,8 +184,8 @@ def channel_outcome_corr(ev: pd.DataFrame, seg: pd.DataFrame | None) -> None:
         print(f"  followup not available: {exc}")
         return
 
-    # enrollment-anchored baseline, consistent with 04/10
-    ev_window = ev[ev["day_offset"] < 30]
+    # enrollment-anchored baseline, consistent with 04/10 (shared constant)
+    ev_window = ev[ev["day_offset"] < C.BASELINE_WINDOW_DAYS]
     ev_ch = ev_window.groupby(["pid", "event_type"]).size().unstack(fill_value=0)
     ev_ch = ev_ch.div(ev_ch.sum(axis=1), axis=0).reset_index()
 

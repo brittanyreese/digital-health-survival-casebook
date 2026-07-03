@@ -2,10 +2,14 @@
 
 Links enrollment-baseline engagement features (days 0-29) to quit duration
 in the ~1,200-user follow-up cohort.  Restricting features to the first 30
-days avoids immortal time bias: using full-follow-up engagement confounds
+days reduces immortal time bias: using full-follow-up engagement confounds
 exposure with survival time because longer survivors accumulate more events
-by construction.  This baseline-window approach mirrors the landmark design
-in analysis/11, which anchors the exposure window to the declared quit date.
+by construction.  It does not fully remove that dependence, because early
+relapsers who survive less than the window still enter the estimation sample
+with mechanically truncated event counts.  The landmark design in analysis/11
+(exclude pre-window relapsers, shift the time origin) is what removes the
+residual structural dependence; script 04 is the enrollment-anchored variant
+that reduces but does not eliminate it.
 
 Three models triangulate the association: Kaplan-Meier (descriptive),
 Cox PH (covariate-adjusted hazard, with Schoenfeld assumption test),
@@ -57,7 +61,7 @@ def _opt_covs(df: pd.DataFrame) -> list[str]:
 
 
 def _power_note(n_events: int, label: str) -> None:
-    # Schoenfeld (1981): events needed ≈ 4*(z_α+z_β)²/(ln HR)²
+    # Schoenfeld (1983): events needed ≈ 4*(z_α+z_β)²/(ln HR)²
     # For HR=0.80, α=.05, power=.80: ≈ 197 (continuous), 630 (binary)
     if n_events >= 197:
         note = "well-powered for continuous predictor"

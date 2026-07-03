@@ -1,20 +1,32 @@
-"""Analysis 06 -- SMS re-engagement quasi-experiment.
+"""Analysis 06 -- SMS re-engagement: negative-control demonstration.
 
-Evaluates whether delivered SMS notifications increase app return within
-a 14-day window, using a delivered-vs-opted-out contrast.  Treats opt-out
-as a quasi-control condition (users who opted out before the SMS date serve
-as a comparison group for those who received the message).
+Runs the full delivered-vs-opted-out analysis stack (event study, Kaplan-Meier,
+logistic regression) on the SMS campaign and reports app return within a 14-day
+window.
+
+This is a NEGATIVE CONTROL by construction, not a treatment-effect estimate.
+The synthetic generator injects no causal effect of SMS delivery on app return:
+opt-out timing is sampled independently of engagement propensity (theta_u), and
+delivery status is a deterministic function of that random opt-out day
+(reengagement.py:_sample_opt_out_day). The 14-day return outcome measured here
+comes from the generic event log, which is generated without reference to SMS
+delivery. So a correct pipeline should return a NULL delivered-vs-opted-out
+contrast, and it does (delivered and opted-out return rates are within noise,
+logistic is_delivered p >> 0.05). The value of the script is that the event-study
+/ KM / logistic machinery is wired correctly and does not manufacture an effect
+where the DGP has none.
+
+What a real study would need: opt-out driven by (unobserved) motivation, an
+actual SMS-to-return effect, and a design that separates the two. On real data
+opt-out would be endogenous and the naive contrast would be confounded; none of
+that endogeneity exists in this synthetic build.
 
 Analyses:
   1. SMS delivery and opt-out descriptives
-  2. Event study: app return rate in 7–14 days post-SMS
+  2. Event study: app return rate within 14 days post-SMS
   3. Kaplan-Meier: time-to-return by delivery status
   4. Logistic regression: P(return | delivered) + covariates
   5. Subgroup analysis by engagement segment
-
-Causal interpretation: Opt-out is endogenous (lower-motivation users opt out
-earlier), so the contrast is observational with likely upward bias on the
-estimated effect.  Treat as effect-direction evidence, not causal estimate.
 
 Run:  uv run python analysis/06_sms_reengagement.py
 """

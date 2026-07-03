@@ -14,7 +14,9 @@ Analyses:
   2. Dimensionality (parallel analysis + scree, EFA oblimin)
   3. Confirmatory factor analysis (SDBS 2-factor; SSEQ-12 2-factor)
   4. Graded-response IRT (SDBS Pros factor)
-  5. Longitudinal metric invariance (SDBS T1 vs T2 across TTM stage groups)
+  5. Cross-group factor congruence (SDBS Pros loadings across TTM stage groups)
+  6. MARS subscale reliability (Mobile App Rating Scale; standalone app-quality
+     summary, outside the cessation-construct chain)
 
 Run:  uv run python analysis/01_psychometrics.py
 """
@@ -280,81 +282,89 @@ def irt_sdbs_pros(s: pd.DataFrame) -> None:
 # ── 6. Metric invariance (SDBS T1 vs T2) ─────────────────────────────────────
 
 def invariance_sdbs(s: pd.DataFrame) -> None:
+    """Cross-group factor congruence for the SDBS Pros factor across TTM stages.
+
+    Between-groups structural comparison (not repeated-measures): split the pilot
+    cohort into early-stage (precontemplation + contemplation) vs prepared-or-quit
+    (preparation + action + maintenance), fit the 1-factor Pros model separately
+    in each group, and compare the two loading vectors with Tucker's congruence
+    coefficient phi (Lorenzo-Seva & ten Berge, 2006). phi >= 0.95 indicates the
+    factor has effectively the same pattern of loadings in both groups, the
+    structural core of metric invariance.
+
+    This is a congruence-based check, deliberately lighter than a full nested
+    multigroup invariance LRT (configural vs equal-loading metric model), which
+    needs multigroup SEM estimation that this toolchain (semopy) does not support
+    cleanly. Each per-group 1-factor fit converges on its own, and congruence of
+    their loadings is a robust, well-established factor-replicability index. It
+    does not test scalar (intercept) invariance and so cannot license comparing
+    factor mean scores across stages.
+    """
     import semopy
-    from scipy.stats import chi2 as chi2dist
-    print("\n=== 6. Metric invariance -- SDBS Pros, T1 vs T2 ===")
+    print("\n=== 6. SDBS Pros factor congruence across TTM stage groups ===")
 
-    t1_cols = [f"t1_sdbs_{i:02d}" for i in range(1, 11)
-               if f"t1_sdbs_{i:02d}" in s.columns]
-    t2_cols = [f"t2_sdbs_{i:02d}" for i in range(1, 11)
-               if f"t2_sdbs_{i:02d}" in s.columns]
-
-    if not t2_cols:
-        print("  No T2 data")
+    pros_cols = [f"t1_sdbs_{i:02d}" for i in range(1, 11)
+                 if f"t1_sdbs_{i:02d}" in s.columns]
+    if "mod_stage" not in s.columns or len(pros_cols) < 3:
+        print("  mod_stage or SDBS Pros items missing; skipping")
         return
 
-    both = s[t1_cols + t2_cols].apply(pd.to_numeric, errors="coerce").dropna()
-    print(f"  n with T1+T2: {len(both)}")
-    if len(both) < 30:
-        print("  Insufficient data")
-        return
+    spec = "Pros =~ " + " + ".join(pros_cols)
 
-    it1 = [f"F1_{c}" for c in t1_cols]
-    it2 = [f"F2_{c}" for c in t2_cols]
-    both.columns = it1 + it2
+    def fit_loadings(data: pd.DataFrame) -> tuple[np.ndarray, float]:
+        m = semopy.Model(spec)
+        m.fit(data)
+        insp = cast(pd.DataFrame, m.inspect())
+        load = insp[(insp["op"] == "~") & (insp["rval"] == "Pros")]
+        load = (load.set_index("lval")["Estimate"]
+                .apply(pd.to_numeric, errors="coerce").reindex(pros_cols))
+        cfi = float(semopy.calc_stats(m).T.loc["CFI"].iloc[0])
+        return load.to_numpy(dtype=float), cfi
 
-    def spec(constrain_loadings: bool) -> str:
-        def side(fac: str, items: list[str], lbl: bool) -> str:
-            labels = [f"l{i}" for i in range(len(items))]
-            if lbl:
-                terms = [items[0]] + [
-                    f"{lb}*{it}" for lb, it in zip(labels[1:], items[1:])
-                ]
-            else:
-                terms = items
-            return f"{fac} =~ " + " + ".join(terms)
-        # Same item measured twice shares residual variance: required for adequate fit
-        resid = "\n".join(f"{a} ~~ {b}" for a, b in zip(it1, it2))
-        return (side("Wave1", it1, constrain_loadings) + "\n"
-                + side("Wave2", it2, constrain_loadings) + "\nWave1 ~~ Wave2\n" + resid)
+    def congruence(a: np.ndarray, b: np.ndarray) -> float:
+        return float(a @ b / np.sqrt((a @ a) * (b @ b)))
 
-    def fit_model(desc: str) -> tuple[float, float, float]:
-        m = semopy.Model(desc)
-        m.fit(both)
-        st = semopy.calc_stats(m).T
-        return (float(st.loc["chi2"].iloc[0]),
-                float(st.loc["DoF"].iloc[0]),
-                float(st.loc["CFI"].iloc[0]))
+    is_early = s["mod_stage"].isin(["precontemplation", "contemplation"])
+    groups = {"early": s.loc[is_early], "prepared": s.loc[~is_early]}
 
     try:
-        cf, dff, cfif = fit_model(spec(False))
-        ce, dfe, cfie = fit_model(spec(True))
-        dchi, ddf = ce - cf, dfe - dff
-        p = float(1 - chi2dist.cdf(dchi, ddf)) if ddf > 0 else 1.0
-        print(f"  configural CFI={cfif:.3f} | metric CFI={cfie:.3f}")
-        print(f"  Δchi2={dchi:.1f} (df={ddf:.0f}) p={p:.3f} | ΔCFI={cfie-cfif:+.3f}")
-        if dchi < 0:
-            verdict = (f"INDETERMINATE (Δchi²={dchi:.1f} < 0; "
-                       "configural model non-convergence; check starting values)")
-        elif cfif < 0.90:
-            verdict = (f"INDETERMINATE (configural CFI={cfif:.3f} < 0.90; "
-                       "baseline misfit)")
+        loadings: dict[str, np.ndarray] = {}
+        cfis: dict[str, float] = {}
+        ns: dict[str, int] = {}
+        for name, gdf in groups.items():
+            g = cast(pd.DataFrame,
+                     gdf[pros_cols].apply(pd.to_numeric, errors="coerce").dropna())
+            if len(g) < 50:
+                print(f"  group '{name}' n={len(g)} < 50; too small for congruence")
+                return
+            load, cfi = fit_loadings(g)
+            loadings[name] = load
+            cfis[name] = cfi
+            ns[name] = len(g)
+            print(f"  group '{name}': n={len(g)} CFI={cfi:.3f}")
+
+        phi = congruence(loadings["early"], loadings["prepared"])
+        both_fit = min(cfis.values()) >= 0.90
+        print(f"  Tucker's congruence phi={phi:.3f} "
+              f"(>= 0.95 = congruent loading pattern)")
+        if not both_fit:
+            verdict = (f"INDETERMINATE (a group CFI < 0.90; "
+                       f"min={min(cfis.values()):.3f})")
         else:
-            verdict = ("supported" if abs(cfie - cfif) < 0.01 and p > 0.05
-                       else "NOT supported")
-        print(f"  → metric invariance {verdict}")
-        print("  Scope: metric (loading) invariance only.  Scalar invariance "
-              "(equal item intercepts across groups) is the additional prerequisite "
-              "for comparing factor mean scores across TTM stages.  A full invariance "
-              "sequence (configural → metric → scalar → strict) would be required "
-              "before interpreting stage-conditional latent mean differences.")
+            verdict = "congruent" if phi >= 0.95 else "NOT congruent"
+        print(f"  → cross-group factor congruence: {verdict}")
+        print("  Scope: loading-pattern congruence only, a structural check, not a "
+              "full invariance sequence. Scalar (intercept) invariance is untested "
+              "and is the additional prerequisite before comparing factor mean "
+              "scores across TTM stages.")
         pd.DataFrame([{
-            "CFI_configural": round(cfif, 3), "CFI_metric": round(cfie, 3),
-            "delta_CFI": round(cfie - cfif, 4), "delta_chi2": round(dchi, 1),
-            "delta_df": ddf, "p_value": round(p, 4), "verdict": verdict,
+            "group_a": "early", "group_b": "prepared",
+            "n_a": ns["early"], "n_b": ns["prepared"],
+            "cfi_a": round(cfis["early"], 3), "cfi_b": round(cfis["prepared"], 3),
+            "congruence_phi": round(phi, 4), "verdict": verdict,
         }]).to_csv(OUT / "01_sdbs_invariance.csv", index=False)
     except Exception as exc:
-        print(f"  Invariance test failed: {exc}")
+        print(f"  Congruence test failed: {exc}")
 
 
 # ── 7. CFA pipeline validation (misspecification check) ──────────────────────
@@ -364,11 +374,19 @@ def cfa_misspec_check() -> None:
 
     Case 1: 1-factor orthogonal data (trivially wrong) → should fail badly.
     Case 2: 2-factor orthogonal data (correct) → should fit well.
-    Case 3: Bifactor data (general + two specific factors) → 2-factor model
-            partially misspecified; harder case that tests pipeline sensitivity.
+    Case 3: "Bifactor" data (general g + two specific factors) with uniform
+            loadings on the two item blocks. Note this DGP is observationally
+            equivalent to a correlated-2-factor model: each block gets one g
+            loading and one specific loading identical across its items, so the
+            block is rank-1 and g plus the specific factor are not separately
+            identified within it. A good 2-factor fit here is therefore the
+            correct answer, not a missed misspecification. This case documents
+            that limit; a genuine bifactor stress-test needs specific factors
+            that cross-cut the item blocks (or item-level cross-loadings).
 
-    Good discriminative power means: Case 1 CFI < 0.93, Case 3 CFI < 0.95,
-    Case 2 CFI > 0.95.
+    Case 1 should give CFI < 0.93 (real misfit detected); Case 2 and Case 3
+    both should give CFI > 0.95 (Case 3 because it is not actually misspecified
+    relative to the 2-factor model).
     """
     import semopy
     print("\n=== 7. CFA pipeline validation (misspecification check) ===")
@@ -433,6 +451,13 @@ def cfa_misspec_check() -> None:
         rows.append({"case": label, **fit})
 
     pd.DataFrame(rows).to_csv(OUT / "01_cfa_misspec_check.csv", index=False)
+    for r in rows:
+        cfi_val, rmsea_val = r.get("CFI"), r.get("RMSEA")
+        if (isinstance(cfi_val, float) and cfi_val > 1.0) or \
+           (isinstance(rmsea_val, float) and rmsea_val == 0.0):
+            print(f"  [warn] {r['case']}: CFI={cfi_val} RMSEA={rmsea_val} outside the "
+                  "[0,1] fit range; CFI>1 or RMSEA=0 signals a near-saturated / "
+                  "non-positive-df solution. Read as degenerate, not as ideal fit.")
     case1_wrong = next((r for r in rows if "1-factor/wrong" in r["case"]), {})
     case3_hard  = next((r for r in rows if "Case 3 (hard)" in r["case"]), {})
     detects_easy = case1_wrong.get("CFI", 1.0) < 0.93
@@ -440,9 +465,60 @@ def cfa_misspec_check() -> None:
     print(f"  detects trivial misfit (Case 1): {detects_easy}")
     print(f"  detects bifactor misfit (Case 3): {detects_hard}")
     if not detects_hard:
-        print("  [warn] 2-factor model shows acceptable fit on bifactor data: "
-              "pipeline cannot distinguish bifactor from correlated-factor structure "
-              "on these parameters.")
+        print("  [note] 2-factor model fits the 'bifactor' data well because, with "
+              "uniform loadings on the two item blocks, that DGP is observationally "
+              "equivalent to a correlated-2-factor model (rank-1 blocks). A good fit "
+              "is the correct result here, not a missed misspecification; a genuine "
+              "bifactor test needs specific factors that cross-cut the item blocks.")
+
+
+# ── 8. MARS subscale reliability ─────────────────────────────────────────────
+
+def mars_reliability(s: pd.DataFrame) -> None:
+    """MARS subscale reliability (Cronbach's alpha) + global-rating descriptive.
+
+    MARS (Mobile App Rating Scale, Stoyanov 2015) is an app-quality instrument,
+    outside the cessation-construct chain that drives the survival model, so it is
+    reported here as a standalone measurement summary. The four subscales are
+    generated as independent blocks, so this recovers per-subscale reliability
+    (consistent with the injected 0.70 loadings), not a correlated 4-factor
+    structure; inter-subscale correlations are near zero by construction. Item 17
+    is a single global app-quality rating, summarized descriptively, not scaled.
+    """
+    print("\n=== 8. MARS subscale reliability ===")
+    layout = {"engagement": (1, 5), "functionality": (6, 9),
+              "aesthetics": (10, 12), "information": (13, 16)}
+    rows = []
+    sub_scores: dict[str, pd.Series] = {}
+    for name, (lo, hi) in layout.items():
+        cols = [f"mars_{i:02d}" for i in range(lo, hi + 1)
+                if f"mars_{i:02d}" in s.columns]
+        if len(cols) < 2:
+            continue
+        X = cast(pd.DataFrame,
+                 s[cols].apply(pd.to_numeric, errors="coerce").dropna())
+        a = _alpha(X)
+        sub_scores[name] = cast(pd.Series, s[cols].apply(
+            pd.to_numeric, errors="coerce").sum(axis=1))
+        rows.append({"subscale": name, "n_items": len(cols), "n": len(X),
+                     "cronbach_alpha": round(a, 3),
+                     "mean_item": round(float(X.values.mean()), 3)})
+        print(f"  {name}: {len(cols)} items, alpha={a:.3f}, n={len(X)}")
+
+    if len(sub_scores) > 1:
+        corr = pd.DataFrame(sub_scores).corr()
+        offdiag = corr.where(~np.eye(len(corr), dtype=bool)).abs().stack()
+        print(f"  mean |inter-subscale r| = {offdiag.mean():.3f} "
+              "(≈0 expected: subscales generated independently)")
+
+    if "mars_17" in s.columns:
+        q = cast(pd.Series, pd.to_numeric(s["mars_17"], errors="coerce")).dropna()
+        print(f"  global rating (item 17): mean={q.mean():.2f} sd={q.std():.2f} "
+              "(single-item descriptive, not scaled)")
+        rows.append({"subscale": "global_rating", "n_items": 1, "n": len(q),
+                     "cronbach_alpha": None, "mean_item": round(float(q.mean()), 3)})
+
+    pd.DataFrame(rows).to_csv(OUT / "01_mars_reliability.csv", index=False)
 
 
 # ── main ──────────────────────────────────────────────────────────────────────
@@ -458,6 +534,7 @@ def main() -> None:
     irt_sdbs_pros(s)
     invariance_sdbs(s)
     cfa_misspec_check()
+    mars_reliability(s)
     print(f"\nDone. Results in {OUT}")
 
 
