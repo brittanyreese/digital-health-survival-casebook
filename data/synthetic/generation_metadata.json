@@ -1,15 +1,15 @@
 {
   "seed": 42,
   "n_total": 8000,
-  "generated": "2026-06-26T23:00:01Z",
-  "elapsed_sec": 21.0,
+  "generated": "2026-07-03T07:40:30Z",
+  "elapsed_sec": 18.9,
   "citations": {
     "SDBS": "Velicer et al. (1985) J Pers Soc Psychol 48(5):1279\u20131289",
     "SSEQ": "Etter et al. (2000) Addiction 95(6):901\u2013913",
     "TTM_stage": "Prochaska et al. (1985) Addict Behav 10(4):395\u2013406",
     "SSEQ_stage": "DiClemente et al. (1985) Cogn Ther Res 9(2):181\u2013200",
-    "Weibull_relapse": "Etter & Stapleton (2006) Tob Control 15:280\u2013285; Shiffman et al. (2007) Am J Prev Med 32(3):217\u2013226",
-    "SMS_optout": "Duffy et al. (2016) JMIR Mhealth Uhealth PMC5144826",
+    "Weibull_relapse": "Etter & Stapleton (2006) Tob Control 15:280\u2013285; Hughes, Keely & Naud (2004) Addiction 99(1):29\u201338",
+    "SMS_optout": "Christofferson et al. (2016) Addictive Behaviors 62:47-53 PMC5144826",
     "demographics": "CDC NHANES 2019\u20132020 SMQ; CDC MMWR 2020"
   },
   "tables": {
