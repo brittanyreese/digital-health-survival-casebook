@@ -22,18 +22,19 @@ from cessation import config as C
 from cessation.synthetic import (
     instruments as inst,
 )
+from cessation.synthetic import validate as val
 from cessation.synthetic.copula import (
     generate_one_factor_items,
     generate_two_factor_items,
-    build_cross_scale_factor_cov,
-    stage_to_factor_mean,
 )
-from cessation.synthetic.events import generate_events, compute_engagement_features
+from cessation.synthetic.events import generate_events
 from cessation.synthetic.outcomes import generate_followup
-from cessation.synthetic.population import generate_spine, generate_registration, generate_profile
-from cessation.synthetic.reengagement import generate_sms, generate_reengagement
-from cessation.synthetic import validate as val
-
+from cessation.synthetic.population import (
+    generate_profile,
+    generate_registration,
+    generate_spine,
+)
+from cessation.synthetic.reengagement import generate_reengagement, generate_sms
 
 # ── constants ─────────────────────────────────────────────────────────────────
 N_TOTAL   = 8_000

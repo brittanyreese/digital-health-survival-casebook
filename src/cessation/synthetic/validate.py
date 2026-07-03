@@ -15,14 +15,13 @@ Checks
 from __future__ import annotations
 
 import warnings
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-from scipy.stats import ks_1samp, norm, pearsonr
+from scipy.stats import pearsonr
 
-from cessation.config import DATA_SYNTHETIC, FOLLOWUP_DAYS
-from cessation.synthetic.instruments import SDBS_STAGE_PARAMS, SSEQ_STAGE_PARAMS
+from cessation.synthetic.instruments import SDBS_STAGE_PARAMS
 
 
 @dataclass

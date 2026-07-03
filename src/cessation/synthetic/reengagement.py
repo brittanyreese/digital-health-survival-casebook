@@ -21,8 +21,6 @@ import numpy as np
 import pandas as pd
 from scipy.stats import weibull_min
 
-from cessation.config import FOLLOWUP_DAYS
-
 # Weibull opt-out calibration:
 # P(opt-out ≤ 180) = 0.48 with shape=0.8 → solve for scale
 # 0.48 = 1 - exp(-(180/λ)^0.8)  → λ ≈ 253

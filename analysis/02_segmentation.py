@@ -16,22 +16,22 @@ Run:  uv run python analysis/02_segmentation.py
 from __future__ import annotations
 
 import sys
-import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from lifelines import KaplanMeierFitter
+from lifelines.statistics import multivariate_logrank_test
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
-from lifelines import KaplanMeierFitter
-from lifelines.statistics import multivariate_logrank_test
 
 from cessation import config as C
 from cessation import data

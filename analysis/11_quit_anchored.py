@@ -28,12 +28,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
-from lifelines import KaplanMeierFitter, CoxPHFitter, WeibullAFTFitter
+from lifelines import CoxPHFitter, KaplanMeierFitter, WeibullAFTFitter
 from lifelines.statistics import multivariate_logrank_test, proportional_hazard_test
 
 from cessation import config as C

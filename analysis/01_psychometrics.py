@@ -21,13 +21,13 @@ Run:  uv run python analysis/01_psychometrics.py
 from __future__ import annotations
 
 import sys
-import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
@@ -116,7 +116,10 @@ def item_analysis(s: pd.DataFrame) -> None:
 
 def dimensionality(s: pd.DataFrame) -> None:
     from factor_analyzer import FactorAnalyzer
-    from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
+    from factor_analyzer.factor_analyzer import (
+        calculate_bartlett_sphericity,
+        calculate_kmo,
+    )
 
     for name, X in [("SDBS", pd.concat(_sdbs_items(s), axis=1)),
                     ("SSEQ", pd.concat(_sseq_items(s), axis=1))]:

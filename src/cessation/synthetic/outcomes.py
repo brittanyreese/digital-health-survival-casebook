@@ -31,7 +31,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import weibull_min
 
-from cessation.config import FOLLOWUP_DAYS, OUTCOME_DURATION, OUTCOME_EVENT, OUTCOME_6MO
+from cessation.config import FOLLOWUP_DAYS, OUTCOME_6MO, OUTCOME_DURATION, OUTCOME_EVENT
 
 # Weibull parameters (see docstring citations)
 _WEIBULL_SHAPE  = 0.55   # κ — decreasing hazard (most relapse in first weeks)

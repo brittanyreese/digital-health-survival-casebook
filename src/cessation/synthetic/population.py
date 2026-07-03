@@ -24,9 +24,8 @@ import numpy as np
 import pandas as pd
 
 from cessation.config import (
-    TTM_STAGES,
     PROFILE_CLASSES,
-    FOLLOWUP_DAYS,
+    TTM_STAGES,
 )
 
 # ── stage probabilities at study enrolment (Prochaska 1985 proportions) ───────

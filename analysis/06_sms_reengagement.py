@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
@@ -55,7 +56,7 @@ def sms_descriptives(sms: pd.DataFrame) -> None:
     opt_rate  = opt_users / n_users
     print(f"  {n_total:,} SMS to {n_users:,} users")
     print(f"  Opt-out rate: {opt_users:,}/{n_users:,} = {opt_rate:.2%}")
-    print(f"  (Calibration target: 48% — SmokefreeVET PMC5144826)")
+    print("  (Calibration target: 48% — SmokefreeVET PMC5144826)")
 
     status_dist = sms.groupby("status")["pid"].nunique()
     print(f"\n  Status breakdown:\n{status_dist.to_string()}")
