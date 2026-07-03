@@ -224,8 +224,9 @@ def reengagement_recovery(events: pd.DataFrame) -> None:
     return after a delivered SMS rise with latent engagement propensity theta_u
     (reengagement.py: p_return = P_RETURN_14D + THETA_BETA * theta). theta is
     unobserved, so this regresses the observed reengaged outcome on a baseline
-    engagement proxy (log events in day_offset < BASELINE_WINDOW_DAYS, the same
-    proxy scripts 04/11 use for theta). A positive odds ratio recovers the
+    engagement proxy (log events in day_offset < BASELINE_WINDOW_DAYS, an
+    analogous log-event proxy to the ones scripts 04/11 use for theta). A
+    positive odds ratio recovers the
     injected structure. As everywhere in this casebook the association reflects
     the injected parameter, not a causal SMS or engagement effect.
 

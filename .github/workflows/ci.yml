@@ -77,6 +77,7 @@ jobs:
           test -f results/analysis/11_ph_test_primary.csv
           test -f results/analysis/11_robustness_window.csv
           test -f results/analysis/01_sdbs_cfa_fit.csv
+          test -f results/analysis/06_reengagement_logit.csv
           echo "All key artifacts present"
 
       - name: Verify parameter recovery on freshly generated output

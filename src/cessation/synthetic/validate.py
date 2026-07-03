@@ -4,9 +4,10 @@ Distributional validation suite for synthetic data.
 Checks
 ------
 1. Stage-mean check: generated subscale means ±2 SD of published values
-2. Survival shape: estimated Weibull shape parameter within 0.05 of target
-3. SMS opt-out rate: check 40–55% opt-out within 180 days
-4. Engagement propensity correlation: theta_u × n_events Pearson r > 0.6
+2. Survival shape: estimated Weibull shape within 0.45–0.85 (frailty mixture;
+   baseline κ=0.55)
+3. SMS opt-out rate: 0.28–0.44 at the 90-day SMS window
+4. Engagement propensity correlation: theta_u × log1p(n_events) Pearson r > 0.55
 
 Marginal-distribution KS tests and a CFA/CFI/RMSEA factor-structure check
 were scoped but are not implemented; run_all() executes only the four checks
