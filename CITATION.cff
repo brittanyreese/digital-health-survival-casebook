@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Digital health survival casebook"
+authors:
+  - family-names: "Reese Markides"
+    given-names: "Brittany"
+    name-suffix: "PhD"
+    orcid: "https://orcid.org/0000-0001-6242-0842"
+year: 2026
+license: MIT
