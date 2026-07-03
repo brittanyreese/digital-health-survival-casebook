@@ -45,7 +45,7 @@ Gaussian copula pipeline in five ordered phases:
 | 06_sms_reengagement.py | Event study, KM, logistic regression | Quasi-experimental design |
 | 09_golden_paths.py | Sessionization, Markov chain, stationary dist | Behavioral analytics |
 | 10_churn_ml.py | HistGradientBoosting, nested CV, SHAP | ML / XAI |
-| 11_quit_anchored.py | Landmark design, Cox/AFT/OLS, 7-attack robustness | Causal framing |
+| 11_quit_anchored.py | Landmark design, Cox/AFT/OLS, 7-attack robustness | Causal-inference framing (synthetic; design demo, not a causal claim) |
 
 Numbering follows the full pipeline order. The unlisted numbers (03, 05, 07, 08) are data-preparation and shared-utility stages that live in the generation layer, not standalone analyses.
 
