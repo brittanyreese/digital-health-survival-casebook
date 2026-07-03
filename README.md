@@ -15,6 +15,14 @@ The results show the analysis code returns what the generator put in. They are
 not evidence about real users, and they say nothing about whether any real
 cessation app works.
 
+That claim has a name: this is an estimator-validation exercise, the same
+logic methods papers use when they test an estimator on simulated data before
+trusting it on real data. A pipeline that cannot recover a known truth has no
+business near an unknown one. Recovery is a floor, not a ceiling. The
+real-data counterpart of this work, with its missingness, attrition, and
+measurement noise, lives in the author's peer-reviewed publications and in
+client engagements that cannot be published.
+
 Cohort: 8,000 synthetic app users, with a ~480-user psychometric subsample and
 a ~1,200-user follow-up cohort for the survival analysis. Random seed: 42.
 
@@ -54,6 +62,18 @@ is the contribution.
 Script numbers follow the full analysis pipeline order.  Data cleaning,
 imputation, and feature selection stages are handled within the synthetic
 generation layer for this demonstration and do not appear as separate scripts.
+
+## Reading guide by role
+
+Different jobs read this repo differently. Start with the scripts for your
+lane:
+
+| If you hire for | Start with | What it shows |
+|---|---|---|
+| Psychometrics / survey science | 01 | CFA, IRT-GRM, measurement invariance, and a deliberate misspecification stress-test, including where detection fails |
+| Quantitative UX research | 01, 02, 09, 06 | Survey-instrument validation with group-invariance (DIF) logic; behavioral archetypes with diverging retention; Markov journey analysis; an SMS event study as product experimentation |
+| Health outcomes / biostatistics | 04, 11 | Cox PH with Schoenfeld tests, Weibull AFT as pre-specified primary, immortal-time-bias correction, and a true landmark analysis with a robustness battery |
+| Data science / ML | 10 | Gradient boosting under class imbalance, stratified CV, SHAP, calibration, and a subgroup-AUC fairness cut; the seeded generator and reproducibility CI are the engineering evidence |
 
 ## Analytical design decisions
 
@@ -139,8 +159,8 @@ Data are generated from a Gaussian-copula CFA model calibrated to:
 ## Reproduce
 
 ```bash
-# Install uv (https://docs.astral.sh/uv/getting-started/installation/)
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# Install uv: brew install uv, pipx install uv, or see
+# https://docs.astral.sh/uv/getting-started/installation/
 uv sync
 
 # Generate all synthetic tables (~30 seconds)
@@ -168,7 +188,8 @@ are not held to that standard: one SHAP summary plot
 (`results/analysis/10_fig_shap_summary.png`) varies by about 0.35% between
 runs, from nondeterminism in the SHAP and matplotlib rendering path. The
 numbers behind every figure reproduce exactly; the PNG pixels of that one plot
-do not.
+do not. The committed tables were generated on macOS/ARM; regeneration on
+another platform (the Linux CI, for instance) can differ in trailing digits.
 
 ## Synthetic data disclosure
 
