@@ -1,6 +1,6 @@
 mod_stage,High engagers,Moderate,Passive
-action,0.434,0.303,0.262
-contemplation,0.478,0.265,0.256
-maintenance,0.377,0.361,0.262
-precontemplation,0.464,0.301,0.235
-preparation,0.482,0.232,0.285
+action,0.477,0.239,0.284
+contemplation,0.453,0.301,0.246
+maintenance,0.429,0.248,0.324
+precontemplation,0.467,0.259,0.274
+preparation,0.485,0.252,0.263

@@ -1,5 +1,5 @@
 scale,n_items,alpha
-SDBS Pros,10,0.821
-SDBS Cons,10,0.886
-SSEQ Internal,6,0.96
-SSEQ External,6,0.961
+SDBS Pros,10,0.818
+SDBS Cons,10,0.899
+SSEQ Internal,6,0.966
+SSEQ External,6,0.96

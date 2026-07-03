@@ -1,5 +1,5 @@
 covariate,subgroup,n,auc
-mod_age,below_median,1079,0.8348
-mod_age,above_median,967,0.852
-mod_edu,below_median,1592,0.8373
-mod_edu,above_median,454,0.8612
+mod_age,below_median,1571,0.8701
+mod_age,above_median,1362,0.8164
+mod_edu,below_median,2238,0.8445
+mod_edu,above_median,695,0.8372
