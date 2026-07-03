@@ -39,6 +39,7 @@ Most published mHealth-cessation analyses stop at descriptive usage metrics (ses
 | Behavioral analytics: Markov channel transitions, stationary distributions, channel-outcome correlation | `analysis/09_golden_paths.py` |
 | ML / XAI: HistGradientBoosting, ROC-AUC + AUPRC, SHAP, calibration, subgroup AUC | `analysis/10_churn_ml.py` |
 | Landmark analysis: quit-date anchoring, AFT window sensitivity, Schoenfeld test | `analysis/11_quit_anchored.py` |
+| Recovery stability: Monte-Carlo recovery intervals across independent seeds | `analysis/12_recovery_monte_carlo.py` |
 
 ## Analytical design decisions
 
@@ -55,7 +56,7 @@ All values reflect how well the pipeline recovers the injected parameters. They 
 | Analysis | Synthetic result | Real-data implication |
 |---|---|---|
 | Weibull AFT (script 04) | exp(β) = 1.21 (95% CI 1.08–1.36), p = 0.0014, per log-unit 30-day engagement | The pipeline recovers the injected engagement→duration signal. The generator injects a latent-propensity coefficient (β on θ, not on log-events), so this exp(β) is the association θ induces through observed engagement, on a different scale from any single injected constant, not a literal read-back of it. The recoverable facts are the direction and its significance; the exact magnitude is a proxy-scale estimate, not the finding |
-| Weibull AFT (script 11) | exp(β) = 1.27 (95% CI 1.06–1.53), p = 0.011; activated exp(β) = 0.81 (95% CI 0.53–1.25, p = 0.35, n.s.); n=336 post-landmark (139 early relapsers excluded at <30d); 172 events | Landmark exclusion removes the immortal-time variant; the engagement effect survives at moderate power. The funnel-nesting fix (registration ⊇ followup) lifted this cohort from an underpowered n=74 (27 events) to 336 (172 events); the activated segment contrast is non-significant, treat as null |
+| Weibull AFT (script 11) | exp(β) = 1.27 (95% CI 1.06–1.53), p = 0.011; activated exp(β) = 0.81 (95% CI 0.53–1.25, p = 0.35, n.s.); n=336 post-landmark (139 early relapsers excluded at <30d); 172 events | Landmark exclusion removes the immortal-time variant; the engagement effect survives at moderate power. The funnel-nesting fix (registration ⊇ followup) lifted this cohort from an underpowered n=74 (27 events) to 336 (172 events); the activated segment contrast is non-significant, but it is partly collinear with log_n_events (same engagement signal), so this is not strong evidence of no segment effect |
 | Weibull shape κ (scripts 04, 11) | κ = 0.59 (script 04, enrollment-anchored; 95% CI 0.55–0.63); κ = 0.86 (script 11, post-landmark; 95% CI 0.75–0.98); injected κ = 0.55 | Script 04's 0.59 recovers the injected decreasing-hazard shape (CI includes 0.55). Script 11's 0.86 is not a recovery of κ: left-truncating and origin-shifting a Weibull(0.55) leaves a residual-time distribution (T − 30 given T > 30) that is no longer Weibull and whose best-fit shape drifts toward 1. It describes the post-landmark conditional hazard, not the generative parameter; at n=336 it is estimated tightly enough that its CI now excludes 1 |
 | Cox PH test (script 04) | All Schoenfeld p > 0.32; PH holds; Cox HR = 0.897 (95% CI 0.84–0.96; p = 0.0017, MLE; penalizer=0), directionally consistent with AFT | Aligned covariate sets enable direct Cox/AFT comparison; both significant in same direction |
 | Cox PH test (script 11) | All 6 Schoenfeld p > 0.08 (minimum: mod_readiness p = 0.086); no PH violation detected at α = 0.05 | Weibull AFT is pre-specified as primary regardless; Cox uses the same parsimonious covariate set as AFT (log_n_events + activated + demographic moderators) for direct comparison |
@@ -67,6 +68,7 @@ All values reflect how well the pipeline recovers the injected parameters. They 
 | Subgroup AUC (script 10) | Age: below-median 0.870, above-median 0.816; Education: below-median 0.845, above-median 0.837 | Modest performance gap by age and education on synthetic data; real fairness audit would require race/ethnicity, rurality, and insurance status |
 | Channel-outcome association (script 09) | No channel significant (univariate Cox HR per unit 30-day time-share: quiz 2.05 p=0.16, content 1.34 p=0.31, others ≤ 1.0, all p > 0.15); full cohort n = 1162 (relapsers + censored) | Channel mix in the first 30 days shows no association with quit hazard (unadjusted univariate Cox; time-shares are compositional so HRs are not mutually independent; volume not controlled); channel effects require larger N and randomized exposure |
 | Reengagement return (script 06) | reengaged ~ baseline engagement: OR = 1.34 per log-unit (95% CI 1.18–1.53), p < 0.001; n=853 delivered-SMS users, 215 returns | Positive control complementing the SMS negative control (delivered-vs-opted-out is null by construction). The generator injects a θ→14-day-return effect, and the pipeline recovers a positive engagement→return association through the observed engagement proxy; direction and significance are the recoverable facts, magnitude is proxy-scale, not causal |
+| Monte-Carlo recovery (script 12, 25 seeds) | AFT exp(β) = 1.28 (MC 95% [1.17, 1.41]), positive in all 25 seeds; Weibull marginal shape κ = 0.59 (MC 95% [0.56, 0.64]) | The engagement→duration recovery is stable across independent draws, not a single-seed artifact. The κ interval sits just above the baseline injected 0.55 because individual frailty (the exp(lp) scale mixture) lifts the marginal shape, matching script 04's 0.59. A real replication would test exactly this stability; here it is guaranteed by construction, so the value is showing recovery is reproducible, not sample-specific |
 
 All analyses are exploratory within a single synthetic dataset. No correction for multiple comparisons is applied across scripts. A pre-registered, FDR-controlled replication on real data would be required before any clinical interpretation.
 
@@ -105,7 +107,9 @@ uv run python analysis/10_churn_ml.py
 uv run python analysis/11_quit_anchored.py
 ```
 
-Results (figures + CSV tables) appear in `results/analysis/`. `data/synthetic/generation_metadata.json` records the seed, table row counts, and all citation keys used at generation time.
+Recovery is stable across seeds, not a single-draw artifact: `uv run python analysis/12_recovery_monte_carlo.py` regenerates the survival flagship over 25 independent seeds and reports Monte-Carlo recovery intervals (slow, ~7 minutes; run once, output committed, not on the CI hot path).
+
+Results (figures + CSV tables) appear in `results/analysis/`. `data/synthetic/generation_metadata.json` records the seed, package and platform versions, table row counts, and all citation keys used at generation time.
 
 Under seed 42 the result CSV tables are byte-identical across runs. Figures are not held to that standard: one SHAP summary plot (`results/analysis/10_fig_shap_summary.png`) varies by about 0.35% between runs, from nondeterminism in the SHAP and matplotlib rendering path. The committed tables were generated on macOS/ARM; regeneration on another platform (the Linux CI, for instance) can differ in trailing digits.
 
