@@ -168,6 +168,6 @@ def print_report(results: list[ValidationResult]) -> None:
     passed = sum(r.passed for r in results)
     print(f"\nValidation: {passed}/{len(results)} checks passed\n")
     for r in results:
-        icon = "✓" if r.passed else "✗"
-        print(f"  {icon}  {r.check}: {r.detail}")
+        status = "PASS" if r.passed else "FAIL"
+        print(f"  [{status}] {r.check}: {r.detail}")
     print()

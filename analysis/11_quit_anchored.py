@@ -57,7 +57,7 @@ def _opt_covs(df: pd.DataFrame) -> list[str]:
 
 
 def _power_note(n_events: int, label: str) -> None:
-    # Schoenfeld (1981): events ≈ 4*(z_α+z_β)²/(ln HR)²
+    # Schoenfeld (1983): events ≈ 4*(z_α+z_β)²/(ln HR)²
     # HR=0.80, α=.05, power=.80: ~197 (continuous), ~630 (binary)
     if n_events >= 197:
         msg = "well-powered for continuous predictor (Schoenfeld n≥197)"

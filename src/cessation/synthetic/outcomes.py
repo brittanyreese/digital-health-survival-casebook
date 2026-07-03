@@ -6,8 +6,8 @@ Model
 Baseline hazard follows a Weibull distribution with shape κ < 1 (decreasing
 hazard), calibrated to published relapse curves:
   - κ = 0.55, λ = 180 days (scale)
-  Source: Etter JF, Stapleton JA (2006). Nicotine replacement therapy for
-          long-term smoking cessation: a meta-analysis. Tob Control, 15, 280–285.
+  Source: Hughes JR, Keely J, Naud S (2004). Shape of the relapse curve and
+          long-term abstinence among untreated smokers. Addiction, 99(1), 29–38.
           (Shape parameter estimated from pooled abstinence curves showing ~50%
            relapse by 8 weeks and ~80% by 6 months, hazard clearly decreasing.)
   Source: Shiffman S, Brockwell SE, Pillitteri JL, Gitchell JG (2007).

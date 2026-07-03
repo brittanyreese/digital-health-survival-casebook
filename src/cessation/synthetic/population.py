@@ -4,8 +4,8 @@ Spine, registration, and profile table generation.
 Demographic calibration sources
 --------------------------------
 Age / gender / education distribution among U.S. adult smokers:
-  CDC NHANES 2019–2020 Public-Use Data File, Smoking & Tobacco Use (SMQ).
-  Available: https://wwwn.cdc.gov/nchs/nhanes/2019-2020/SMQ_P.XPT
+  CDC NHANES 2017–March 2020 pre-pandemic Public-Use Data File, Cigarette Use (P_SMQ).
+  Available: https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_SMQ.XPT
   Key statistics: ~54% male; median age ~40; higher education → lower prevalence.
 
 Smoking burden:
@@ -67,7 +67,7 @@ def generate_registration(
     sub = spine.loc[spine["registration"]].copy()
     n = len(sub)
 
-    # Demographics (CDC NHANES 2019–2020)
+    # Demographics (CDC NHANES 2017–March 2020 pre-pandemic)
     mod_age    = rng.normal(40.0, 11.0, n).clip(18, 72).astype(int)
     mod_gender = rng.choice([1, 2, 3], size=n, p=[0.54, 0.44, 0.02])
     mod_edu    = rng.choice([1, 2, 3, 4], size=n, p=[0.15, 0.32, 0.30, 0.23])
