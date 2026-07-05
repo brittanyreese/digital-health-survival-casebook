@@ -235,6 +235,15 @@ def reengagement_recovery(events: pd.DataFrame) -> None:
 
     Restricted to users with a delivered SMS (sms_seq > 0): the theta-driven
     outcome only applies to them, while no-SMS users have reengaged forced to 0.
+
+    Same independence-assumption pattern as the funnel-nesting cohort fix in
+    analysis/11 (registration ⊇ followup, drawn independent of engagement; see
+    README "Synthetic data disclosure" -> Cohort (11)): this script's
+    sms_seq > 0 restriction is also generator-guaranteed to be independent of
+    theta_u, not something verifiable on real delivery logs. A real-data
+    version would need the same check -- a balance table on delivered-vs-not
+    users, or a placebo test -- before trusting that restricting to delivered
+    SMS doesn't itself select on engagement.
     """
     print("\n=== 6. Reengagement return vs baseline engagement (positive control) ===")
     try:

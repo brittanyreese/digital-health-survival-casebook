@@ -45,6 +45,7 @@ from lifelines.statistics import multivariate_logrank_test, proportional_hazard_
 
 from cessation import config as C
 from cessation import data
+from cessation.guards import assert_no_temporal_overlap
 from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
@@ -85,6 +86,10 @@ def build_frame() -> pd.DataFrame:
     # who quits for 150 days accumulates ~5x the events of a 30-day quitter
     # simply by having more time at risk.  Restricting to days 0–EXPOSURE_WINDOW_DAYS
     # ensures the predictor is measured before the outcome accrual period.
+    assert_no_temporal_overlap(
+        (0, EXPOSURE_WINDOW_DAYS), (EXPOSURE_WINDOW_DAYS, C.FOLLOWUP_DAYS),
+        context="04_outcome_duration.build_frame",
+    )
     baseline = events[events["day_offset"] < EXPOSURE_WINDOW_DAYS]
     g = baseline.groupby("pid")
     eng = pd.DataFrame({

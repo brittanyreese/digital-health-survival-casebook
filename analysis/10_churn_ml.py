@@ -39,6 +39,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score
 
 from cessation import config as C
 from cessation import data
+from cessation.guards import assert_no_temporal_overlap
 from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
@@ -64,10 +65,9 @@ def _make_model() -> HistGradientBoostingClassifier:
 def build_features(events: pd.DataFrame, spine: pd.DataFrame,
                    reg: pd.DataFrame | None) -> pd.DataFrame:
     """First-30-day features + churn label."""
-    # Temporal separation guard: label window must not overlap feature window
-    assert CHURN_WINDOW[0] >= EARLY_WINDOW, (
-        f"Label window starts at day {CHURN_WINDOW[0]}, "
-        f"overlapping feature window [0, {EARLY_WINDOW}): temporal leakage"
+    assert_no_temporal_overlap(
+        (0, EARLY_WINDOW), (CHURN_WINDOW[0], CHURN_WINDOW[1]),
+        context="10_churn_ml.build_features",
     )
     early = events[events["day_offset"] < EARLY_WINDOW].copy()
     late  = events[

@@ -14,6 +14,14 @@ Analyses:
   4. Retention curves (KM) and log-rank test
   5. Segment × TTM stage cross-tabulation
 
+Engagement is measured entirely from the event log (app opens, in-app
+actions), never from the SDBS/SSEQ self-report survey scores: Baumel et al.
+(2019) found objective app usage drops off far faster than self-report would
+suggest, so a self-reported score is not a substitute for observed behavior
+here. The survey scores enter this casebook's models only as separate
+psychological covariates (self-efficacy, decisional balance) in scripts
+04/11, never as an engagement proxy.
+
 Run:  uv run python analysis/02_segmentation.py
 """
 from __future__ import annotations
@@ -105,6 +113,12 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
 
 def cluster(feat: pd.DataFrame, k_range: range = range(2, 5)) -> pd.DataFrame:
     print("\n=== 2. KMeans segmentation ===")
+    # Five dimensions, not one usage count. Consistent with Perski et al.'s
+    # (2017) framing of engagement as multidimensional rather than a single
+    # usage metric, this feature set spans volume (log_events), temporal
+    # spread (log_days, distinct active days), intensity (events per active
+    # day), and channel mix (pct_craving/pct_content) instead of collapsing
+    # to one number.
     cluster_features = ["log_events", "log_days", "intensity", "pct_craving",
                         "pct_content"]
     X = feat[cluster_features].dropna()

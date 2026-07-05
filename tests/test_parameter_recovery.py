@@ -63,3 +63,29 @@ def test_psychometric_recovery() -> None:
     fit = pd.read_csv(ROOT / "results/analysis/01_sdbs_cfa_fit.csv")
     cfi = float(fit["CFI"].iloc[0])
     assert cfi > 0.95, f"expected CFI > 0.95, got {cfi}"
+
+
+def test_post_landmark_kappa_is_truncation_artifact() -> None:
+    """The post-landmark kappa~=0.86 is a left-truncation drift, not a recovery (R2).
+
+    Reads results/analysis/11_kappa_gof.csv (analysis/11's landmark_kappa_gof):
+    an analytical simulation of the *known* generator, left-truncated and
+    origin-shifted the same way build_frame() does. Direction: the recovered
+    shape should drift well above the injected 0.55, toward the observed ~0.86
+    band. Rejection: the Cox-Snell GoF check should reject Weibull adequacy for
+    the true left-truncated residual, since it isn't Weibull.
+    """
+    gof = pd.read_csv(ROOT / "results/analysis/11_kappa_gof.csv")
+    row = gof.iloc[0]
+    injected = float(row["injected_kappa"])
+    recovered = float(row["recovered_kappa"])
+    p = float(row["gof_p"])
+    assert injected == 0.55
+    assert 0.70 <= recovered <= 0.95, (
+        f"recovered post-landmark kappa {recovered:.3f} outside the drift band "
+        f"[0.70, 0.95] expected for a left-truncated Weibull({injected}) residual"
+    )
+    assert p < 0.05, (
+        f"expected the GoF check to reject Weibull adequacy for the true "
+        f"left-truncated residual (p < 0.05), got p={p:.4f}"
+    )

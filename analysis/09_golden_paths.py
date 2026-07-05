@@ -35,6 +35,7 @@ from lifelines.exceptions import ConvergenceError
 
 from cessation import config as C
 from cessation import data
+from cessation.guards import assert_no_temporal_overlap
 from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
@@ -210,6 +211,10 @@ def channel_outcome_corr(ev: pd.DataFrame) -> None:
         return
 
     # enrollment-anchored baseline, consistent with 04/10 (shared constant)
+    assert_no_temporal_overlap(
+        (0, C.BASELINE_WINDOW_DAYS), (C.BASELINE_WINDOW_DAYS, C.FOLLOWUP_DAYS),
+        context="09_golden_paths.channel_outcome_corr",
+    )
     ev_window = ev[ev["day_offset"] < C.BASELINE_WINDOW_DAYS]
     ev_ch = ev_window.groupby(["pid", "event_type"]).size().unstack(fill_value=0)
     ev_ch = ev_ch.div(ev_ch.sum(axis=1), axis=0).reset_index()
