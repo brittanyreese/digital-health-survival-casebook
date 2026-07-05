@@ -1,0 +1,52 @@
+name: Tag release on merge
+
+# Tags `main` automatically when a merge commit carries a `Release-version:`
+# trailer -- the human still decides the version number (write the trailer),
+# this only stops the tag from silently rotting behind HEAD (see
+# CONTRIBUTING.md). The actual `vX.Y.Z` semantics are a manual decision.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: contains(github.event.head_commit.message, 'Release-version:')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from commit message
+        id: version
+        # Commit messages are attacker-influenceable (a squash-merge message is
+        # auto-composed from PR title/commits). Pass it via env and read "$MSG"
+        # -- never interpolate ${{ }} into the shell -- then validate the
+        # extracted version against an anchored SemVer pattern before it is used
+        # anywhere else, so nothing but digits-and-dots can reach a later step.
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          version=$(printf '%s' "$COMMIT_MSG" | grep -oP '(?<=Release-version: )\S+' || true)
+          if [ -z "$version" ]; then
+            echo "Release-version trailer present but empty; skipping" >&2
+            exit 1
+          fi
+          if ! printf '%s' "$version" | grep -qP '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Release-version '$version' is not a bare X.Y.Z SemVer; refusing" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push tag
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${VERSION}" -m "Release v${VERSION}"
+          git push origin "v${VERSION}"

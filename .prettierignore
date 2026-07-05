@@ -1,0 +1,5 @@
+# Local scratch, not part of the repo (also gitignored)
+evaluate/
+# Generated data and results are not prose
+data/
+results/

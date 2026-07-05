@@ -31,11 +31,19 @@ jobs:
       - name: ruff check
         run: uv run ruff check .
 
+      - name: prettier (markdown, no soft-wrap)
+        # proseWrap:never (.prettierrc) reflows any hard-wrapped paragraph to
+        # one line per paragraph. Scoped to tracked *.md via git ls-files.
+        run: npx --yes prettier@3.3.3 --check $(git ls-files '*.md')
+
       - name: pyright
         run: uv run pyright
 
       - name: pytest
-        run: uv run pytest -q
+        # Exclude `slow` (multi-seed power panels); the single-seed smoke
+        # variants keep detection covered in the fast gate. Run the full panel
+        # locally with `uv run pytest -m slow`.
+        run: uv run pytest -q -m "not slow"
 
   reproduce:
     runs-on: ubuntu-latest
@@ -69,6 +77,7 @@ jobs:
           uv run python analysis/09_golden_paths.py
           uv run python analysis/10_churn_ml.py
           uv run python analysis/11_quit_anchored.py
+          uv run python analysis/13_misspecification_recovery.py
 
       - name: Verify key result artifacts exist
         run: |
@@ -78,6 +87,7 @@ jobs:
           test -f results/analysis/11_robustness_window.csv
           test -f results/analysis/01_sdbs_cfa_fit.csv
           test -f results/analysis/06_reengagement_logit.csv
+          test -f results/analysis/13_misspecification_gof.csv
           echo "All key artifacts present"
 
       - name: Verify parameter recovery on freshly generated output
