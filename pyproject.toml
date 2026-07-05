@@ -54,3 +54,8 @@ pythonVersion = "3.12"
 typeCheckingMode = "standard"
 venvPath = "."
 venv = ".venv"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: expensive multi-seed power characterization (run with `pytest -m slow`); excluded from the fast CI gate",
+]
