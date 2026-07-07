@@ -13,10 +13,10 @@ uv sync   # runtime + dev deps
 Every change merged to `main` must pass:
 
 ```bash
-uv run ruff check .          # lint
-uv run ruff format --check . # format
-uv run pyright               # type-check
-uv run pytest                # tests
+uv run ruff check .                                # lint
+uv run pyright                                     # type-check
+uv run pytest                                      # tests
+npx prettier@3.3.3 --check $(git ls-files '*.md')  # markdown prose-wrap
 ```
 
 CI runs the same checks on every push. It also runs a reproducibility job on freshly generated seed-42 data. That job validates the tables and re-runs `tests/test_parameter_recovery.py` against the analysis outputs. Those tests score recovered statistics (such as the Weibull shape kappa) against the magnitudes injected into the seeded generator, not against internal consistency, so a change that breaks recovery fails CI even when the committed artifacts are untouched. CI does not assert byte-identical CSVs. Under seed 42 the tables are byte-identical on a fixed platform. Trailing digits can drift across platforms (macOS/ARM versus the Linux runner), so the job verifies recovery rather than byte equality.
