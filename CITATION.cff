@@ -5,7 +5,7 @@ abstract: >-
   A worked casebook in survival and engagement analysis for a synthetic
   smoking-cessation digital-health cohort. Covers time-to-event modelling of
   quit and relapse, SMS re-engagement event studies, churn-risk prediction, and
-  navigation landmark analysis, with every generative parameter pinned to a
+  quit-anchored landmark analysis, with every generative parameter pinned to a
   published reference and recovered under parameter-recovery tests.
 type: software
 authors:

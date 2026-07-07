@@ -1,6 +1,6 @@
 # References
 
-Every generative parameter in the casebook is pinned to one of the sources below, and the analyses use the estimators cited here. Entries are grouped by role. One group is the instruments and calibration sources that set the generator's parameters. Another is the estimators the analyses use. Another is the engagement literature that motivates the work. The last is the public data behind the demographic calibration.
+Every generative parameter in the casebook is pinned to a source below, and the analyses use the estimators cited here. The sections that follow separate the instruments and calibration sources that set the generator's parameters, the estimators the analyses apply, the engagement literature that motivates the work, and the public data behind the demographic calibration.
 
 ## Instruments and calibration sources
 
