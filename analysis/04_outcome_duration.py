@@ -52,7 +52,7 @@ OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
 
 CENSOR_DAYS          = C.FOLLOWUP_DAYS
-EXPOSURE_WINDOW_DAYS = 30   # enrollment-anchored baseline (days 0–29)
+EXPOSURE_WINDOW_DAYS = C.BASELINE_WINDOW_DAYS  # enrollment-anchored (days 0-29)
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -82,10 +82,14 @@ def build_frame() -> pd.DataFrame:
     reg      = data.load_registration()
 
     # Engagement features from the enrollment-anchored baseline window only.
-    # Full-follow-up engagement would introduce immortal time bias: a user
+    # Full-follow-up engagement would introduce immortal-time bias: a user
     # who quits for 150 days accumulates ~5x the events of a 30-day quitter
-    # simply by having more time at risk.  Restricting to days 0–EXPOSURE_WINDOW_DAYS
-    # ensures the predictor is measured before the outcome accrual period.
+    # simply by having more time at risk; the baseline restriction reduces that.
+    # The assertion below is a boundary check on the shared window constants, not
+    # a real feature/label separation here: the raw relapse clock starts at
+    # enrollment, so the true label window still overlaps this feature window.
+    # The immortal-time control is script 11's landmark design (origin shifted to
+    # day 30), not this restriction.
     assert_no_temporal_overlap(
         (0, EXPOSURE_WINDOW_DAYS), (EXPOSURE_WINDOW_DAYS, C.FOLLOWUP_DAYS),
         context="04_outcome_duration.build_frame",
