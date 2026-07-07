@@ -9,9 +9,6 @@ RESULTS = ROOT / "results" / "analysis"
 
 PROCESSED = DATA_SYNTHETIC  # alias used by data.py loaders
 
-DATA_SYNTHETIC.mkdir(parents=True, exist_ok=True)
-RESULTS.mkdir(parents=True, exist_ok=True)
-
 # ── outcome column names ──────────────────────────────────────────────────────
 OUTCOME_EVENT    = "out_relapsed"       # 1 = relapsed within follow-up window
 OUTCOME_DURATION = "out_days_quit"      # continuous days of abstinence

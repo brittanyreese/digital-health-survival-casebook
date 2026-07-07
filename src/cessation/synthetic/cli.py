@@ -172,6 +172,7 @@ def _generate_survey(
 def generate() -> None:
     t0 = time.time()
     _banner(f"cessation-generate  (N={N_TOTAL:,}  seed={SEED})")
+    C.DATA_SYNTHETIC.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(SEED)
 
     _banner("Phase 1: Spine")
