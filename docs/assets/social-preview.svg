@@ -1,0 +1,23 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1621"/>
+      <stop offset="1" stop-color="#0a0e15"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect x="0" y="0" width="12" height="640" fill="#4bab8f"/>
+
+  <text x="88" y="150" font-family="'DejaVu Sans', Arial, Helvetica, sans-serif" font-size="60" font-weight="bold" fill="#f4f6f8">Digital-health survival casebook</text>
+  <text x="92" y="206" font-family="'DejaVu Sans', Arial, Helvetica, sans-serif" font-size="30" fill="#9aa7b4">A methods casebook on a fully synthetic smoking-cessation cohort.</text>
+  <rect x="92" y="238" width="120" height="4" fill="#4bab8f"/>
+
+  <text x="92" y="312" font-family="'DejaVu Sans', Arial, Helvetica, sans-serif" font-size="27" fill="#cdd6df">Survival analysis, psychometrics, causal-inference methods, and churn ML.</text>
+
+  <rect x="88" y="362" width="1104" height="66" rx="12" fill="#131c28" stroke="#243343" stroke-width="1.5"/>
+  <text x="116" y="403" font-family="'DejaVu Sans Mono', 'Menlo', monospace" font-size="21" fill="#8b98a5"># recovery</text>
+  <text x="284" y="403" font-family="'DejaVu Sans Mono', 'Menlo', monospace" font-size="21" fill="#cdd6df">&#954; inj <tspan fill="#e6edf3">0.55</tspan> / rec <tspan fill="#7fd4a8">0.59</tspan>  AFT exp(&#946;) <tspan fill="#e6edf3">1.21</tspan>  Cox HR <tspan fill="#e6edf3">0.897</tspan>  churn AUC <tspan fill="#e6edf3">0.839</tspan></text>
+
+  <text x="92" y="490" font-family="'DejaVu Sans Mono', 'Menlo', monospace" font-size="25" fill="#8b98a5">uv run cessation-generate</text>
+  <text x="92" y="528" font-family="'DejaVu Sans', Arial, Helvetica, sans-serif" font-size="19" fill="#5c6b78">Python 3.12+  &#183;  MIT  &#183;  seeded and reproducible  &#183;  github.com/brittanyreese/digital-health-survival-casebook</text>
+</svg>

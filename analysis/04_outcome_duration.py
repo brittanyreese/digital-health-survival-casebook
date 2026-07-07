@@ -2,10 +2,14 @@
 
 Links enrollment-baseline engagement features (days 0-29) to quit duration
 in the ~1,200-user follow-up cohort.  Restricting features to the first 30
-days avoids immortal time bias: using full-follow-up engagement confounds
+days reduces immortal time bias: using full-follow-up engagement confounds
 exposure with survival time because longer survivors accumulate more events
-by construction.  This baseline-window approach mirrors the landmark design
-in analysis/11, which anchors the exposure window to the declared quit date.
+by construction.  It does not fully remove that dependence, because early
+relapsers who survive less than the window still enter the estimation sample
+with mechanically truncated event counts.  The landmark design in analysis/11
+(exclude pre-window relapsers, shift the time origin) is what removes the
+residual structural dependence; script 04 is the enrollment-anchored variant
+that reduces but does not eliminate it.
 
 Three models triangulate the association: Kaplan-Meier (descriptive),
 Cox PH (covariate-adjusted hazard, with Schoenfeld assumption test),
@@ -41,12 +45,14 @@ from lifelines.statistics import multivariate_logrank_test, proportional_hazard_
 
 from cessation import config as C
 from cessation import data
+from cessation.guards import assert_no_temporal_overlap
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
 
 CENSOR_DAYS          = C.FOLLOWUP_DAYS
-EXPOSURE_WINDOW_DAYS = 30   # enrollment-anchored baseline (days 0–29)
+EXPOSURE_WINDOW_DAYS = C.BASELINE_WINDOW_DAYS  # enrollment-anchored (days 0-29)
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -57,7 +63,7 @@ def _opt_covs(df: pd.DataFrame) -> list[str]:
 
 
 def _power_note(n_events: int, label: str) -> None:
-    # Schoenfeld (1981): events needed ≈ 4*(z_α+z_β)²/(ln HR)²
+    # Schoenfeld (1983): events needed ≈ 4*(z_α+z_β)²/(ln HR)²
     # For HR=0.80, α=.05, power=.80: ≈ 197 (continuous), 630 (binary)
     if n_events >= 197:
         note = "well-powered for continuous predictor"
@@ -76,10 +82,18 @@ def build_frame() -> pd.DataFrame:
     reg      = data.load_registration()
 
     # Engagement features from the enrollment-anchored baseline window only.
-    # Full-follow-up engagement would introduce immortal time bias: a user
+    # Full-follow-up engagement would introduce immortal-time bias: a user
     # who quits for 150 days accumulates ~5x the events of a 30-day quitter
-    # simply by having more time at risk.  Restricting to days 0–EXPOSURE_WINDOW_DAYS
-    # ensures the predictor is measured before the outcome accrual period.
+    # simply by having more time at risk; the baseline restriction reduces that.
+    # The assertion below is a boundary check on the shared window constants, not
+    # a real feature/label separation here: the raw relapse clock starts at
+    # enrollment, so the true label window still overlaps this feature window.
+    # The immortal-time control is script 11's landmark design (origin shifted to
+    # day 30), not this restriction.
+    assert_no_temporal_overlap(
+        (0, EXPOSURE_WINDOW_DAYS), (EXPOSURE_WINDOW_DAYS, C.FOLLOWUP_DAYS),
+        context="04_outcome_duration.build_frame",
+    )
     baseline = events[events["day_offset"] < EXPOSURE_WINDOW_DAYS]
     g = baseline.groupby("pid")
     eng = pd.DataFrame({
@@ -163,6 +177,7 @@ def km_by_engagement(df: pd.DataFrame) -> None:
     ax.set_xlabel("Days since quit attempt")
     ax.set_ylabel("P(still quit)")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "04_fig_km_engagement.png", dpi=120)
     plt.close(fig)
     print("  saved 04_fig_km_engagement.png")
@@ -284,6 +299,7 @@ def engagement_stratification_figure(df: pd.DataFrame) -> None:
     ax.set_xlabel("Mean days quit")
     ax.set_title("Quit duration by engagement segment")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "04_fig_duration_by_segment.png", dpi=120)
     plt.close(fig)
     print("  saved 04_fig_duration_by_segment.png")

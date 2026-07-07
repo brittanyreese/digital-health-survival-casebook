@@ -5,10 +5,12 @@ SMS opt-out model
 -----------------
 SmokefreeVET trial (Christofferson DE et al. 2016, Addictive Behaviors,
   62:47-53, PMC5144826): 48% of participants opted out of SMS messaging by
-  6 months (confirmed in the paper's full text: 699/1,470 users opted out
-  before the program's 6-month conclusion).
-  Modelled as Weibull time-to-opt-out with shape κ=0.8, calibrated to
-  P(opt-out ≤ 180 days) = 0.48.  Negative binomial SMS volume (mean=3, k=2).
+  6 months (699/1,470 users) -- the literature anchor for the opt-out shape.
+  Modelled as Weibull time-to-opt-out with κ=0.8, λ=253. Realized opt-out
+  observed within the SMS campaign window (~90 days) is ~35% (validate.py
+  band 0.28-0.44); the Weibull reaches ~53% by 180 days. The model targets
+  the SmokefreeVET decreasing-hazard shape, not the exact 48% level.
+  Negative binomial SMS volume (mean=3, k=2).
 
 Re-engagement window
 ---------------------
@@ -26,9 +28,9 @@ import numpy as np
 import pandas as pd
 from scipy.stats import weibull_min
 
-# Weibull opt-out calibration:
-# P(opt-out ≤ 180) = 0.48 with shape=0.8 → solve for scale
-# 0.48 = 1 - exp(-(180/λ)^0.8)  → λ ≈ 253
+# Weibull opt-out: shape=0.8, scale=253 -> P(opt-out <= 180d) ~ 0.53,
+# ~0.35 within the ~90-day SMS window (validate.py checks 0.28-0.44).
+# SmokefreeVET's 48%-by-6-months is the shape anchor, not an exact target.
 _OPT_OUT_SHAPE = 0.80
 _OPT_OUT_SCALE = 253.0
 

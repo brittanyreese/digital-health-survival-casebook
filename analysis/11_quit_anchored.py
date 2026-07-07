@@ -37,9 +37,16 @@ import pandas as pd
 import statsmodels.formula.api as smf
 from lifelines import CoxPHFitter, KaplanMeierFitter, WeibullAFTFitter
 from lifelines.statistics import multivariate_logrank_test, proportional_hazard_test
+from scipy.stats import weibull_min
 
 from cessation import config as C
 from cessation import data
+from cessation.survival_gof import (
+    administrative_censoring_kappa,
+    cox_snell_gof_test,
+    cox_snell_residuals,
+)
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -47,6 +54,11 @@ OUT.mkdir(parents=True, exist_ok=True)
 WINDOW_DAYS   = 30        # post-quit engagement window
 CENSOR_DAYS   = C.FOLLOWUP_DAYS
 WEEKS_PER_MONTH = 30.44 / 4.0
+
+# Injected generator parameters (src/cessation/synthetic/outcomes.py), used by
+# landmark_kappa_gof() to simulate the true left-truncated residual analytically.
+INJECTED_KAPPA = 0.55
+INJECTED_SCALE = 180.0
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -57,7 +69,7 @@ def _opt_covs(df: pd.DataFrame) -> list[str]:
 
 
 def _power_note(n_events: int, label: str) -> None:
-    # Schoenfeld (1981): events ≈ 4*(z_α+z_β)²/(ln HR)²
+    # Schoenfeld (1983): events ≈ 4*(z_α+z_β)²/(ln HR)²
     # HR=0.80, α=.05, power=.80: ~197 (continuous), ~630 (binary)
     if n_events >= 197:
         msg = "well-powered for continuous predictor (Schoenfeld n≥197)"
@@ -157,7 +169,10 @@ def build_frame(window_days: int = WINDOW_DAYS) -> pd.DataFrame:
         seg["activated"] = (seg["segment"] != "Passive").astype(int)
         df = df.merge(seg[["pid", "activated"]], on="pid", how="left")
     else:
-        df["activated"] = 0
+        raise FileNotFoundError(
+            f"{seg_path} not found; run analysis/02_segmentation.py before "
+            "script 11 (the activated covariate depends on it)."
+        )
 
     # Covariates
     cov_keys = ["readiness", "age", "education", "cigs_per_day"]
@@ -217,6 +232,7 @@ def km_by_tertile(df: pd.DataFrame, label: str = "primary") -> None:
     ax.set_xlabel("Days since quit attempt")
     ax.set_ylabel("P(still quit)")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / f"11_fig_km_{label}.png", dpi=120)
     plt.close(fig)
     print(f"  saved 11_fig_km_{label}.png")
@@ -241,8 +257,11 @@ def cox_ph(df: pd.DataFrame, label: str = "primary") -> pd.DataFrame | None:
         return None
     _power_note(n_ev, f"Cox {label}")
     # penalizer=0.1: L2 ridge for numerical stability at small post-landmark n.
-    # Shrinks coefficients toward zero; CIs are penalized, not MLE. Sensitivity
-    # to 0.05/0.0 should be checked before publication on real data.
+    # Shrinks coefficients toward zero; the resulting p-values and CIs are
+    # penalized, not MLE, and are NOT to be read inferentially. The unpenalized
+    # Weibull AFT (fitted below, penalizer=0) is the inferential primary; this
+    # ridge Cox is directional triangulation only. On real data, a penalizer
+    # sensitivity sweep (0.0 / 0.05 / 0.1) would precede any reported CI.
     cph = CoxPHFitter(penalizer=0.1)
     try:
         with warnings.catch_warnings():
@@ -290,6 +309,71 @@ def aft_model(df: pd.DataFrame, label: str = "primary") -> None:
         wf.fit(d, duration_col=C.OUTCOME_DURATION, event_col=C.OUTCOME_EVENT)
     wf.print_summary(decimals=3)
     wf.summary.to_csv(OUT / f"11_aft_{label}.csv")
+
+
+# ── kappa goodness-of-fit proof ──────────────────────────────────────────────
+
+def landmark_kappa_gof(n_sim: int = 20_000, seed: int = C.SEED) -> None:
+    """Prove the post-landmark kappa~=0.86 is a left-truncation artifact (R2).
+
+    Simulates the *known* data-generating process analytically -- Weibull(kappa=0.55,
+    scale=180) baseline times, right-censored at FOLLOWUP_DAYS -- then applies the
+    same landmark exclusion and origin shift as build_frame(): drop subjects who
+    didn't survive to WINDOW_DAYS, subtract WINDOW_DAYS from the rest. Fitting a
+    Weibull to that residual shows two things: (a) the recovered shape drifts from
+    the injected 0.55 toward 1 (the sim lands at ~0.83, close to the observed 0.86;
+    the point is the direction of drift, not an exact match), and (b) the same
+    Cox-Snell GoF check used in analysis/13 rejects Weibull adequacy for the true
+    residual distribution, since left-truncating and shifting a Weibull leaves a
+    distribution that is no longer Weibull. This is a fully analytical check: it
+    does not depend on the real cohort or its covariates.
+    """
+    print(f"\n=== Kappa goodness-of-fit proof (window={WINDOW_DAYS}d) ===")
+    rng = np.random.default_rng(seed)
+    raw = np.asarray(weibull_min.rvs(c=INJECTED_KAPPA, scale=INJECTED_SCALE,
+                                     size=n_sim, random_state=rng))
+    dur = np.minimum(raw, C.FOLLOWUP_DAYS)
+    event = (raw <= C.FOLLOWUP_DAYS).astype(int)
+
+    keep = dur >= WINDOW_DAYS
+    resid = pd.DataFrame({
+        "dur":   dur[keep] - WINDOW_DAYS,
+        "event": event[keep],
+    })
+    resid = cast(pd.DataFrame, resid[resid["dur"] > 0])
+    resid_censor_at = C.FOLLOWUP_DAYS - WINDOW_DAYS
+
+    wf = WeibullAFTFitter()
+    wf.fit(resid, duration_col="dur", event_col="event")
+    recovered_kappa = float(wf.summary.loc[("rho_", "Intercept"), "exp(coef)"])
+
+    residuals = cox_snell_residuals(wf, resid, "dur", "event")
+    kappa_arr = administrative_censoring_kappa(
+        wf, resid, "dur", "event", resid_censor_at,
+    )
+    event_arr = cast(pd.Series, resid["event"]).to_numpy()
+    stat, p = cox_snell_gof_test(
+        residuals, event_arr, kappa_arr,
+        n_boot=2000, rng=np.random.default_rng(seed + 1),
+    )
+    rejects = bool(p < 0.05)
+    print(f"  n_kept={len(resid)} (of {n_sim} simulated)  "
+          f"recovered kappa={recovered_kappa:.3f} (injected {INJECTED_KAPPA})")
+    print(f"  Cox-Snell GoF: stat={stat:.2f} p={p:.4f}  "
+          f"({'REJECTS' if rejects else 'fails to reject'} Weibull adequacy "
+          "for the true left-truncated residual)")
+
+    pd.DataFrame([{
+        "injected_kappa": INJECTED_KAPPA,
+        "window_days": WINDOW_DAYS,
+        "n_simulated": n_sim,
+        "n_kept": len(resid),
+        "recovered_kappa": round(recovered_kappa, 4),
+        "gof_stat": round(stat, 4),
+        "gof_p": p,
+        "rejects_weibull_adequacy": rejects,
+    }]).to_csv(OUT / "11_kappa_gof.csv", index=False)
+    print("  saved 11_kappa_gof.csv")
 
 
 # ── OLS ───────────────────────────────────────────────────────────────────────
@@ -403,6 +487,7 @@ def main() -> None:
     km_by_tertile(df)
     cox_ph(df)
     aft_model(df)
+    landmark_kappa_gof()
     ols_log(df)
     robustness_battery(df)
     print(f"\nDone. Results in {OUT}")

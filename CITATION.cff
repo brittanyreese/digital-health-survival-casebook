@@ -1,11 +1,24 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use this casebook in your work, please cite it as below."
+title: "Digital-health survival casebook"
+abstract: >-
+  A worked casebook in survival and engagement analysis for a synthetic
+  smoking-cessation digital-health cohort. Covers time-to-event modelling of
+  quit and relapse, SMS re-engagement event studies, churn-risk prediction, and
+  quit-anchored landmark analysis, with every generative parameter pinned to a
+  published reference and recovered under parameter-recovery tests.
 type: software
-title: "Digital health survival casebook"
 authors:
-  - family-names: "Reese Markides"
-    given-names: "Brittany"
-    name-suffix: "PhD"
+  - given-names: Brittany Reese
+    family-names: Markides
     orcid: "https://orcid.org/0000-0001-6242-0842"
-year: 2026
+version: 1.0.2
 license: MIT
+repository-code: "https://github.com/brittanyreese/digital-health-survival-casebook"
+url: "https://github.com/brittanyreese/digital-health-survival-casebook"
+keywords:
+  - survival-analysis
+  - digital-health
+  - smoking-cessation
+  - churn-prediction
+  - synthetic-data

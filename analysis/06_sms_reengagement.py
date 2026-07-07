@@ -1,20 +1,41 @@
-"""Analysis 06 -- SMS re-engagement quasi-experiment.
+"""Analysis 06 -- SMS re-engagement: negative-control demonstration.
 
-Evaluates whether delivered SMS notifications increase app return within
-a 14-day window, using a delivered-vs-opted-out contrast.  Treats opt-out
-as a quasi-control condition (users who opted out before the SMS date serve
-as a comparison group for those who received the message).
+Runs the full delivered-vs-opted-out analysis stack (event study, Kaplan-Meier,
+logistic regression) on the SMS campaign and reports app return within a 14-day
+window.
+
+This is a NEGATIVE CONTROL by construction, not a treatment-effect estimate.
+The synthetic generator injects no causal effect of SMS delivery on app return:
+opt-out timing is sampled independently of engagement propensity (theta_u), and
+delivery status is a deterministic function of that random opt-out day
+(reengagement.py:_sample_opt_out_day). The 14-day return outcome measured here
+comes from the generic event log, which is generated without reference to SMS
+delivery. So a correct pipeline should return a NULL delivered-vs-opted-out
+contrast, and it does (delivered and opted-out return rates are within noise,
+logistic is_delivered p >> 0.05). The value of the script is that the event-study
+/ KM / logistic machinery is wired correctly and does not manufacture an effect
+where the DGP has none.
+
+What a real study would need: opt-out driven by (unobserved) motivation, an
+actual SMS-to-return effect, and a design that separates the two. On real data
+opt-out would be endogenous and the naive contrast would be confounded; none of
+that endogeneity exists in this synthetic build.
+
+Section 6 adds a complementary POSITIVE control. Unlike SMS delivery, the
+generator does make 14-day return rise with latent engagement propensity
+(reengagement.py: p_return = P_RETURN_14D + THETA_BETA * theta_u, injected on
+reengagement_clean.reengaged). A correct pipeline should therefore recover a
+positive engagement->return association there, and it does. Together the two
+sections show the machinery reports an effect where the DGP has one and a null
+where it does not.
 
 Analyses:
   1. SMS delivery and opt-out descriptives
-  2. Event study: app return rate in 7–14 days post-SMS
+  2. Event study: app return rate within 14 days post-SMS
   3. Kaplan-Meier: time-to-return by delivery status
   4. Logistic regression: P(return | delivered) + covariates
   5. Subgroup analysis by engagement segment
-
-Causal interpretation: Opt-out is endogenous (lower-motivation users opt out
-earlier), so the contrast is observational with likely upward bias on the
-estimated effect.  Treat as effect-direction evidence, not causal estimate.
+  6. Reengagement return vs baseline engagement (positive control)
 
 Run:  uv run python analysis/06_sms_reengagement.py
 """
@@ -37,9 +58,11 @@ import pandas as pd
 import statsmodels.formula.api as smf
 from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
+from statsmodels.tools.sm_exceptions import PerfectSeparationError
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -57,7 +80,8 @@ def sms_descriptives(sms: pd.DataFrame) -> None:
     opt_rate  = opt_users / n_users
     print(f"  {n_total:,} SMS to {n_users:,} users")
     print(f"  Opt-out rate: {opt_users:,}/{n_users:,} = {opt_rate:.2%}")
-    print("  (Calibration target: 48%; SmokefreeVET PMC5144826)")
+    print("  (Realized ~35% in the SMS window; SmokefreeVET 48%-by-6mo is the "
+          "shape anchor, PMC5144826)")
 
     status_dist = sms.groupby("status")["pid"].nunique()
     print(f"\n  Status breakdown:\n{status_dist.to_string()}")
@@ -135,6 +159,7 @@ def km_time_to_return(frame: pd.DataFrame) -> None:
     ax.set_xlabel("Days since SMS")
     ax.set_ylabel("P(not yet returned)")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "06_fig_km_return.png", dpi=120)
     plt.close(fig)
     print("  saved 06_fig_km_return.png")
@@ -193,6 +218,73 @@ def segment_subgroup(frame: pd.DataFrame) -> None:
     tab.round(3).to_csv(OUT / "06_segment_return_rates.csv")
 
 
+# ── 6. Reengagement return vs engagement propensity (positive control) ─────────
+
+def reengagement_recovery(events: pd.DataFrame) -> None:
+    """Recover the injected engagement->reengagement effect from reengagement_clean.
+
+    Complements the SMS negative control above. The generator makes 14-day
+    return after a delivered SMS rise with latent engagement propensity theta_u
+    (reengagement.py: p_return = P_RETURN_14D + THETA_BETA * theta). theta is
+    unobserved, so this regresses the observed reengaged outcome on a baseline
+    engagement proxy (log events in day_offset < BASELINE_WINDOW_DAYS, an
+    analogous log-event proxy to the ones scripts 04/11 use for theta). A
+    positive odds ratio recovers the
+    injected structure. As everywhere in this casebook the association reflects
+    the injected parameter, not a causal SMS or engagement effect.
+
+    Restricted to users with a delivered SMS (sms_seq > 0): the theta-driven
+    outcome only applies to them, while no-SMS users have reengaged forced to 0.
+
+    Same independence-assumption pattern as the funnel-nesting cohort fix in
+    analysis/11 (registration ⊇ followup, drawn independent of engagement; see
+    README "Synthetic data disclosure" -> Cohort (11)): this script's
+    sms_seq > 0 restriction is also generator-guaranteed to be independent of
+    theta_u, not something verifiable on real delivery logs. A real-data
+    version would need the same check -- a balance table on delivered-vs-not
+    users, or a placebo test -- before trusting that restricting to delivered
+    SMS doesn't itself select on engagement.
+    """
+    print("\n=== 6. Reengagement return vs baseline engagement (positive control) ===")
+    try:
+        reng = data.load_reengagement()
+    except (FileNotFoundError, OSError) as exc:
+        print(f"  reengagement_clean not available ({exc}); skipping")
+        return
+
+    reng = reng[reng["sms_seq"] > 0]
+    if len(reng) < 30 or reng["reengaged"].sum() < 10:
+        print("  Insufficient reengagement outcomes; skipping")
+        return
+
+    baseline = events[events["day_offset"] < C.BASELINE_WINDOW_DAYS]
+    eng = cast(pd.Series, baseline.groupby("pid").size()).reset_index(name="n_events")
+    d = reng.merge(eng, on="pid", how="left")
+    d["n_events"] = d["n_events"].fillna(0)
+    d["log_events"] = np.log1p(d["n_events"])
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        try:
+            logit = smf.logit("reengaged ~ log_events", data=d).fit(disp=False)
+        except (np.linalg.LinAlgError, ValueError, PerfectSeparationError) as exc:
+            print(f"  Logistic fit failed: {exc}")
+            return
+
+    or_ = float(np.exp(logit.params["log_events"]))
+    p = float(logit.pvalues["log_events"])
+    print(f"  reengaged ~ log_events: OR={or_:.3f} p={p:.4f} "
+          f"n={len(d)} events={int(d['reengaged'].sum())}")
+    pd.DataFrame({
+        "coef": logit.params,
+        "or":   np.exp(logit.params),
+        "p":    logit.pvalues,
+        "ci_lo_or": np.exp(logit.conf_int()[0]),
+        "ci_hi_or": np.exp(logit.conf_int()[1]),
+    }).to_csv(OUT / "06_reengagement_logit.csv")
+    print("  saved 06_reengagement_logit.csv")
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -203,6 +295,7 @@ def main() -> None:
     km_time_to_return(frame)
     logistic_return(frame)
     segment_subgroup(frame)
+    reengagement_recovery(events)
     print(f"\nDone. Results in {OUT}")
 
 

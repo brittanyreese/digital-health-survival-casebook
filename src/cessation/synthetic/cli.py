@@ -40,7 +40,7 @@ from cessation.synthetic.reengagement import generate_reengagement, generate_sms
 # ── constants ─────────────────────────────────────────────────────────────────
 N_TOTAL   = 8_000
 N_POINTS  = 5      # Likert scale points
-SEED      = 42
+SEED      = C.SEED
 
 
 def _banner(msg: str) -> None:
@@ -123,8 +123,9 @@ def _generate_survey(
         )
         sseq_all[mask] = items
 
-    # ── MARS (23 items, 4 subscales) ─────────────────────────────────────────
-    mars_all = np.zeros((n, 23), dtype=int)
+    # ── MARS (17 items: 16 subscale across 4 subscales + 1 global rating) ─────
+    n_mars_sub = sum(inst.MARS_ITEMS.values())   # 16 subscale items
+    mars_all = np.zeros((n, n_mars_sub + inst.MARS_QUALITY_ITEMS), dtype=int)
     col_start = 0
     for subscale, n_items in inst.MARS_ITEMS.items():
         m, sd = inst.MARS_SUBSCALE_PARAMS[subscale]
@@ -132,14 +133,15 @@ def _generate_survey(
         items = generate_one_factor_items(n, n_items, 0.70, fac_mean, rng=rng)
         mars_all[:, col_start:col_start + n_items] = items
         col_start += n_items
-    # Overall quality item (item 23)
-    mars_all[:, 22] = rng.integers(2, 6, size=n)
+    # Single overall app-quality rating (item 17)
+    mars_all[:, n_mars_sub] = rng.integers(2, 6, size=n)
 
     # ── Assemble DataFrame ────────────────────────────────────────────────────
     sdbs_t1_cols = {f"t1_sdbs_{i:02d}": sdbs_t1[:, i - 1] for i in range(1, 21)}
     sdbs_t2_cols = {f"t2_sdbs_{i:02d}": sdbs_t2[:, i - 1] for i in range(1, 21)}
     sseq_cols    = {f"sseq_{i:02d}": sseq_all[:, i - 1] for i in range(1, 13)}
-    mars_cols    = {f"mars_{i:02d}": mars_all[:, i - 1] for i in range(1, 24)}
+    mars_cols    = {f"mars_{i:02d}": mars_all[:, i - 1]
+                    for i in range(1, mars_all.shape[1] + 1)}
 
     df = pd.DataFrame({
         "pid":       survey_pids,
@@ -170,6 +172,7 @@ def _generate_survey(
 def generate() -> None:
     t0 = time.time()
     _banner(f"cessation-generate  (N={N_TOTAL:,}  seed={SEED})")
+    C.DATA_SYNTHETIC.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(SEED)
 
     _banner("Phase 1: Spine")
@@ -206,6 +209,12 @@ def generate() -> None:
     events, theta_u = generate_events(spine, rng)
     events.to_csv(C.PROCESSED / "events_clean.csv", index=False)
     print(f"  events: {len(events):,} rows")
+    # Persist the true latent engagement propensity so validation can check the
+    # theta_u → engagement link against the injected value, not a proxy rebuilt
+    # from n_events (which would be a variable correlated with itself).
+    theta_u.rename("theta_u").rename_axis("pid").to_csv(
+        C.PROCESSED / "theta_latent.csv"
+    )
 
     _banner("Phase 6: Follow-up outcomes")
     followup = generate_followup(
@@ -234,24 +243,44 @@ def generate() -> None:
     print(f"  reengagement: {len(reeng):,} rows")
 
     # ── metadata ──────────────────────────────────────────────────────────────
+    import importlib.metadata as _im
+    import platform as _plat
+
+    def _pkg_versions() -> dict[str, str]:
+        out: dict[str, str] = {
+            "python": f"{sys.version_info.major}.{sys.version_info.minor}."
+                      f"{sys.version_info.micro}",
+            "platform": _plat.platform(),
+            "arch": _plat.machine(),
+        }
+        for pkg in ("numpy", "scipy", "pandas", "scikit-learn",
+                    "lifelines", "semopy", "statsmodels"):
+            try:
+                out[pkg] = _im.version(pkg)
+            except _im.PackageNotFoundError:
+                out[pkg] = "unknown"
+        return out
+
     meta = {
         "seed":        SEED,
         "n_total":     N_TOTAL,
         "generated":   time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "elapsed_sec": round(time.time() - t0, 1),
+        "versions":    _pkg_versions(),
         "citations": {
             "SDBS": "Velicer et al. (1985) J Pers Soc Psychol 48(5):1279–1289",
             "SSEQ": "Etter et al. (2000) Addiction 95(6):901–913",
             "TTM_stage": "Prochaska et al. (1985) Addict Behav 10(4):395–406",
             "SSEQ_stage": "DiClemente et al. (1985) Cogn Ther Res 9(2):181–200",
             "Weibull_relapse": (
-                "Etter & Stapleton (2006) Tob Control 15:280–285; "
                 "Hughes, Keely & Naud (2004) Addiction 99(1):29–38"
             ),
             "SMS_optout": (
                 "Christofferson et al. (2016) Addictive Behaviors 62:47-53 PMC5144826"
             ),
-            "demographics": "CDC NHANES 2019–2020 SMQ; CDC MMWR 2020",
+            "demographics": (
+                "CDC NHANES 2017–March 2020 pre-pandemic P_SMQ; CDC MMWR 2020"
+            ),
         },
         "tables": {
             "spine":                len(spine),
@@ -280,12 +309,15 @@ def validate() -> None:
     sms      = pd.read_csv(C.PROCESSED / "sms_clean.csv")
     events   = pd.read_csv(C.PROCESSED / "events_clean.csv")
 
-    # Reconstruct theta_u from events as proxy
-    eng = cast(pd.Series, events.groupby("pid").size()).rename("n_events")
-    theta_proxy = (np.log1p(eng) - np.log1p(eng).mean()) / np.log1p(eng).std()
-    theta_proxy.name = "theta_u"
+    theta_path = C.PROCESSED / "theta_latent.csv"
+    if not theta_path.exists():
+        print(f"  [error] {theta_path.name} missing; run cessation-generate first.")
+        sys.exit(1)
+    # True injected latent propensity (not a proxy rebuilt from n_events). The
+    # theta_u → engagement check is only meaningful against the real value.
+    theta_u = cast(pd.Series, pd.read_csv(theta_path).set_index("pid")["theta_u"])
 
-    results = val.run_all(spine, survey, followup, sms, events, theta_proxy)
+    results = val.run_all(spine, survey, followup, sms, events, theta_u)
     val.print_report(results)
 
     n_fail = sum(not r.passed for r in results)

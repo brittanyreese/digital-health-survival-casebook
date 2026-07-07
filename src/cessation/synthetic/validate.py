@@ -3,14 +3,15 @@ Distributional validation suite for synthetic data.
 
 Checks
 ------
-1. Marginal distributions: KS test, generated vs. theoretical (from Normal
-   stage-conditional means)
-2. Factor structure: CFA on generated SDBS + SSEQ-12; CFI / RMSEA should
-   match literature fit statistics
-3. Stage-mean check: generated subscale means ±2 SD of published values
-4. Survival shape: estimated Weibull shape parameter within 0.05 of target
-5. SMS opt-out rate: check 40–55% opt-out within 180 days
-6. Engagement propensity correlation: theta_u × n_events Pearson r > 0.6
+1. Stage-mean check: generated subscale means ±2 SD of published values
+2. Survival shape: estimated Weibull shape within 0.45–0.85 (frailty mixture;
+   baseline κ=0.55)
+3. SMS opt-out rate: 0.28–0.44 at the 90-day SMS window
+4. Engagement propensity correlation: theta_u × log1p(n_events) Pearson r > 0.55
+
+Marginal-distribution KS tests and a CFA/CFI/RMSEA factor-structure check
+were scoped but are not implemented; run_all() executes only the four checks
+listed above. Do not cite this suite as validating marginals or factor fit.
 """
 from __future__ import annotations
 
@@ -168,6 +169,6 @@ def print_report(results: list[ValidationResult]) -> None:
     passed = sum(r.passed for r in results)
     print(f"\nValidation: {passed}/{len(results)} checks passed\n")
     for r in results:
-        icon = "✓" if r.passed else "✗"
-        print(f"  {icon}  {r.check}: {r.detail}")
+        status = "PASS" if r.passed else "FAIL"
+        print(f"  [{status}] {r.check}: {r.detail}")
     print()

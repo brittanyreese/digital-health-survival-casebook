@@ -1,2 +1,2 @@
-CFI_configural,CFI_metric,delta_CFI,delta_chi2,delta_df,p_value,verdict
-0.924,0.997,0.0725,-668.6,9.0,1.0,INDETERMINATE (Δchi²=-668.6 < 0; configural model non-convergence; check starting values)
+group_a,group_b,n_a,n_b,cfi_a,cfi_b,congruence_phi,verdict
+early,prepared,319,155,0.979,0.907,0.9885,congruent

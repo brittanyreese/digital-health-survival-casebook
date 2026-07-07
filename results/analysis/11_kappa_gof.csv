@@ -1,0 +1,2 @@
+injected_kappa,window_days,n_simulated,n_kept,recovered_kappa,gof_stat,gof_p,rejects_weibull_adequacy
+0.55,30,20000,13742,0.8275,19.7786,0.001999000499750125,True

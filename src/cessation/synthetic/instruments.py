@@ -80,22 +80,14 @@ SSEQ_STAGE_PARAMS: dict[str, tuple[float, float]] = {
     s: (m * _SSEQ_SCALE, sd * _SSEQ_SCALE) for s, (m, sd) in _DICL_TOTAL.items()
 }
 
-# ── Cross-scale correlations ───────────────────────────────────────────────────
-# Not explicitly tabulated in any retrieved paper.
-# DiClemente 1985 (p.193): "decision-making variables demonstrated a small but
-# significant relationship with efficacy."  Direction: Pros↑ → efficacy↓;
-# Cons↑ → efficacy↑ (for active-change smokers, pre-saliency effect).
-# Approximated as r ≈ ±.20 (consistent with "small" per Cohen 1988 conventions).
-CROSS_SCALE_R: dict[tuple[str, str], float] = {
-    ("pros", "sseq_internal"):  -0.20,
-    ("pros", "sseq_external"):  -0.18,
-    ("cons", "sseq_internal"):  +0.20,
-    ("cons", "sseq_external"):  +0.15,
-}
 
 # ── MARS (Stoyanov et al. 2015) ────────────────────────────────────────────────
-# 23 items, 4 subscales, 5-pt (1=inadequate–5=excellent).
-# Mean ratings from Stoyanov SR et al. (2015) JMIR Mhealth Uhealth, 3(1):e27.
+# 17 items: 16 across 4 subscales + 1 single global app-quality rating, 5-pt
+# (1=inadequate–5=excellent). Mean ratings from Stoyanov SR et al. (2015) JMIR
+# Mhealth Uhealth, 3(1):e27. Subscale reliability is analyzed in analysis/01.
+# Subscales are generated as independent blocks (no injected cross-subscale
+# correlation), so the analysis recovers per-subscale reliability, not a
+# correlated 4-factor structure.
 MARS_SUBSCALE_PARAMS: dict[str, tuple[float, float]] = {
     "engagement":     (3.10, 0.70),
     "functionality":  (4.10, 0.60),

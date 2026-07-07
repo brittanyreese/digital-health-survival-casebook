@@ -9,9 +9,6 @@ RESULTS = ROOT / "results" / "analysis"
 
 PROCESSED = DATA_SYNTHETIC  # alias used by data.py loaders
 
-DATA_SYNTHETIC.mkdir(parents=True, exist_ok=True)
-RESULTS.mkdir(parents=True, exist_ok=True)
-
 # ── outcome column names ──────────────────────────────────────────────────────
 OUTCOME_EVENT    = "out_relapsed"       # 1 = relapsed within follow-up window
 OUTCOME_DURATION = "out_days_quit"      # continuous days of abstinence
@@ -41,9 +38,16 @@ EVENT_CHANNELS = ["craving_tool", "content", "peer_support", "notification", "qu
 # ── profile categories ────────────────────────────────────────────────────────
 PROFILE_CLASSES = ["high_engager", "moderate", "passive"]
 
-# ── follow-up window ──────────────────────────────────────────────────────────
+# ── random seed ───────────────────────────────────────────────────────────────
+SEED = 42  # single source of truth for generation + analysis reproducibility
+
+# ── follow-up + exposure windows ──────────────────────────────────────────────
 FOLLOWUP_DAYS   = 180
 CENSOR_DAYS     = FOLLOWUP_DAYS
+# Pre-outcome baseline exposure window (days from enrollment). Shared by the
+# churn features (script 10) and the channel-outcome correlation (script 09) so
+# the two cannot silently drift apart.
+BASELINE_WINDOW_DAYS = 30
 
 # ── TTM stages ───────────────────────────────────────────────────────────────
 TTM_STAGES = [

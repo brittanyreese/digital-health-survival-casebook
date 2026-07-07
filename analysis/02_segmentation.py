@@ -1,15 +1,26 @@
 """Analysis 02 -- Engagement segmentation and retention.
 
-Segments app users by engagement pattern using KMeans clustering, then
-tests whether segments differ on retention (time-to-churn) via log-rank
-test and Kaplan-Meier curves.
+Segments app users by early engagement pattern (days 0-29, the same
+enrollment-anchored baseline window used in scripts 04/10/11) using KMeans
+clustering, then tests whether those baseline segments differ on retention
+(time-to-churn, measured over the full follow-up window) via log-rank test
+and Kaplan-Meier curves. Segment profiles (n_events, intensity, etc.)
+describe baseline-window behavior, not full-study totals.
 
 Analyses:
   1. Feature engineering from event log (total events, active days, channel mix)
   2. KMeans (k=2–4, silhouette selection)
-  3. Segment profiles (mean engagement by segment)
+  3. Segment profiles (mean baseline-window engagement by segment)
   4. Retention curves (KM) and log-rank test
   5. Segment × TTM stage cross-tabulation
+
+Engagement is measured entirely from the event log (app opens, in-app
+actions), never from the SDBS/SSEQ self-report survey scores: Baumel et al.
+(2019) found objective app usage drops off far faster than self-report would
+suggest, so a self-reported score is not a substitute for observed behavior
+here. The survey scores enter this casebook's models only as separate
+psychological covariates (self-efficacy, decisional balance) in scripts
+04/11, never as an engagement proxy.
 
 Run:  uv run python analysis/02_segmentation.py
 """
@@ -36,6 +47,7 @@ from sklearn.preprocessing import StandardScaler
 
 from cessation import config as C
 from cessation import data
+from cessation.viz import add_synthetic_footer
 
 OUT = C.RESULTS
 OUT.mkdir(parents=True, exist_ok=True)
@@ -47,8 +59,27 @@ STUDY_DAYS = C.FOLLOWUP_DAYS
 # ── 1. Feature engineering ────────────────────────────────────────────────────
 
 def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
-    """Per-user engagement features for clustering."""
-    g = events.groupby("pid")
+    """Per-user engagement features for clustering, plus full-window outcome.
+
+    Clustering features are computed over the enrollment-anchored baseline
+    window (day_offset < C.BASELINE_WINDOW_DAYS), consistent with the
+    exposure window used in scripts 04/10/11. Building them from the full
+    follow-up window instead would make segments a near-deterministic
+    function of tenure itself: n_active_days and the last active day both
+    mechanically track how late a user's activity extends, which is exactly
+    what "churned" (below) is thresholded on. retention_km() would then be
+    testing segment membership against a function of itself rather than a
+    real association between early behavior and later retention.
+
+    Selection note: users with no events inside the baseline window are absent
+    from this feature table (baseline.groupby("pid") only yields active pids),
+    so they are dropped from clustering and from any downstream model keyed on
+    segment. This is a small (~3-4%) low-engagement tail, but it is also the
+    shortest-retention end of the theta gradient, so segment results are
+    conditional on baseline-window activity, not the full enrolled cohort.
+    """
+    baseline = events[events["day_offset"] < C.BASELINE_WINDOW_DAYS]
+    g = baseline.groupby("pid")
     feat = pd.DataFrame({
         "n_events":       g.size(),
         "n_active_days":  g["day_offset"].nunique(),
@@ -57,7 +88,6 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
         "n_peer_support": g["event_type"].apply(lambda x: (x == "peer_support").sum()),
         "n_notification": g["event_type"].apply(lambda x: (x == "notification").sum()),
         "n_quiz":         g["event_type"].apply(lambda x: (x == "quiz").sum()),
-        "max_day":        g["day_offset"].max(),
     }).reset_index()
     feat["intensity"] = feat["n_events"] / feat["n_active_days"].clip(lower=1)
     feat["pct_craving"] = feat["n_craving_tool"] / feat["n_events"].clip(lower=1)
@@ -65,9 +95,13 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
     feat["log_events"]   = np.log1p(feat["n_events"])
     feat["log_days"]     = np.log1p(feat["n_active_days"])
 
-    # Retention outcome: churned = 0 events in last 14 days of study
-    last_event_day = cast(pd.Series, g["day_offset"].max()).reset_index(name="last_day")
-    feat = feat.merge(last_event_day[["pid", "last_day"]], on="pid", how="left")
+    # Retention outcome: churned = 0 events in last 14 days of study.
+    # Computed over the FULL window (not baseline) -- this is the outcome
+    # segments are tested against, not a clustering feature.
+    last_event_day = cast(
+        pd.Series, events.groupby("pid")["day_offset"].max()
+    ).reset_index(name="last_day")
+    feat = feat.merge(last_event_day, on="pid", how="left")
     feat["churned"]        = (
         feat["last_day"] < STUDY_DAYS - CHURN_THRESHOLD_DAYS
     ).astype(int)
@@ -79,6 +113,12 @@ def build_features(events: pd.DataFrame, spine: pd.DataFrame) -> pd.DataFrame:
 
 def cluster(feat: pd.DataFrame, k_range: range = range(2, 5)) -> pd.DataFrame:
     print("\n=== 2. KMeans segmentation ===")
+    # Five dimensions, not one usage count. Consistent with Perski et al.'s
+    # (2017) framing of engagement as multidimensional rather than a single
+    # usage metric, this feature set spans volume (log_events), temporal
+    # spread (log_days, distinct active days), intensity (events per active
+    # day), and channel mix (pct_craving/pct_content) instead of collapsing
+    # to one number.
     cluster_features = ["log_events", "log_days", "intensity", "pct_craving",
                         "pct_content"]
     X = feat[cluster_features].dropna()
@@ -87,7 +127,7 @@ def cluster(feat: pd.DataFrame, k_range: range = range(2, 5)) -> pd.DataFrame:
 
     scores = {}
     for k in k_range:
-        km = KMeans(n_clusters=k, random_state=42, n_init=cast(str, 20))
+        km = KMeans(n_clusters=k, random_state=C.SEED, n_init=cast(str, 20))
         labs = km.fit_predict(X_sc)
         scores[k] = silhouette_score(X_sc, labs)
         print(f"  k={k}  silhouette={scores[k]:.4f}")
@@ -95,7 +135,7 @@ def cluster(feat: pd.DataFrame, k_range: range = range(2, 5)) -> pd.DataFrame:
     best_k = max(scores, key=lambda kk: scores[kk])
     print(f"  → best k={best_k}")
 
-    km = KMeans(n_clusters=best_k, random_state=42, n_init=cast(str, 20))
+    km = KMeans(n_clusters=best_k, random_state=C.SEED, n_init=cast(str, 20))
     labels = km.fit_predict(X_sc)
     feat_out = feat.loc[X.index].copy()
     feat_out["cluster_raw"] = labels
@@ -155,6 +195,7 @@ def retention_km(feat: pd.DataFrame) -> None:
     ax.set_xlabel("Days in study")
     ax.set_ylabel("Proportion still active")
     fig.tight_layout()
+    add_synthetic_footer(fig)
     fig.savefig(OUT / "02_fig_retention_km.png", dpi=120)
     plt.close(fig)
     print("  saved 02_fig_retention_km.png")
