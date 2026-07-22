@@ -8,6 +8,8 @@ dist/
 build/
 .ruff_cache/
 .mypy_cache/
+.coverage
+coverage.xml
 *.DS_Store
 data/synthetic/events_clean.csv
 

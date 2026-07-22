@@ -43,7 +43,13 @@ jobs:
         # Exclude `slow` (multi-seed power panels); the single-seed smoke
         # variants keep detection covered in the fast gate. Run the full panel
         # locally with `uv run pytest -m slow`.
-        run: uv run pytest -q -m "not slow"
+        run: uv run pytest -q -m "not slow" --cov=cessation --cov-report=term-missing --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        # Needs CODECOV_TOKEN (see repo secrets); until it's set this step
+        # fails without reddening the job.
+        continue-on-error: true
+        run: uvx codecov-cli upload-process -t ${{ secrets.CODECOV_TOKEN }}
 
   reproduce:
     runs-on: ubuntu-latest
