@@ -1,4 +1,4 @@
-name: Tag release on merge
+name: Tag release (only on 'Release-version:' trailer)
 
 # Tags `main` automatically when a merge commit carries a `Release-version:`
 # trailer -- the human still decides the version number (write the trailer),
