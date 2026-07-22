@@ -47,9 +47,12 @@ jobs:
 
       - name: Upload coverage to Codecov
         # Needs CODECOV_TOKEN (see repo secrets); until it's set this step
-        # fails without reddening the job.
+        # fails without reddening the job. Token via env, not -t: an unset
+        # secret renders as a dangling -t flag with no value (CLI parse error).
         continue-on-error: true
-        run: uvx codecov-cli upload-process -t ${{ secrets.CODECOV_TOKEN }}
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: uvx codecov-cli upload-process
 
   reproduce:
     runs-on: ubuntu-latest
