@@ -1,5 +1,7 @@
 # Digital-health survival casebook
 
+This is a methods demonstration on fully synthetic data: it shows how these analyses are designed, validated, and stress-tested, and it makes no real-world clinical claims.
+
 [![Reproducibility CI](https://github.com/brittanyreese/digital-health-survival-casebook/actions/workflows/ci.yml/badge.svg)](https://github.com/brittanyreese/digital-health-survival-casebook/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/python-3.12+-blue) ![License](https://img.shields.io/badge/license-MIT-green) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 A reproducible methods casebook for **digital-health survival analysis**, built on a fully synthetic smoking-cessation cohort (8,000 app users, a ~480-user psychometric subsample, a ~1,200-user follow-up cohort, seed 42). One seeded generator draws its parameters from published literature and public federal data (NHANES, MMWR) and writes every table. The analysis pipeline recovers those injected parameters. Because the ground truth is known, each result is scored against it rather than argued from authority. The cohort and its fictional vendor are inventions with no real-study counterpart, and the results recover what the generator put in. They say nothing about real users or whether any real app works.
